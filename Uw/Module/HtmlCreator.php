@@ -86,8 +86,8 @@ HTML;
         extract($args);
         $button = <<<HTML
 <form method="$method" id="$id" name="$name" action="$action">
-    <input type="hidden" name="$themeName" value="1" />
-    <input type="hidden" name="action" value="$id" />
+    <input type="hidden" name="$themeName" value="$id" />
+    <input type="hidden" name="action" value="goto" />
     <input type="submit" name="Submit" class="button-primary" value="$submit_title" style="display:none" />
     $nonce_field
 </form>

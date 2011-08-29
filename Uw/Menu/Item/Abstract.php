@@ -1,6 +1,6 @@
 <?php
 
-class Uw_Menu_Item {
+class Uw_Menu_Item_Abstract {
 
     public $title = 'No Title';
     public $title_before = '<h2>';
@@ -10,7 +10,14 @@ class Uw_Menu_Item {
     public $navigation;
     public $curPageSlug;
     public $curPageFile;
+    protected $html;
+    protected $config;
 
+	final function __construct(Uw_Config_Data $data, Uw_Module_HtmlCreator $html) {
+        $this->config = &$data;
+        $this->html = $html;		
+    }
+	
     public function setNav($curPageSlug, $curPageFile, array $navs) {
         $this->curPageSlug = $curPageSlug;
         $this->curPageFile = $curPageFile;

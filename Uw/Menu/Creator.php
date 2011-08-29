@@ -2,7 +2,7 @@
 
 class Uw_Menu_Creator {
 
-    function buildForm(Uw_Menu_Item $item) {
+    function buildForm(Uw_Menu_Item_Abstract $item) {
         ?>
         <div id="wpbody-content">
             <div class="wrap">

@@ -1,17 +1,12 @@
 <?php
 
-class Uw_Menu_Item_Slicer extends Uw_Menu_Item {
-
-    /**
-     * html creator module
-     * @var Uw_Module_HtmlCreator
-     */
-    private $html;
+class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
+ 
     public $title = 'Slicer';
     public $description = 'You can choose which html template you going to show to public';
 
     function init() {
-        $this->html = new Uw_Module_HtmlCreator();
+        
         $path = UW_PATH . SEP . 'xhtml';
         $HtmlFileList = new Uw_Module_HtmlFileList($path);
         try

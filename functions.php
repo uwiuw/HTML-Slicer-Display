@@ -15,7 +15,8 @@ $config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME));
 if (is_a($config, 'Uw_Config_Data')) {
     if (is_admin() && is_user_logged_in()) {
         $adminMenuClass = $config->get('admin_menu');
-        $UwMenu = new $adminMenuClass($config, new Uw_Menu_Creator); //default cls Uw_Menu_Admin
+        $html = new Uw_Module_HtmlCreator;
+        $UwMenu = new $adminMenuClass($config, $html , new Uw_Menu_Creator); //default cls Uw_Menu_Admin
         $UwMenu->init($config);
     } else {
         

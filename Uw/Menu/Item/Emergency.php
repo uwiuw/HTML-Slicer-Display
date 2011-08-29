@@ -1,17 +1,11 @@
 <?php
 
-class Uw_Menu_Item_Emergency extends Uw_Menu_Item {
+class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
 
-    /**
-     * html creator module
-     * @var Uw_Module_HtmlCreator
-     */
-    private $html;
     public $title = 'Emergency';
     public $description = 'Various emergency mechanism';
 
-    function init() {
-        $this->html = new Uw_Module_HtmlCreator();
+    function init() {        
         $path = UW_PATH . SEP . 'xhtml';
         try
         {

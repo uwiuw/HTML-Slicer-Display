@@ -1,6 +1,6 @@
 <?php
 
-class Uw_Menu_Item_Upload extends Uw_Menu_Item {
+class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
 
     public $title = 'Upload';
     public $description = 'Upload new portfolio';
