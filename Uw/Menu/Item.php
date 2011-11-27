@@ -8,17 +8,19 @@ class Uw_Menu_Item {
     public $decription = 'No Description';
     public $content = '';
     public $navigation;
-    public $currentPage;
+    public $curPageSlug;
+    public $curPageFile;
 
-    public function setNav($currentPage, array $navs) {
-        $this->currentPage = $currentPage;
+    public function setNav($curPageSlug, $curPageFile, array $navs) {
+        $this->curPageSlug = $curPageSlug;
+        $this->curPageFile = $curPageFile;
         $this->navigation = $navs;
 
     }
 
     public function createNav() {
         foreach ($this->navigation as $k => $v) {
-            if ($this->currentPage === $v) {
+            if ($this->curPageSlug === $v) {
                 $class = 'nav-tab nav-tab-active';
             } else {
                 $class = 'nav-tab';
@@ -32,7 +34,6 @@ class Uw_Menu_Item {
         $o = <<<HTML
 <h2 class="nav-tab-wrapper">$listOfNav</h2>
 HTML;
-
         return $o;
 
     }

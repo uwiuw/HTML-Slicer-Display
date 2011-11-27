@@ -4,11 +4,13 @@ class Uw_Config_Data {
 
     private $defaulttheme;
     private $admin_menu;
-    private $currentPage;
+    private $curPageSlug;
+    private $curPageFile;
     private $admin_menu_lists;
 
     function __construct() {
-        $this->currentPage = trim($_GET['page']);
+        $this->curPageSlug = trim($_GET['page']);
+        $this->curPageFile = ucfirst($_GET['page']);
 
     }
 

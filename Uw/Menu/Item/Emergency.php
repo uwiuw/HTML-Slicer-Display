@@ -53,17 +53,18 @@ HTML;
         }
 
         $output = '';
-        foreach ($o as $theme => $item) { 
+        foreach ($o as $theme => $item) {
             if (file_exists(UW_PATH . SEP . 'assets' . SEP . $item['Icon'])) {
                 $item['Icon'] = UW_URL . '/assets/' . $item['Icon'];
             }
             extract($item);
-
             $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
+            $nonce = wp_nonce_field('fix_htaccess', "_wpnonce", true, false);
+
             $tdContent = <<<HTML
         <img src="$Icon" width="64" height="64" style="float:left; padding: 5px">
-        <strong><a href="$Indexfile">$Title</a></strong>
         <p>$Description</p>
+        <a href="#" id="fixhtaccess" class="button-primary">$Title</a>
 HTML;
             $td = $this->html->getTableTd('emergency-title', $tdContent);
             $output .= $this->html->getTableTr('', $th . $td);
