@@ -2,40 +2,70 @@
 
 class Uw_Menu_Admin {
 
+    private $menuItemCls = 'Uw_Menu_Item_';
+    private $menuAjaxCls = 'Uw_Menu_Ajax_';
+    private $config;
     private $creator;
     private $navigation;
-    private $currentPage;
+    private $curPageSlug;
+    private $curPageFile;
 
-    function Uw_Menu_Admin(Uw_Config_Data $data, Uw_Menu_Creator $creator) {
+    function __construct(Uw_Config_Data $data, Uw_Menu_Creator $creator) {
         $this->config = & $data;
         $this->creator = & $creator;
-        $this->currentPage = $this->config->get('currentPage');
+        $this->curPageSlug = $this->config->get('curPageSlug');
+        $this->curPageFile = $this->config->get('curPageFile');
         $this->navigation = $this->config->get('admin_menu_lists');
 
     }
 
     function init() {
-        add_Action('admin_menu', array($this, 'inMenuHook'));
+        add_Action('admin_menu', array($this, 'publicHook'));
 
     }
 
-    function inMenuHook() {
+    public function publicHook() {
+        $this->_itemMenu();
+        $this->_ajaxMenu();
+
+    }
+
+    /**
+     * Register Menu items
+     */
+    private function _itemMenu() {
         $number = 4;
-        add_menu_page('Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'callCreator'), '', $number);
+        add_menu_page('Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItem'), '', $number);
         foreach ($this->navigation as $k => $v) {
             $name = ucfirst($v);
-            add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'callCreator'), '', $number++);
+            add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItem'), '', $number++);
         }
 
     }
 
-    function callCreator() {
+    private function _ajaxMenu() {
+        $fl = UW_PATH . SEP . 'UW' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $this->curPageFile . '.php';
 
-        $clsname = 'Uw_Menu_Item_' . ucfirst($this->currentPage);
+        if (file_exists($fl)) {
+            add_action('admin_print_footer_scripts', array($this, 'loadAjax'), 99999);
+        }
+
+    }
+
+    public function loadItem() {
+        $clsname = $this->menuItemCls . $this->curPageFile;
         $clsname = new $clsname();
-        $clsname->setNav($this->currentPage, $this->navigation);
+        $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
         $clsname->init();
         $this->creator->buildForm($clsname);
+
+    }
+
+    public function loadAjax() {
+
+        $clsname = $this->menuAjaxCls . $this->curPageFile;
+        $clsname = new $clsname($this->config);
+        $clsname->inject();
 
     }
 

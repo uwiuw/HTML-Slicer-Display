@@ -65,5 +65,53 @@ HTML;
 
     }
 
+    function getButton(array $args) {
+        $themeName = UW_NAME;
+        $actionname = 'actiontest';
+        $id = 'button_' . $themeName;
+        $default = array(
+            'name' => ucfirst($themeName),
+            'method' => 'post',
+            'id' => $id,
+            'ajax' => $actionname,
+            'button_url_id' => $id . '_url',
+            'button_url_output' => $id . '_url_output',
+            'action' => admin_url('admin-ajax.php', false),
+            'submit_title' => 'Save',
+            'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
+        );
+        $args = array_merge($default, $args);
+
+
+        extract($args);
+        $button = <<<HTML
+<form method="$method" id="$id" name="$name" action="$action">
+    <input type="hidden" name="$themeName" value="1" />
+    <input type="hidden" name="action" value="$id" />
+    <input type="submit" name="Submit" class="button-primary" value="$submit_title" style="display:none" />
+    $nonce_field
+</form>
+<a href="#" id="$button_url_id" class="button-primary">$submit_title</a>
+<span class="$button_url_output"></span>
+HTML;
+
+        return $button;
+
+    }
+
+    function getButtonAjax($button_id, $form_id, $result)
+    {
+        $button = <<<HTML
+    jQuery('#$button_id').click(function() {
+        jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
+        jQuery('.$result').html(data);
+        jQuery.print(data);
+        });
+    });
+HTML;
+        return $button;
+
+    }
+
 }
-      
+

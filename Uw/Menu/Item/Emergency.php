@@ -15,18 +15,15 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item {
         $path = UW_PATH . SEP . 'xhtml';
         try
         {
-            $k = array(
+            $dummy = array(
                 'fix_htaccess' => array(
                     'Name' => 'fix_htaccess',
                     'Title' => 'Fixing htaccess',
                     'Description' => 'reconfigurate theme rewrite rule (will not change blog permalink)',
                     'Ajax' => 'fix_htaccess',
                     'Icon' => 'semlabs_terminal.png'
-                ),
-            );
-
-
-            $o = $this->transList($k);
+                ));
+            $o = $this->transList($dummy);
         } catch (Exception $exc)
         {
             $this->content = $exc->getMessage();
@@ -53,22 +50,35 @@ HTML;
         }
 
         $output = '';
-        foreach ($o as $theme => $item) { 
+        foreach ($o as $theme => $item) {
             if (file_exists(UW_PATH . SEP . 'assets' . SEP . $item['Icon'])) {
                 $item['Icon'] = UW_URL . '/assets/' . $item['Icon'];
             }
             extract($item);
-
             $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
+            $nonce = wp_nonce_field('fix_htaccess', "_wpnonce", true, false);
+            $args = array(
+                'name' => $item['Name'],
+                'id' => $item['Name'],
+                'button_url_id' => $item['Name'] . '_url',
+                'button_url_output' => $item['Name'] . '_url_output',
+                'method' => 'post',
+                'ajax' => $item['Ajax'],
+                'action' => admin_url('admin-ajax.php', false),
+                'submit_title' => $item['Title'],
+                'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
+            );
+
+            $button = $this->html->getButton($args);
             $tdContent = <<<HTML
-        <img src="$Icon" width="64" height="64" style="float:left; padding: 5px">
-        <strong><a href="$Indexfile">$Title</a></strong>
-        <p>$Description</p>
+<img src="$Icon" width="64" height="64" style="float:left; padding: 5px">
+<p class="haikamu">$Description</p>
+$button
 HTML;
             $td = $this->html->getTableTd('emergency-title', $tdContent);
             $output .= $this->html->getTableTr('', $th . $td);
         }
-
+ 
         return $output;
 
     }

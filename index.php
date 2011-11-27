@@ -5,9 +5,9 @@ $loadXhtml = new Uw_Helper_LoadXhtml();
 $path = UW_PATH . SEP . 'xhtml';
 $HtmlFileList = new Uw_Module_HtmlFileList($path);
 $listofthemes = array_keys($HtmlFileList->getList());
-$loadXhtml->show($config['defaulttheme'], 'index.html', $listofthemes);
+$loadXhtml->show($config->get('defaulttheme'), 'index.html', $listofthemes);
 
-function getDefaultTheme($config) {
+function getDefaultTheme(Uw_Config_Data $config) {
     $pgURL = 'http';
     if (isset($_SERVER["HTTPS"])
         AND $_SERVER["HTTPS"] === "on"
@@ -33,7 +33,7 @@ function getDefaultTheme($config) {
         if (!empty($pgURL) && is_array($temp)) {
             foreach ($temp as $isThisCurrentTheme) {
                 if (!empty($isThisCurrentTheme)) {
-                    $config['defaulttheme'] = $isThisCurrentTheme;
+                    $config->set('defaulttheme', $isThisCurrentTheme);
                     break;
                 }
             }

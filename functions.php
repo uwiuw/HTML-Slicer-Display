@@ -18,8 +18,10 @@ if (is_a($config, 'Uw_Config_Data')) {
         $UwMenu = new $adminMenuClass($config, new Uw_Menu_Creator); //default cls Uw_Menu_Admin
         $UwMenu->init($config);
     } else {
-
+        
     }
+
+
     $success = TRUE;
 }
 
