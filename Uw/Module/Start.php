@@ -29,7 +29,7 @@ class Uw_Module_Start {
                 }
             }
             $opt = $reader->getOutput($this->filename);
-//            $opt = $reader->saveConfig($opt);
+//            $opt = $reader->saveConfig($opt); //saving current config into option 
         }
 
         if ($opt) {

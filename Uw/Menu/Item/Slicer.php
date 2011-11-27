@@ -2,10 +2,16 @@
 
 class Uw_Menu_Item_Slicer extends Uw_Menu_Item {
 
+    /**
+     * html creator module
+     * @var Uw_Module_HtmlCreator
+     */
+    private $html;
     public $title = 'Slicer';
-    public $description = 'Your can choose which html template you going to show to public';
+    public $description = 'You can choose which html template you going to show to public';
 
     function init() {
+        $this->html = new Uw_Module_HtmlCreator();
         $path = UW_PATH . SEP . 'xhtml';
         $HtmlFileList = new Uw_Module_HtmlFileList($path);
         try
@@ -16,27 +22,12 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item {
             $this->content = $exc->getMessage();
         }
 
+        $body = $this->html->getTableBody('plugins', $o);
+        $body = $this->html->getTable('Your Portfolio', 'Select All', $body);
+
         $this->content = <<<HTML
 $nav
-<table class="widefat" cellspacing="0" id="update-themes-table">
-    <thead>
-        <tr>
-            <th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all"></th>
-            <th scope="col" class="manage-column"><label for="themes-select-all">Your Portfolio</label></th>
-        </tr>
-    </thead>
-
-    <tfoot>
-        <tr>
-            <th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all-2"></th>
-            <th scope="col" class="manage-column"><label for="themes-select-all-2">Select All</label></th>
-        </tr>
-    </tfoot>
-    <tbody class="plugins">
-       $o
-    </tbody>
-</table>
-
+$body
 HTML;
 
     }
@@ -53,30 +44,26 @@ HTML;
             throw new Uw_Menu_Exception('EM997 : Empty directory list');
         }
 
-        $form_tr = '';
+        $output = '';
         foreach ($o as $theme => $item) {
             $active = '';
             if ($item['Screenshot'] && $item['Indexfile']) {
-                $active = 'class="active"';
+                $active = 'active';
             }
             extract($item);
 
-            $form_tr .=<<<HTML
-<tr $active>
-    <th scope="row" class="check-column">
-        <input type="checkbox" name="checked[]" value="$Name">
-    </th>
-    <td class="plugin-title">
+            $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
+            $tdContent = <<<HTML
         <img src="$Screenshot" width="64" height="64" style="float:left; padding: 5px">
         <strong><a href="$Indexfile">$Name $Version</a></strong>
         <p>$Description</p>
         <p>$Author</p>
-    </td>
-</tr>
 HTML;
+            $td = $this->html->getTableTd('plugin-title', $tdContent);
+            $output .= $this->html->getTableTr($active, $th . $td);
         }
 
-        return $form_tr;
+        return $output;
 
     }
 

@@ -1,0 +1,2 @@
+Manajement portofolio
+portofolio should be able to delete, manage, etc

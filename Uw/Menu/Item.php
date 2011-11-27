@@ -13,6 +13,7 @@ class Uw_Menu_Item {
     public function setNav($currentPage, array $navs) {
         $this->currentPage = $currentPage;
         $this->navigation = $navs;
+
     }
 
     public function createNav() {
@@ -22,7 +23,7 @@ class Uw_Menu_Item {
             } else {
                 $class = 'nav-tab';
             }
- 
+
             if ($url = menu_page_url($v, false)) {
                 $listOfNav .= '<a href="' . $url . '" class="' . $class . '">' . ucfirst($v) . '</a>';
             }

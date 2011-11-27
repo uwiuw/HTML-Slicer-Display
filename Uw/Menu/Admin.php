@@ -11,6 +11,7 @@ class Uw_Menu_Admin {
         $this->creator = & $creator;
         $this->currentPage = $this->config->get('currentPage');
         $this->navigation = $this->config->get('admin_menu_lists');
+
     }
 
     function init() {
