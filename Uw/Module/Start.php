@@ -15,10 +15,12 @@ class Uw_Module_Start {
     private $opt = array();
     private $filename = 'firsttime.ini';
 
-    public function init(Uw_Config_Read $reader, $opt, $filename ='') {
+    public function init(Uw_Config_Data $config, Uw_Config_Read $reader, $opt,
+        $filename =''
+    ) {
+
         if ($opt) {
             $this->isFirstTime = false;
-            return $opt;
         } else {
             $this->isFirstTime = true;
             if ($this->_setHtaccessFile()) {
@@ -26,9 +28,15 @@ class Uw_Module_Start {
                     $this->filename = $filename;
                 }
             }
-
-            return $reader->saveConfig($reader->getOutput($this->filename));
+            $opt = $reader->getOutput($this->filename);
+//            $opt = $reader->saveConfig($opt);
         }
+
+        if ($opt) {
+            $config->sets($opt);
+        }
+
+        return $config;
 
     }
 
@@ -50,8 +58,9 @@ HTML;
         $Handle = fopen($filename, 'w ');
         fwrite($Handle, $basic);
         fclose($Handle);
-        
+
         return true;
+
     }
 
 }
