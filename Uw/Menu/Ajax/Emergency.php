@@ -4,17 +4,30 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
 
     protected $config;
     protected $itemArgs = array(
-        'form_id' => 'fix_htaccess',
-        'button_id' => 'fix_htaccess_url',
-        'button_id_output' => 'fix_htaccess_url_output',
+        'fix_htaccess' => array(
+            'Name' => 'fix_htaccess',
+            'Title' => 'Fixing htaccess',
+            'Description' => 'reconfigurate theme rewrite rule (will not change blog permalink)',
+            'Ajax' => 'fix_htaccess',
+            'Icon' => 'semlabs_terminal.png',
+            'form_id' => 'fix_htaccess',
+            'button_id' => 'fix_htaccess_url',
+            'button_id_output' => 'fix_htaccess_url_output'
+        ),
+        'test' => array(
+            'Name' => 'test',
+            'Title' => 'Example Button',
+            'Description' => 'Example button of mine ooooh yeah',
+            'Ajax' => 'test',
+            'Icon' => 'semlabs_page_about.png',
+            'form_id' => 'test',
+            'button_id' => 'test_url',
+            'button_id_output' => 'test_url_output'
+        ),
     );
 
-    function inject() {
-        $o = $this->html->getButtonAjax(
-            $this->itemArgs['button_id'], $this->itemArgs['form_id'], $this->itemArgs['button_id_output']
-        );
-        $o = '<script type="text/javascript">' . $o . '</script>';
-        echo $o;
+    function getButtons() {
+        return $this->itemArgs;
 
     }
 
@@ -26,10 +39,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
             $ajaxResponse = $htaccess->setHtaccessFile();
         }
         ?>
-        <script>
-            jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');
-        </script>
-
+        <script>jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');</script>
         <?php
         die();
 
