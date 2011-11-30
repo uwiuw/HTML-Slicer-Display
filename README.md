@@ -10,8 +10,12 @@ Theme for Displaying a slicer html portfolio. In front-end, use arrow-like
 icon to navigate through various html/css portfolio that have been reside in xhtml folder
 
 
-DESCRIPTION :
+<h3>DESCRIPTION</h3>
 Wordpress 3.2
 Php 5.3 & 5.2.7
 Apache
 Windows Xp
+
+<h3>FEATURE</h3>
+1. Manajement portofolio - portofolio should be able to delete, manage, etc
+2. Upload portfolio menu - the html must be arhieve inside zip file before uploading.
