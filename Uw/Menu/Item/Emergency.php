@@ -44,7 +44,6 @@ HTML;
 
             extract($item);
             $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
-            $nonce = wp_nonce_field('fix_htaccess', "_wpnonce", true, false);
             $args = array(
                 'name' => $Name,
                 'id' => $Name,

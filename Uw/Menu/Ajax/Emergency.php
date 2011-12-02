@@ -26,17 +26,6 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
         ),
     );
 
-    function inject() {
-        foreach ($this->itemArgs as $k => $v) {
-            $o .= $this->html->getButtonAjax(
-                $v['button_id'], $v['form_id'], $v['button_id_output']
-            );
-        }
-        $o = '<script type="text/javascript">' . $o . '</script>';
-        echo $o;
-
-    }
-
     function getButtons() {
         return $this->itemArgs;
 
@@ -50,10 +39,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
             $ajaxResponse = $htaccess->setHtaccessFile();
         }
         ?>
-        <script>
-            jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');
-        </script>
-
+        <script>jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');</script>
         <?php
         die();
 

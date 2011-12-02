@@ -13,10 +13,12 @@ class Uw_Menu_Item_Abstract {
     protected $html;
     protected $config;
 
-	final function __construct(Uw_Config_Data $data, Uw_Module_HtmlCreator $html, array $itemButtons) {
+    final function __construct(Uw_Config_Data $data, Uw_Module_HtmlCreator $html,
+        array $itemButtons) {
         $this->config = &$data;
         $this->html = $html;
         $this->buttons = $itemButtons;
+
     }
 
     public function setNav($curPageSlug, $curPageFile, array $navs) {
