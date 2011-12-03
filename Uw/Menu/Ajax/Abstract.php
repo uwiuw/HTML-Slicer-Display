@@ -21,7 +21,6 @@ abstract class Uw_Menu_Ajax_Abstract {
 
     function inject() {
         if ($this->itemArgs) {
-
             foreach ($this->itemArgs as $k => $v) {
                 $o .= $this->html->getButtonAjax(
                     $v['button_id'], $v['form_id'], $v['button_id_output']

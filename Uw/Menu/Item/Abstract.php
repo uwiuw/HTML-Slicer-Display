@@ -1,6 +1,6 @@
 <?php
 
-class Uw_Menu_Item_Abstract {
+abstract class Uw_Menu_Item_Abstract {
 
     public $title = 'No Title';
     public $title_before = '<h2>';
@@ -17,6 +17,8 @@ class Uw_Menu_Item_Abstract {
      */
     protected $html;
     protected $config;
+    
+    abstract protected function _getContent();
 
     final function __construct(
     Uw_Config_Data $data, Uw_Module_Templaty $html, array $itemButtons

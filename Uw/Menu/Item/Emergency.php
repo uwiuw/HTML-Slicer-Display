@@ -13,7 +13,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
                 'headertitle' => 'Emergency Action',
                 'footertitle' => 'Select All',
                 'in_tbody' => 'class="emergency"',
-                'content' => $this->transList($this->buttons),
+                'content' => $this->_getContent(),
             );
             $this->content = $this->html->getTemplate('Table.php', $args);
         } catch (Exception $exc)
@@ -28,13 +28,12 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
     }
 
     /**
-     * Return list of themes in xhtml directory
-     *
-     * @param array $o list of themes in xhtml directory
-     *
+     * Get content of the page. Build the emergency feature
+     * 
      * @return string
      */
-    function transList(array $o) {
+    function _getContent() {
+        $o = $this->buttons;
         if (empty($o)) {
             throw new Uw_Exception('EM997 : Emergency button is empty');
         }
@@ -61,15 +60,17 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
                     'ajax' => $Ajax,
                     'action' => admin_url('admin-ajax.php', false),
                     'submit_title' => $Title,
-                    'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false))),
+                    'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false))),
                 ));
+            
             $args = array(
                 'tbody_class' => getCls($active),
                 'th_class' => getCls('check-column'),
                 'td_class' => getCls('plugin-title'),
                 'disabled' => $disabled,
                 'Name' => $Name,
-                'content' => $Img . $content,
+                'Img' => $Img,
+                'content' => $content,
             );
             $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         }

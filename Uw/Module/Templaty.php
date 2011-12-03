@@ -68,6 +68,7 @@ class Uw_Module_Templaty {
             'button_url_id' => $id . '_url',
             'button_url_output' => $id . '_url_output',
             'action' => admin_url('admin-ajax.php', false),
+            'action_value' => 'goto',
             'submit_title' => 'Save',
             'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
         );
@@ -77,12 +78,13 @@ class Uw_Module_Templaty {
         $button = <<<HTML
 <form method="$method" id="$id" name="$name" action="$action">
     <input type="hidden" name="$themeName" value="$id" />
-    <input type="hidden" name="action" value="goto" />
+    <input type="hidden" name="action" value="$action_value" />
     <input type="submit" name="Submit" class="button-primary" value="$submit_title" style="display:none" />
     $nonce_field
 </form>
-<a href="#" id="$button_url_id" class="button-primary">$submit_title</a>
-<span class="$button_url_output"></span>
+<span class="$button_url_output">
+    <a href="#" id="$button_url_id" class="button-primary" style="display:inline-block;margin:5px">$submit_title</a>
+</span>
 HTML;
 
         return $button;
@@ -92,10 +94,14 @@ HTML;
     function getButtonAjax($button_id, $form_id, $result)
     {
         $button = <<<HTML
-    jQuery('#$button_id').click(function() {
+    jQuery('#$button_id').click(function()
+    {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
-        jQuery('.$result').html(data);
-        jQuery.print(data);
+            if (data) {
+                jQuery('.update-nag').html(data);
+            }
+//        alert(data);
+//        jQuery.print(data);
         });
     });
 HTML;

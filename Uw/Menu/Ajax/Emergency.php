@@ -38,10 +38,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
                 $ajaxResponse = 'Rebuilding Option is succesfull';
             }
         }
-        ?>
-        <script>jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');</script>
-        <?php
-        die();
+        die($ajaxResponse);
 
     }
 
