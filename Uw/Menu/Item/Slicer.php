@@ -1,29 +1,31 @@
 <?php
 
 class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
- 
+
     public $title = 'Slicer';
     public $description = 'You can choose which html template you going to show to public';
 
     function init() {
-        
+
         $path = UW_PATH . SEP . 'xhtml';
         $HtmlFileList = new Uw_Module_HtmlFileList($path);
         try
         {
-            $o = $this->transList($HtmlFileList->getList());
+            $args = array(
+                'headertitle' => 'Your Portfolio',
+                'footertitle' => 'Select All',
+                'in_tbody' => 'class="plugins"',
+                'content' => $this->transList($HtmlFileList->getList()), 
+            );
+            $this->content = $this->html->getTemplate('Table.php', $args);
         } catch (Exception $exc)
         {
-            $this->content = $exc->getMessage();
+            if (is_a($exc, 'Uw_Exception')) {
+                $this->content = $exc->getMessage();
+            } else {
+                $this->content = 'Exception occurs outside framework operation';
+            }
         }
-
-        $body = $this->html->getTableBody('plugins', $o);
-        $body = $this->html->getTable('Your Portfolio', 'Select All', $body);
-
-        $this->content = <<<HTML
-$nav
-$body
-HTML;
 
     }
 
@@ -36,7 +38,7 @@ HTML;
      */
     function transList(array $o) {
         if (empty($o)) {
-            throw new Uw_Menu_Exception('EM997 : Empty directory list');
+            throw new Uw_Exception('EM997 : Empty directory list');
         }
 
         $output = '';

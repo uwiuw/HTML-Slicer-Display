@@ -1,40 +1,61 @@
 <?php
 
-class Uw_Module_HtmlCreator {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Module
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
 
-    function getTableBody($class, $content) {
-        $content = <<<HTML
-<tbody class="$class">
-$content
-</tbody>
-HTML;
-        return $content;
+/**
+ * Uw_Module_Templaty
+ *
+ * Wrapper for Atrim_Core_Model_Resource_Template_AtTemplate
+ *
+ * @category   Uw
+ * @package    Uw_Module
+ * @subpackage Uw_Module_Templaty
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ * @todo       hapus seluruh method class ini sehingga langsung memanggil class yg 
+ *             dibungkusnya
+ */
+class Uw_Module_Templaty {
+
+    private $model;
+
+    function __construct($html = '') {
+
+        if (is_object($html)) {
+            $this->html = $html;
+        } else {
+            include_once( UW_PATH . SEP . 'UW' . SEP . 'thirdparty' . SEP . 'atTemplate.php');
+            $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
+            $this->model->reConstruct(
+                array(
+                    'resourcePath' => UW_PATH . SEP . 'Uw' . SEP . 'Resources',
+                    'homePath' => UW_PATH,
+                )
+            );
+        }
 
     }
 
-    function getTable($headertitle, $footertitle, $content) {
-        $content = <<<HTML
-<table class="widefat" cellspacing="0" id="update-themes-table">
-    <thead>
-        <tr>
-            <th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all"></th>
-            <th scope="col" class="manage-column"><label for="themes-select-all">$headertitle</label></th>
-        </tr>
-    </thead>
-
-    <tfoot>
-        <tr>
-            <th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all-2"></th>
-            <th scope="col" class="manage-column"><label for="themes-select-all-2">$footertitle</label></th>
-        </tr>
-    </tfoot>
-    $content
-</table>
-HTML;
-        return $content;
-
+    function __call($name, $arguments) {
+        return call_user_func_array(array($this->model, $name), $arguments);
     }
-
+ 
     function getTableTr($class, $content) {
         $content = <<<HTML
 <tbody class="$class">

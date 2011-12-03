@@ -12,7 +12,7 @@ class Uw_Menu_Admin {
     private $curPageFile;
     private $curPageAjCls;
 
-    function __construct(Uw_Config_Data $data, Uw_Module_HtmlCreator $html,
+    function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
         Uw_Menu_Creator $creator) {
         $this->config = & $data;
         $this->html = & $html;
@@ -69,7 +69,7 @@ class Uw_Menu_Admin {
             add_action('admin_print_footer_scripts', array($this->curPageAjCls, 'inject'), 99999); //register button ajax
             $buttons = $this->curPageAjCls->getButtons();
         }
-
+         
         $clsname = $this->menuItemCls . $this->curPageFile;
         $clsname = new $clsname($this->config, $this->html, $buttons);
         $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
@@ -78,6 +78,12 @@ class Uw_Menu_Admin {
 
     }
 
+    /**
+     * Check the existance of menu
+     * 
+     * @param string filename with out php exstention
+     * @return clsname|false
+     */
     private function _ifExist($checkMe) {
         $fl = UW_PATH . SEP . 'UW' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
         if (file_exists($fl)) {

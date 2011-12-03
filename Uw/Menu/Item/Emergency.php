@@ -9,18 +9,21 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
         $path = UW_PATH . SEP . 'xhtml';
         try
         {
-            $o = $this->transList($this->buttons);
+            $args = array(
+                'headertitle' => 'Emergency Action',
+                'footertitle' => 'Select All',
+                'in_tbody' => 'class="emergency"',
+                'content' => $this->transList($this->buttons),
+            );
+            $this->content = $this->html->getTemplate('Table.php', $args);
         } catch (Exception $exc)
         {
-            $this->content = $exc->getMessage();
+            if (is_a($exc, 'Uw_Exception')) {
+                $this->content = $exc->getMessage();
+            } else {
+                $this->content = 'Exception occurs outside framework operation';
+            }
         }
-
-        $body = $this->html->getTableBody('emergency', $o);
-        $body = $this->html->getTable('Emergency Action', 'Select All', $body);
-        $this->content = <<<HTML
-$nav
-$body
-HTML;
 
     }
 
@@ -33,7 +36,7 @@ HTML;
      */
     function transList(array $o) {
         if (empty($o)) {
-            throw new Uw_Menu_Exception('EM997 : Empty directory list');
+            throw new Uw_Exception('EM997 : Empty directory list');
         }
 
         $output = '';

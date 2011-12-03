@@ -1,17 +1,19 @@
 <?php
+
 if (function_exists('spl_autoload_register')) {
 
     function __HtmlSlicerDisplayAutoload($classname)
     {
         autoloadLogic($classname);
-
     }
 
     spl_autoload_register('__HtmlSlicerDisplayAutoload');
 } elseif (!function_exists('__Autoload')) {
+
     function __Autoload($classname)
     {
         autoloadLogic($classname);
+
     }
 
 } else {
@@ -24,6 +26,7 @@ function autoloadLogic($classname)
     if (file_exists($file)) {
         require_once $file;
     }
+
 }
 
 function getClassPath($classname) {

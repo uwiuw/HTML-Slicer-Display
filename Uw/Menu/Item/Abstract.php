@@ -10,10 +10,14 @@ class Uw_Menu_Item_Abstract {
     public $navigation;
     public $curPageSlug;
     public $curPageFile;
+    /**
+     * HTML creator module
+     * @var Uw_Module_Templaty
+     */
     protected $html;
     protected $config;
 
-    final function __construct(Uw_Config_Data $data, Uw_Module_HtmlCreator $html,
+    final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
         array $itemButtons) {
         $this->config = &$data;
         $this->html = $html;
@@ -28,6 +32,12 @@ class Uw_Menu_Item_Abstract {
 
     }
 
+    /**
+     * Create admin menu navigation
+     * 
+     * @todo create them using certain navigation
+     * @return string
+     */
     public function createNav() {
         foreach ($this->navigation as $k => $v) {
             if ($this->curPageSlug === $v) {
