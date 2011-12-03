@@ -28,7 +28,7 @@
  * @version    Release: @package_version@
  * @link       http://uwiuw.com/outerrim/
  * @since      3.0.3
- * @todo       hapus seluruh method class ini sehingga langsung memanggil class yg 
+ * @todo       hapus seluruh method class ini sehingga langsung memanggil class yg
  *             dibungkusnya
  */
 class Uw_Module_Templaty {
@@ -36,7 +36,6 @@ class Uw_Module_Templaty {
     private $model;
 
     function __construct($html = '') {
-
         if (is_object($html)) {
             $this->html = $html;
         } else {
@@ -54,35 +53,6 @@ class Uw_Module_Templaty {
 
     function __call($name, $arguments) {
         return call_user_func_array(array($this->model, $name), $arguments);
-    }
- 
-    function getTableTr($class, $content) {
-        $content = <<<HTML
-<tbody class="$class">
-$content
-</tbody>
-HTML;
-        return $content;
-
-    }
-
-    function getTableTd($class, $content) {
-        $content = <<<HTML
-    <td class="$class">
-        $content
-    </td>
-HTML;
-        return $content;
-
-    }
-
-    function getTableTh($class, $content) {
-        $content = <<<HTML
-  <th scope="row" class="$class">
-        $content
-  </th>
-HTML;
-        return $content;
 
     }
 
@@ -102,7 +72,6 @@ HTML;
             'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
         );
         $args = array_merge($default, $args);
-
 
         extract($args);
         $button = <<<HTML

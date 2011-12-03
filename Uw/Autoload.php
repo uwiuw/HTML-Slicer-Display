@@ -5,6 +5,7 @@ if (function_exists('spl_autoload_register')) {
     function __HtmlSlicerDisplayAutoload($classname)
     {
         autoloadLogic($classname);
+
     }
 
     spl_autoload_register('__HtmlSlicerDisplayAutoload');
@@ -35,3 +36,5 @@ function getClassPath($classname) {
     return UW_PATH . SEP . $classname;
 
 }
+
+include('Helper.php');
