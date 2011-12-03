@@ -36,7 +36,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
      */
     function transList(array $o) {
         if (empty($o)) {
-            throw new Uw_Exception('EM997 : Empty directory list');
+            throw new Uw_Exception('EM997 : Emergency button is empty');
         }
 
         $output = '';
@@ -46,27 +46,32 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
             }
 
             extract($item);
-            $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
             $args = array(
-                'name' => $Name,
-                'id' => $Name,
-                'button_url_id' => $button_id,
-                'button_url_output' => $button_id_output,
-                'method' => 'post',
-                'ajax' => $Ajax,
-                'action' => admin_url('admin-ajax.php', false),
-                'submit_title' => $Title,
-                'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
+                'screenshot' => $Icon,
+                'imgcls' => 'width="64" height="64" style="float:left; padding: 5px"');
+            $Img = $this->html->getTemplate('Img.php', $args);
+            $content = $this->html->getTemplate('Emergency_Content.php', array(
+                'Description' => $Description,
+                'Button' => $this->html->getButton(array(
+                    'name' => $Name,
+                    'id' => $Name,
+                    'button_url_id' => $button_id,
+                    'button_url_output' => $button_id_output,
+                    'method' => 'post',
+                    'ajax' => $Ajax,
+                    'action' => admin_url('admin-ajax.php', false),
+                    'submit_title' => $Title,
+                    'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false))),
+                ));
+            $args = array(
+                'tbody_class' => getCls($active),
+                'th_class' => getCls('check-column'),
+                'td_class' => getCls('plugin-title'),
+                'disabled' => $disabled,
+                'Name' => $Name,
+                'content' => $Img . $content,
             );
-
-            $button = $this->html->getButton($args);
-            $tdContent = <<<HTML
-<img src="$Icon" width="64" height="64" style="float:left; padding: 5px">
-<p class="haikamu">$Description</p>
-$button
-HTML;
-            $td = $this->html->getTableTd('emergency-title', $tdContent);
-            $output .= $this->html->getTableTr('', $th . $td);
+            $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         }
 
         return $output;

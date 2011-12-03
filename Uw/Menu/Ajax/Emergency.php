@@ -14,22 +14,17 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
             'button_id' => 'fix_htaccess_url',
             'button_id_output' => 'fix_htaccess_url_output'
         ),
-        'test' => array(
-            'Name' => 'test',
-            'Title' => 'Example Button',
-            'Description' => 'Example button of mine ooooh yeah',
-            'Ajax' => 'test',
-            'Icon' => 'semlabs_page_about.png',
-            'form_id' => 'test',
-            'button_id' => 'test_url',
-            'button_id_output' => 'test_url_output'
+        'rebuild_config' => array(
+            'Name' => 'rebuild_config',
+            'Title' => 'Rebuild Config',
+            'Description' => 'Rebuild current config. Sometimes this needed cause by various reason',
+            'Ajax' => 'rebuild_config',
+            'Icon' => 'semlabs_arrow_circle_right.png',
+            'form_id' => 'rebuild_config',
+            'button_id' => 'rebuild_config_url',
+            'button_id_output' => 'rebuild_config_output'
         ),
     );
-
-    function getButtons() {
-        return $this->itemArgs;
-
-    }
 
     function doAjaxAction() {
         $action = $_POST['HtmlSlicerDisplay'];
@@ -37,6 +32,11 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
         if ($action === 'fix_htaccess') {
             $htaccess = new Uw_Module_Htaccess();
             $ajaxResponse = $htaccess->setHtaccessFile();
+        } elseif ($action === 'rebuild_config') {
+            $result = delete_option(UW_NAME);
+            if ($result) {
+                $ajaxResponse = 'Rebuilding Option is succesfull';
+            }
         }
         ?>
         <script>jQuery('div .update-nag').html('<?php echo $ajaxResponse ?>');</script>

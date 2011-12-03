@@ -15,7 +15,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                 'headertitle' => 'Your Portfolio',
                 'footertitle' => 'Select All',
                 'in_tbody' => 'class="plugins"',
-                'content' => $this->transList($HtmlFileList->getList()), 
+                'content' => $this->transList($HtmlFileList->getList()),
             );
             $this->content = $this->html->getTemplate('Table.php', $args);
         } catch (Exception $exc)
@@ -38,7 +38,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
      */
     function transList(array $o) {
         if (empty($o)) {
-            throw new Uw_Exception('EM997 : Empty directory list');
+            throw new Uw_Exception('EM997 : Portofolio is empty');
         }
 
         $output = '';
@@ -46,18 +46,33 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $active = '';
             if ($item['Screenshot'] && $item['Indexfile']) {
                 $active = 'active';
+                $disabled = '';
+            } else {
+                $disabled = 'disabled="1"';
             }
             extract($item);
 
-            $th = $this->html->getTableTh('check-column', '<input type="checkbox" name="checked[]" value="' . $Name . '">');
-            $tdContent = <<<HTML
-        <img src="$Screenshot" width="64" height="64" style="float:left; padding: 5px">
-        <strong><a href="$Indexfile">$Name $Version</a></strong>
-        <p>$Description</p>
-        <p>$Author</p>
-HTML;
-            $td = $this->html->getTableTd('plugin-title', $tdContent);
-            $output .= $this->html->getTableTr($active, $th . $td);
+            $args = array(
+                'screenshot' => $Screenshot,
+                'imgcls' => 'width="64" height="64" style="float:left; padding: 5px"');
+            $Img = $this->html->getTemplate('Img.php', $args);
+            $content = $this->html->getTemplate('Slicer_Content.php', array(
+                'Author' => $Author,
+                'Indexfile' => $Indexfile,
+                'Name' => $Name,
+                'Version' => $Version,
+                'Description' => $Description,
+                'Button' => $Button,
+                ));
+            $args = array(
+                'tbody_class' => getCls($active),
+                'th_class' => getCls('check-column'),
+                'td_class' => getCls('plugin-title'),
+                'disabled' => $disabled,
+                'Name' => $Name,
+                'content' => $Img . $content,
+            );
+            $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         }
 
         return $output;

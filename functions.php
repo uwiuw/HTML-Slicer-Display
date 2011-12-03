@@ -1,5 +1,5 @@
 <?php
-//delete_option('HtmlSlicerDisplay');
+
 define('SEP', DIRECTORY_SEPARATOR);
 define('UW_NAME', 'HtmlSlicerDisplay');
 define('UW_U', dirname(WP_CONTENT_URL));
@@ -10,6 +10,7 @@ include_once(UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php');
 
 $UwStart = new Uw_Module_Start;
 $config = new Uw_Config_Data;
+
 $config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME));
 
 if (is_a($config, 'Uw_Config_Data')) {

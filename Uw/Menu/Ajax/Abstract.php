@@ -33,4 +33,8 @@ abstract class Uw_Menu_Ajax_Abstract {
 
     }
 
+    final function getButtons() {
+        return $this->itemArgs;
+    }
+
 }
