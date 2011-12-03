@@ -1,5 +1,5 @@
 <?php
-
+//delete_option('HtmlSlicerDisplay');
 define('SEP', DIRECTORY_SEPARATOR);
 define('UW_NAME', 'HtmlSlicerDisplay');
 define('UW_U', dirname(WP_CONTENT_URL));

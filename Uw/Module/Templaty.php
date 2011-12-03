@@ -40,7 +40,7 @@ class Uw_Module_Templaty {
         if (is_object($html)) {
             $this->html = $html;
         } else {
-            include_once( UW_PATH . SEP . 'UW' . SEP . 'thirdparty' . SEP . 'atTemplate.php');
+            include_once( UW_PATH . SEP . 'Uw' . SEP . 'thirdparty' . SEP . 'atTemplate.php');
             $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
             $this->model->reConstruct(
                 array(

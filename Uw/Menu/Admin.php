@@ -85,7 +85,7 @@ class Uw_Menu_Admin {
      * @return clsname|false
      */
     private function _ifExist($checkMe) {
-        $fl = UW_PATH . SEP . 'UW' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
+        $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
         if (file_exists($fl)) {
             $clsname = $this->menuAjaxCls . $checkMe;
             return new $clsname($this->config, $this->html);
