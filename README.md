@@ -39,4 +39,4 @@ Php 5.2+
             bug free. A realy helpful approach if someone want to develop maintanable
             application.</del>
     </li>
-</ol>
+</ol><H3>THIRD PARTY ASSET</H3><p>This theme already use 3 sample portfolio. Keep it simple, Fresh Pick,and colourise. all three samples are copyright of Erwin Aligam. It can be usedon personal or commerical use.</p><p>All icons aresemlabs.co.uk works. All items can be use under license 2.0. It can be used on personalor commerical use.</p>
