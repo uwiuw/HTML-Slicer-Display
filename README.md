@@ -4,9 +4,9 @@ HTML Slicer Display WordPress Theme http://htmlslicerdisplay.uwiuw.com
 
 <h3>SUMMARY</h3>
 
-Nothing fancy, just a showcase theme for slicer portfolio.
-<p>She/He can display theme in form of html/css files. This these can also show other
-    type portofolio such as photograph, icons list, etc as log as it reside inside html
+Nothing fancy, just a showcase theme for slicer and UI Designer portfolio.
+<p>She/He can display theme in form of html/css files. The designer can also show other
+    type portofolio such as photograph, icon lists, etc as long as it reside inside html
     file and upload as zip file.</p>
 <p> In front-end, use arrow-like icon to navigate through
     various html/css portfolio that have been reside in xhtml folder.</p>
@@ -26,7 +26,7 @@ Php 5.2+
         <br/>Portofolio should be able to delete, manage, etc
     </li>
     <li>Upload portfolio menu
-        <br/>The html must be arhieve inside zip file before uploading
+        <br/>All html file must be archieve inside a zip file before it can be uploaded and display in frontend
     </li>
     <li>Dynamic templating
         <br/>Almost all part of the theme on the backend is easy to custom.
