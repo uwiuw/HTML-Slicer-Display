@@ -14,6 +14,10 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
 
     }
 
+    function _getContent() {
+        
+    }
+
     function doUpload() {
         if (!current_user_can('install_themes')) {
             wp_die(__('You do not have sufficient permissions to install themes for this site.'));
@@ -47,7 +51,7 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
         if (!function_exists('get_submit_button')) {
             include_once ABSPATH . 'wp-admin/includes/template.php';
         }
-        
+
         return get_submit_button('Install Now', 'button', 'install-theme-submit', false);
 
     }
