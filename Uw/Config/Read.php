@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Uw Framework
  *
@@ -55,13 +56,39 @@ class Uw_Config_Read {
 
     }
 
-    function saveConfig(array $opt) {
-        if (!empty($opt)) {
-            if ($o = update_option(UW_NAME, $opt)) {
-                return $opt;
+    /**
+     * Save current config
+     *
+     * @param array $newvalue
+     * @param string $option_name
+     * @return array
+     *
+     * @todo buat penggunaan UW_NAME pada parameter ini dinamis aja. jadi nantinya kita bisa membuat pen-save-an config berbasis session
+     */
+    function saveConfig(array $newvalue, $option_name = UW_NAME_LOWERCASE) {
+        if (!empty($newvalue)) {
+            $oldvalue = get_option($option_name);
+            if (empty($oldvalue)) {
+                add_option($option_name, $newvalue);
+                global $wpdb;
+//                $autoload = 'yes';
+//                $newvalue =  maybe_serialize($newvalue);
+//                $sql = $wpdb->prepare(
+//                    "INSERT INTO `$wpdb->options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option_name, $newvalue, $autoload
+//                );
+//                $result = $wpdb->query($sql);
+
+                if ($wpdb->last_error) {
+                    throw new Uw_Exception($wpdb->last_error);
+                }
+            } else {
+                if ($oldvalue !== $newvalue) {
+                    update_option($option_name, $newvalue);
+                }
             }
-            throw new exception('Error 10002: first time option saving is fail');
+            return $newvalue;
         }
+        throw new exception('Error 10002: first time option saving is fail');
 
     }
 

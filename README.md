@@ -17,8 +17,9 @@ develop on xampp 1.7.1 and xampp 1.7.3 (Apache, MySql, Php) <br/>
 and run on Windows Xp
 
 <h3>REQUIRMENT</h3>
-Wp version 3.2
-Php 5.2+
+Wp version 3.2<br/>
+Single Installation (Not yet multi-site)<br/>
+Php 5.2+<br/>
 
 <h3>FEATURES</h3>
 <ol>

@@ -33,7 +33,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
      * @param array $o list of themes in xhtml directory
      *
      * @return string
-     * @todo cara kerja method ini tidak intuitif, dan terlalu banyak
+     * @todo cara kerja method ini tidak intuitif, dan terlalu banyak conditionalnya
      */
     protected function _getContent() {
         $path = UW_PATH . SEP . 'xhtml';

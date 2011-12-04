@@ -13,9 +13,6 @@ class Uw_Menu_Creator {
                 <div class="clear"></div>
             </div>
         </div>
-
         <?php
-
     }
-
 }

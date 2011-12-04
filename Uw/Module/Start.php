@@ -18,7 +18,6 @@ class Uw_Module_Start {
     public function init(Uw_Config_Data $config, Uw_Config_Read $reader, $opt,
         $filename =''
     ) {
-
         if ($opt) {
             $this->isFirstTime = false;
         } else {
@@ -29,6 +28,7 @@ class Uw_Module_Start {
                     $this->filename = $filename;
                 }
             }
+ 
             $opt = $reader->getOutput($this->filename);
             $opt = $reader->saveConfig($opt); //saving current config into option
         }
@@ -36,7 +36,6 @@ class Uw_Module_Start {
         if ($opt) {
             $config->sets($opt);
         }
-
         return $config;
 
     }
