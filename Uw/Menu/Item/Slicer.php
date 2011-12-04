@@ -11,10 +11,11 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $args = array(
                 'headertitle' => 'Portfolio',
                 'footertitle' => 'Select All',
-                'in_tbody' => 'class="plugins"',
+                'in_tbody' => getCls('plugins'),
                 'content' => $this->_getContent(),
             );
             $this->content = $this->html->getTemplate('Table.php', $args);
+            $this->_regAjaxButton();
         } catch (Exception $exc)
         {
             if (is_a($exc, 'Uw_Exception')) {
@@ -32,8 +33,9 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
      * @param array $o list of themes in xhtml directory
      *
      * @return string
+     * @todo cara kerja method ini tidak intuitif, dan terlalu banyak
      */
-    function _getContent() {
+    protected function _getContent() {
         $path = UW_PATH . SEP . 'xhtml';
         $HtmlFileList = new Uw_Module_HtmlFileList($path);
         $o = $HtmlFileList->getList();
@@ -71,6 +73,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                 'screenshot' => $Screenshot,
                 'imgcls' => 'width="64" height="64" style="float:left; padding: 5px"');
             $Img = $this->html->getTemplate('Img.php', $args);
+
             $content = $this->html->getTemplate('Slicer_Content.php', array(
                 'Author' => $Author,
                 'Indexfile' => $Indexfile,
@@ -78,8 +81,12 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                 'Version' => $Version,
                 'Description' => $Description,
                 'QuickEdit' => $this->html->getTemplate('Quick_Edit.php', array(
-                    'Author' => $Author, //@quickedit
+                    'Hidden_ID' => 'hiddenedit' . '_' . $Name,
+                    'Name' => $Name,
+                    'Author' => $Author,
+                    'Description' => $Description,
                 ))));
+
             $args = array(
                 'tbody_class' => getCls($active),
                 'th_class' => getCls('check-column'),
@@ -91,7 +98,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                 'content' => $content,
             );
             $output .= $this->html->getTemplate('Slicer_TD.php', $args);
-        }
+        } //end foreach
 
         return $output;
 

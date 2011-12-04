@@ -14,8 +14,8 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
 
     }
 
-    function _getContent() {
-        
+    protected function _getContent() {
+
     }
 
     function doUpload() {
@@ -23,7 +23,6 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
             wp_die(__('You do not have sufficient permissions to install themes for this site.'));
         }
         check_admin_referer('theme-upload');
-
         if (!class_exists('File_Upload_Upgrader', false)) {
             include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
         }

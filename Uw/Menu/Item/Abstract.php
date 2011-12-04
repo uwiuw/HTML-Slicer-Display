@@ -16,16 +16,25 @@ abstract class Uw_Menu_Item_Abstract {
      * @var Uw_Module_Templaty
      */
     protected $html;
+    protected $ajax;
     protected $config;
-    
+
+    abstract protected function init();
+
     abstract protected function _getContent();
 
     final function __construct(
-    Uw_Config_Data $data, Uw_Module_Templaty $html, array $itemButtons
+    Uw_Config_Data $data, Uw_Module_Templaty $html,
+        Uw_Menu_Ajax_Abstract $ajax = NULL
     ) {
         $this->config = &$data;
         $this->html = $html;
-        $this->buttons = $itemButtons;
+        if ($ajax instanceof Uw_Menu_Ajax_Abstract) {
+            $this->ajax = $ajax;
+            $this->buttons = $this->ajax->getButtons();
+        } else {
+            $this->buttons = array();
+        }
 
     }
 
@@ -38,7 +47,7 @@ abstract class Uw_Menu_Item_Abstract {
 
     /**
      * Create admin menu navigation
-     * 
+     *
      * @todo create them using certain navigation
      * @return string
      */
@@ -59,6 +68,11 @@ abstract class Uw_Menu_Item_Abstract {
 <h2 class="nav-tab-wrapper">$listOfNav</h2>
 HTML;
         return $o;
+
+    }
+
+    protected function _regAjaxButton() {
+        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 99999);
 
     }
 

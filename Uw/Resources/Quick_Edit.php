@@ -1,19 +1,32 @@
 <form method="get" action="">
-    <table id="hiddenedit" style="display: none">
+    <table id="<?php echo $Hidden_ID ?>" style="display: none">
         <tbody id="inlineedit">
             <tr id="inline-edit" class="">
                 <td colspan="7" class="colspanchange">
-                    <fieldset class="inline-edit-col-left"><div class="inline-edit-col">
+                    <fieldset class="inline-edit-col-left">
+                        <div class="inline-edit-col">
                             <h4>Quick Edit</h4>
                             <label>
-                                <span class="title">Title</span>
-                                <span class="input-text-wrap"><input type="text" name="post_title" class="ptitle" value="" /></span>
+                                <span class="title">Portofolio</span>
+                                <span class="input-text-wrap">
+                                    <input type="text" name="post_title" class="ptitle" value="<?php echo $Name ?>" />
+                                    <input type="hidden" name="porto_real_title" class="ptitle" value="<?php echo $Name ?>" />
+                                </span>
                             </label>
-
                             <label>
-                                <span class="title">Slug</span>
-                                <span class="input-text-wrap"><input type="text" name="post_name" value="" /></span>
+                                <span class="title">Author</span>
+                                <span class="input-text-wrap">
+                                    <input type="text" name="porto_author" value='<?php echo $Author ?>' /><?php echo $Author ?>
+                                </span>
                             </label>
+                    </fieldset>
+                    <fieldset class="inline-edit-col-left">
+                        <label>
+                            <span class="title">Description</span>
+                            <span class="input-text-wrap">
+                                <textarea name="porto_desc" id="ping_sites" class="large-text code" rows="3"><?php echo $Description ?></textarea>
+                            </span>
+                        </label>
                     </fieldset>
 
                     <p class="submit inline-edit-save">
@@ -28,4 +41,3 @@
         </tbody>
     </table>
 </form>
-<div class="haikamu"></div>

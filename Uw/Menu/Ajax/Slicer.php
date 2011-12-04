@@ -32,6 +32,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
         if ($action === 'edit_portofolio') {
             //@todo buat quickedit menu bagi form portofolio
             $ajaxResponse = 'Portofolio on editing mode';
+            $portoname = $_POST['action'];
             ?>
             <script>
                 String.prototype.trim = function () {
@@ -40,14 +41,14 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
                 var htmlStr = jQuery('.update-nag').html();
                 htmlStr.trim();
                 if (htmlStr == '<?php echo $ajaxResponse ?>' ) {
-                    jQuery('#hiddenedit').toggle();
+                    jQuery('#hiddenedit<?php echo '_' . $portoname ?>').toggle();
                     jQuery('.update-nag').html('<?php echo $ajaxResponse ?>');
                 } else {
-                    jQuery('#hiddenedit').toggle();
+                    jQuery('#hiddenedit<?php echo '_' . $portoname ?>').toggle();
                     jQuery('.update-nag').html('Editiong on Quick Mode');
                 }
                 jQuery('#hiddeneditcancel').click(function () {
-                    jQuery('#hiddenedit').hide(); //hiding cancel button
+                    jQuery('#hiddenedit<?php echo '_' . $portoname ?>').hide(); //hiding cancel button
                 });
             <?php die() ?>
             </script>

@@ -16,11 +16,11 @@ code on Wordpress 3.2<br/> using Php 5.3 (sometimes <strong> 5.2.7</strong>)<br/
 develop on xampp 1.7.1 and xampp 1.7.3 (Apache, MySql, Php) <br/>
 and run on Windows Xp
 
-<h3>Requirment</h3>
+<h3>REQUIRMENT</h3>
 Wp version 3.2
 Php 5.2+
 
-<h3>FEATURE</h3>
+<h3>FEATURES</h3>
 <ol>
     <li>Manajement portofolio
         <br/>Portofolio should be able to delete, manage, etc

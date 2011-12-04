@@ -64,16 +64,11 @@ class Uw_Menu_Admin {
     }
 
     public function loadItemMenu() {
-        $buttons = array();
-        if ($this->curPageAjCls instanceof Uw_Menu_Ajax_Abstract) {
-            add_action('admin_print_footer_scripts', array($this->curPageAjCls, 'inject'), 99999); //register button ajax
-            $buttons = $this->curPageAjCls->getButtons();
-        }
-         
         $clsname = $this->menuItemCls . $this->curPageFile;
-        $clsname = new $clsname($this->config, $this->html, $buttons);
+        $clsname = new $clsname($this->config, $this->html, $this->curPageAjCls);
         $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
         $clsname->init();
+
         $this->creator->buildForm($clsname);
 
     }
