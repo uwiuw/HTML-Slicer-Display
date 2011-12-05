@@ -26,6 +26,10 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
         ),
     );
 
+    /**
+     * Method to process current ajax action 
+     * 
+     */
     function doAjaxAction() {
         $action = $_POST['HtmlSlicerDisplay'];
         $ajaxResponse = 'Process is failing for unknown reason';
@@ -38,14 +42,14 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
                 String.prototype.trim = function () {
                     return this.replace(/^\s*/, "").replace(/\s*$/, "");
                 }
-                var htmlStr = jQuery('.update-nag').html();
+                var htmlStr = jQuery('.ajax_reponse_output').html();
                 htmlStr.trim();
                 if (htmlStr == '<?php echo $ajaxResponse ?>' ) {
                     jQuery('#hiddenedit<?php echo '_' . $portoname ?>').toggle();
-                    jQuery('.update-nag').html('<?php echo $ajaxResponse ?>');
+                    jQuery('.ajax_reponse_output').html('<?php echo $ajaxResponse ?>');
                 } else {
                     jQuery('#hiddenedit<?php echo '_' . $portoname ?>').toggle();
-                    jQuery('.update-nag').html('Editiong on Quick Mode');
+                    jQuery('.ajax_reponse_output').html('Editiong on Quick Mode');
                 }
                 jQuery('#hiddeneditcancel').click(function () {
                     jQuery('#hiddenedit<?php echo '_' . $portoname ?>').hide(); //hiding cancel button
