@@ -59,6 +59,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
                     'method' => 'post',
                     'ajax' => $Ajax,
                     'action' => admin_url('admin-ajax.php', false),
+                    'action_value' => $item['Name'],
                     'submit_title' => $Title,
                     'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false))),
                 ));

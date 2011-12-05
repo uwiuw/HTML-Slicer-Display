@@ -98,7 +98,7 @@ HTML;
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
             if (data) {
-                jQuery('.update-nag').html(data);
+                jQuery('.ajax_reponse_output').html(data);
             }
 //        alert(data);
 //        jQuery.print(data);
