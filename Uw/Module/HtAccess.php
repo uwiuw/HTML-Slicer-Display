@@ -1,10 +1,9 @@
 <?php
 
-class Uw_Module_Htaccess {
+class Uw_Module_HtAccess {
 
     /**
      * Set Htaccess file
-     *
      */
     function setHtaccessFile() {
         $filename = UW_PATH . SEP . 'xhtml' . SEP . '.htaccess';

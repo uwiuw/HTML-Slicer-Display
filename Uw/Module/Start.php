@@ -46,7 +46,7 @@ class Uw_Module_Start {
     }
 
     private function _rebuildHtaccess() {
-        $htaccess = new Uw_Module_Htaccess();
+        $htaccess = new Uw_Module_HtAccess();
         return $htaccess->setHtaccessFile();
 
     }

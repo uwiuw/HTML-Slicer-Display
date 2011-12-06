@@ -29,9 +29,9 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
     function doAjaxAction() {
         $action = $_POST['HtmlSlicerDisplay'];
         $ajaxResponse = 'Process is failing for unknown reason';
-        
+
         if ($action === 'fix_htaccess') {
-            $htaccess = new Uw_Module_Htaccess();
+            $htaccess = new Uw_Module_HtAccess();
             $ajaxResponse = $htaccess->setHtaccessFile();
         } elseif ($action === 'rebuild_config') {
             $result = delete_option(UW_NAME_LOWERCASE);

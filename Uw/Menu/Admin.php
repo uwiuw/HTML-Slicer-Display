@@ -34,8 +34,9 @@ class Uw_Menu_Admin {
                 if ($url['query']) {
                     parse_str($url['query'], $url);
                     if ($url['page'] != '') {
-                        $this->curPageFile = $url['page'];
-                        if (false !== $clsname = $this->_ifExist($this->curPageFile)) {
+                        $this->curPageFile = ucfirst($url['page']);
+                        $clsname = $this->_ifExist($this->curPageFile);                         
+                        if (false !== $clsname ) {                            
                             $clsname->doAjaxAction();
                         }
                     }
@@ -85,13 +86,12 @@ class Uw_Menu_Admin {
      */
     private function _ifExist($checkMe) {
         $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
+         
         if (file_exists($fl)) {
             $clsname = $this->menuAjaxCls . $checkMe;
             return new $clsname($this->config, $this->html);
         }
 
         return false;
-
     }
-
 }
