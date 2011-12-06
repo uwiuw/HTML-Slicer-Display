@@ -23,24 +23,24 @@ class Uw_Module_Start {
         }
 
         //if $opt not empty, then it's not the first time
+        $inInifile = $reader->getOutput($this->filename);
         if ($opt) {
             /**
              * see http://wp.uwiuw.com/issue-compability-theme-option-version-0-0-1-ke-0-0-2/
              */
-            $inInifile = $reader->getOutput($this->filename);
-            if (TRUE === $this->_isNeedToUpgrade($opt, $inInifile)) {
+            if (TRUE === $this->_isNeedUpgrade($opt, $inInifile)) {
                 $opt = $reader->saveConfig($inInifile);
             }
         } else {
-            //first time 
+            //first time
             $this->_rebuildHtaccess();
-            $opt = $reader->getOutput($this->filename);
-            $opt = $reader->saveConfig($opt); //saving current config into option
+            $opt = $reader->saveConfig($inInifile); //saving current config into option
         }
 
         if ($opt) {
             $config->sets($opt);
         }
+ 
         return $config;
 
     }
@@ -51,14 +51,37 @@ class Uw_Module_Start {
 
     }
 
-    private function _isNeedToUpgrade($inDb, $inIniFile) {
-        $mandatory = $inIniFile['mandatory'];
-        
-        $hasildebug = print_r($mandatory, TRUE);
-        echo "\n" . '<pre style="font-size:14px"><hr>' . '$hasildebug ' . htmlentities2($hasildebug) . '</pre>';
-        
-        
+    /**
+     * Processnya bila pada data di db itu ternyata ada missingkey,lalu bila
+     * missing key itu ditemukan maka nilainya yg ada diconfig akan ditansfer ke 
+     * 
+     * @param array $inDb byreference. data yg ada di database
+     * @param array $inIniFile by reference. config yg berada dalam file ini
+     * @return bool
+     */
+    private function _isNeedUpgrade($inDb, &$inIniFile) {
+        if (empty($inDb)) {
+            return true;
+        }
+
+        foreach ($inIniFile['mandatory'] as $k) {
+            if (false === array_key_exists($k, $inDb)) {
+                $missingKey[] = $k;
+                $is_true = true;
+            }
+        }
+
+        if ($is_true) {
+            foreach ($missingKey as $k) {
+                $inDb[$k] = $inIniFile[$k];
+            }
+            $inIniFile = $inDb;
+
+            return true;
+        }
+
         return False;
+
     }
 
 }

@@ -54,16 +54,16 @@ class Uw_Menu_Admin {
      * Register Menu items
      */
     public function regItemMenu() {
-		if ($this->navigation) {		
-        $number = 4;
-        add_menu_page('Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number);
-        foreach ($this->navigation as $k => $v) {
-            $name = ucfirst($v);
-            add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItemMenu'), '', $number++);
+        if ($this->navigation) {
+            $number = 4;
+            add_menu_page('Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number);
+            foreach ($this->navigation as $k => $v) {
+                $name = ucfirst($v);
+                add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItemMenu'), '', $number++);
+            }
+        } else {
+            throw new Uw_Exception('Empty Navigation');
         }
-		} else {
- throw nex Uw_Exception('Empty Navigation');
-}
 
     }
 
