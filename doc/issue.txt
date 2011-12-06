@@ -1,0 +1,17 @@
+After migrate the wp instalation, database, and all of its theme into different server, 
+i found the theme works perfectly but need to click the fixing .htaccess button. 
+And the most important thing is the permalink is failing. that's why it need to 
+referesh permalink structure. So how to make this otomatically ?
+
+All ajax operation should be process using wordpress mechanisme. 
+This demand use to restructure the interaction between item and ajax file 
+of particular menu. Configuration of a menu must be initiate based on 
+configuration inside firsttime.ini
+
+saat theme dipakai pada subdomain, dan yg memencet tombol adalah administartor (network) 
+yg tidak memiliki hak di dalam website itu ?
+
+saat theme upgrade diaktifkan, akan tetapi sisa data config theme sebelumnya masih ada 
+sehingga referesh data di wp_options tidak ter-trigger. Sementara data 
+theme versi baru berbeda sekali dan tidak akan sesuai dengan yg lama, 
+malah menghasilkan bug dan weird stuff
