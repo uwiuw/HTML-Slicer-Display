@@ -18,7 +18,7 @@ and run on Windows Xp
 
 <h3>REQUIRMENT</h3>
 Wp version 3.2<br/>
-Single Installation (Not yet multi-site)<br/>
+Single and Multi-site Installation<br/>
 Php 5.2+<br/>
 
 <h3>FEATURES</h3>
