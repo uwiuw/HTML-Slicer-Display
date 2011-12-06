@@ -1,2 +1,0 @@
-All ajax operation should be process using wordpress mechanisme. This demand use to restructure the interaction between item and ajax file of particular menu.
-Configuration of a menu must be initiate based on configuration inside firsttime.ini

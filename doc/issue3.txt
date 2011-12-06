@@ -1,1 +1,0 @@
-After migrate the wp instalation, database, and all of its theme into different server, i found the theme works perfectly but need to click the fixing .htaccess button. And the most important thing is the permalink is failing. that's why it need to referesh permalink structure. So how to make this otomatically ?
