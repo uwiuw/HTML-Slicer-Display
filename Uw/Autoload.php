@@ -24,16 +24,9 @@ if (function_exists('spl_autoload_register')) {
 function autoloadLogic($classname)
 {
     $file = getClassPath($classname) . '.php';
-    if (file_exists($file)) {
+    if (file_exists2($file)) {
         require_once $file;
     }
-
-}
-
-function getClassPath($classname) {
-    $classname = str_replace('_', SEP, $classname);
-    $classname = str_replace('-', '', $classname);
-    return UW_PATH . SEP . $classname;
 
 }
 

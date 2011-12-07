@@ -80,7 +80,6 @@ class Uw_Module_HtmlFileList {
             'Indexfile' => $this->_getUrlLocation($dirname, $this->fileIndex)
         );
 
-
         $themedata = $this->getTemplateData($dirname, $this->fileStyle, $this->description);
         $o['Description'] = $themedata['Description'];
         $o['Version'] = $themedata['Version'];
@@ -91,7 +90,7 @@ class Uw_Module_HtmlFileList {
 
     private function _getLocation($dirname, array $namelist, $return = false) {
         foreach ($namelist as $fl) {
-            if (file_exists($this->path . SEP . $dirname . SEP . $fl)) {
+            if (file_exists2($this->path . SEP . $dirname . SEP . $fl)) {
                 return $this->path . SEP . $dirname . SEP . $fl;
             }
         }
@@ -102,7 +101,7 @@ class Uw_Module_HtmlFileList {
 
     private function _getUrlLocation($dirname, array $namelist, $return = false) {
         foreach ($namelist as $fl) {
-            if (file_exists($this->path . SEP . $dirname . SEP . $fl)) {
+            if (file_exists2($this->path . SEP . $dirname . SEP . $fl)) {
                 return UW_URL . '/xhtml/' . $dirname . '/' . $fl;
             }
         }

@@ -117,7 +117,7 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
         array $defaultFilter = array('filterNonChar')
     ) {
         if (empty($fileName)
-            OR !file_exists($this->_resourcePath . SEP . $fileName)
+            OR !file_exists2($this->_resourcePath . SEP . $fileName)
         ) {
             $filepath = $this->_resourcePath . SEP . $fileName;
             return $this->_getMissingFileErrMsg($filepath);
@@ -152,7 +152,7 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
     function getTemplateStatic($fileName)
     {
         if (empty($fileName)
-            OR !file_exists($this->_resourcePath . SEP . 'static' . SEP . $fileName)
+            OR !file_exists2($this->_resourcePath . SEP . 'static' . SEP . $fileName)
         ) {
             $filepath = $this->_resourcePath . SEP . 'static' . SEP . $fileName;
             return $this->_getMissingFileErrMsg($filepath);

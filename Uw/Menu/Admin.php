@@ -25,28 +25,15 @@ class Uw_Menu_Admin {
 
     function init() {
         if (defined('DOING_AJAX')) {
-            /**
-             * determine whether the ajax action is belong to us
-             */
-            $flaq = $_POST['HtmlSlicerDisplay'];
-            if ($flaq && false != $_POST['action'] && $_POST['_wp_http_referer']) {
-                $url = parse_url($_POST['_wp_http_referer']);
-                if ($url['query']) {
-                    parse_str($url['query'], $url);
-                    if ($url['page'] != '') {
-                        $this->curPageFile = ucfirst($url['page']);
-                        $clsname = $this->_ifExist($this->curPageFile);                         
-                        if (false !== $clsname ) {                            
-                            $clsname->doAjaxAction();
-                        }
-                    }
-                }
-            }
+            $this->_doAjaxAction();
         } else {
             if (false !== $clsname = $this->_ifExist($this->curPageFile)) {
                 $this->curPageAjCls = $clsname;
             }
-            add_Action('admin_menu', array($this, 'regItemMenu')); //register theme menu into backend
+            /*
+             * Register theme menu into backend
+             */
+            add_Action('admin_menu', array($this, 'regItemMenu'));
         }
 
     }
@@ -80,18 +67,40 @@ class Uw_Menu_Admin {
 
     /**
      * Check the existance of menu
-     * 
+     *
      * @param string filename with out php exstention
-     * @return clsname|false
+     * @return object|false
      */
     private function _ifExist($checkMe) {
         $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
-         
-        if (file_exists($fl)) {
+        if (file_exists2($fl)) {
             $clsname = $this->menuAjaxCls . $checkMe;
             return new $clsname($this->config, $this->html);
         }
-
         return false;
+
     }
+
+    private function _doAjaxAction() {
+        $flaq = $_POST['HtmlSlicerDisplay'];
+        if ($flaq && false != $_POST['action'] && $_POST['_wp_http_referer']) {
+            $url = parse_url($_POST['_wp_http_referer']);
+            if ($url['query']) {
+                parse_str($url['query'], $url);
+                if ($url['page'] != '') {
+                    $this->curPageFile = ucfirst($url['page']);
+                    $clsname = $this->_ifExist($this->curPageFile);
+                    if (false !== $clsname
+                        && is_object($clsname)
+                    ) {
+                        $clsname->doAjaxAction();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
 }

@@ -30,10 +30,9 @@
 class Uw_Config_Read {
 
     function getOutput($filename) {
-
         $stripClsName = rtrim(get_class(), strrchr(get_class(), '_'));
         $filename = getClassPath($stripClsName) . SEP . $filename;
-        if (!file_exists($filename)) {
+        if (!file_exists2($filename)) {
             throw new exception('E10001 : config file is not exists');
         }
 
@@ -63,7 +62,8 @@ class Uw_Config_Read {
      * @param string $option_name
      * @return array
      *
-     * @todo buat penggunaan UW_NAME pada parameter ini dinamis aja. jadi nantinya kita bisa membuat pen-save-an config berbasis session
+     * @todo buat penggunaan UW_NAME pada parameter ini dinamis aja. jadi nantinya
+     * kita bisa membuat pen-save-an config berbasis session
      */
     function saveConfig(array $newvalue, $option_name = UW_NAME_LOWERCASE) {
         if (!empty($newvalue)) {
@@ -71,13 +71,6 @@ class Uw_Config_Read {
             if (empty($oldvalue)) {
                 add_option($option_name, $newvalue);
                 global $wpdb;
-//                $autoload = 'yes';
-//                $newvalue =  maybe_serialize($newvalue);
-//                $sql = $wpdb->prepare(
-//                    "INSERT INTO `$wpdb->options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option_name, $newvalue, $autoload
-//                );
-//                $result = $wpdb->query($sql);
-
                 if ($wpdb->last_error) {
                     throw new Uw_Exception($wpdb->last_error);
                 }
