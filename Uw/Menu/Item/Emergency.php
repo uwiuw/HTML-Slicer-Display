@@ -54,7 +54,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
                 'Button' => $this->html->getButton(array(
                     'name' => $Name,
                     'id' => $Name,
-                    'button_url_id' => $button_id,
+                    'button_id' => $button_id,
                     'button_url_output' => $button_id_output,
                     'method' => 'post',
                     'ajax' => $Ajax,

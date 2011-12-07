@@ -4,16 +4,16 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
 
     protected $config;
     protected $itemArgs = array(
-        'edit_portofolio' => array(
-            'Name' => 'edit_portofolio',
-            'Title' => 'Edit',
-            'Description' => '',
-            'Ajax' => 'edit_portofolio',
-            'Icon' => 'semlabs_terminal.png',
-            'form_id' => 'edit_portofolio',
-            'button_id' => 'edit_portofolio_url',
-            'button_id_output' => 'edit_portofolio_url_output'
-        ),
+//        'edit_portofolio' => array(
+//            'Name' => 'edit_portofolio',
+//            'Title' => 'Edit',
+//            'Description' => '',
+//            'Ajax' => 'edit_portofolio',
+//            'Icon' => 'semlabs_terminal.png',
+//            'form_id' => 'edit_portofolio',
+//            'button_id' => 'edit_portofolio_url',
+//            'button_id_output' => 'edit_portofolio_url_output'
+//        ),
         'del_portofolio' => array(
             'Name' => 'del_portofolio',
             'Title' => 'Delete',
@@ -27,13 +27,13 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
     );
 
     /**
-     * Method to process current ajax action 
-     * 
+     * Method to process current ajax action
      */
     function doAjaxAction() {
         $action = $_POST['HtmlSlicerDisplay'];
         $ajaxResponse = 'Process is failing for unknown reason';
-        if ($action === 'edit_portofolio') {
+
+        if (FALSE !== $this->_getThisAjaxAction($action, 'edit_portofolio')) {
             //@todo buat quickedit menu bagi form portofolio
             $ajaxResponse = 'Portofolio on editing mode';
             $portoname = $_POST['action'];
@@ -57,11 +57,21 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
             <?php die() ?>
             </script>
             <?php
-        } elseif ($action === 'del_portofolio') {
-            $ajaxResponse = 'Portofolio delete permanently';
+        } elseif (FALSE !== $themeName = $this->_getThisAjaxAction($action, 'del_portofolio')) {
+            $ajaxResponse = $themeName . ' delete permanently';
         }
 
         die($ajaxResponse);
+
+    }
+
+    private function _getThisAjaxAction($haystack, $needle) {
+
+        if (False !== strstr($haystack, $needle)) {
+            return substr($haystack, strlen($needle) + 1);
+        } else {
+            return false;
+        }
 
     }
 

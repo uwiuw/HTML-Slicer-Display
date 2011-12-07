@@ -15,9 +15,11 @@ abstract class Uw_Menu_Ajax_Abstract {
         $this->html = $html;
         $this->config = &$data;
         $this->action = $_POST['action'];
+
     }
 
     function inject() {
+
         if ($this->itemArgs) {
             foreach ($this->itemArgs as $k => $v) {
                 $o .= $this->html->getButtonAjax(
@@ -31,5 +33,12 @@ abstract class Uw_Menu_Ajax_Abstract {
 
     final function getButtons() {
         return $this->itemArgs;
+
     }
+
+    public function setButtonArgs(array $newItemArgs) {
+        $this->itemArgs = $newItemArgs;
+
+    }
+
 }

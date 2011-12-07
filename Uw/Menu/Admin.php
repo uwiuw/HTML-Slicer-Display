@@ -25,9 +25,9 @@ class Uw_Menu_Admin {
 
     function init() {
         if (defined('DOING_AJAX')) {
-            $this->_doAjaxAction();
+            $this->_preAjaxAction();
         } else {
-            if (false !== $clsname = $this->_ifExist($this->curPageFile)) {
+            if (false !== $clsname = $this->_initClass($this->curPageFile)) {
                 $this->curPageAjCls = $clsname;
             }
             /*
@@ -71,7 +71,7 @@ class Uw_Menu_Admin {
      * @param string filename with out php exstention
      * @return object|false
      */
-    private function _ifExist($checkMe) {
+    private function _initClass($checkMe) {
         $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
         if (file_exists2($fl)) {
             $clsname = $this->menuAjaxCls . $checkMe;
@@ -81,7 +81,7 @@ class Uw_Menu_Admin {
 
     }
 
-    private function _doAjaxAction() {
+    private function _preAjaxAction() {
         $flaq = $_POST['HtmlSlicerDisplay'];
         if ($flaq && false != $_POST['action'] && $_POST['_wp_http_referer']) {
             $url = parse_url($_POST['_wp_http_referer']);
@@ -89,7 +89,7 @@ class Uw_Menu_Admin {
                 parse_str($url['query'], $url);
                 if ($url['page'] != '') {
                     $this->curPageFile = ucfirst($url['page']);
-                    $clsname = $this->_ifExist($this->curPageFile);
+                    $clsname = $this->_initClass($this->curPageFile);
                     if (false !== $clsname
                         && is_object($clsname)
                     ) {

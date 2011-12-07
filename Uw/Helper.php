@@ -95,3 +95,9 @@ function getDefaultTheme(Uw_Config_Data $config) {
     return $config;
 
 }
+
+function ajaxStr($x, $y) {
+    $x = $x . '_' . $y;
+    return strtolower($x);
+
+}

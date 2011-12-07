@@ -15,6 +15,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                 'content' => $this->_getContent(),
             );
             $this->content = $this->html->getTemplate('Table.php', $args);
+
             $this->_regAjaxButton();
         } catch (Exception $exc)
         {
@@ -55,17 +56,21 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $Button = '';
             foreach ($this->buttons as $but) {
                 extract($but);
-                $Button .= $this->html->getButton(array(
-                    'name' => $Name,
+
+                $Name = ajaxStr($Name, $item['Name']);
+                $arrButton = array(
+                    'form_id' => $Name,
                     'id' => $Name,
-                    'button_url_id' => $button_id,
+                    'button_id' => ajaxStr($button_id, $item['Name']),
                     'button_url_output' => $button_id_output,
                     'method' => 'post',
                     'ajax' => $Ajax,
                     'action' => admin_url('admin-ajax.php', false),
                     'action_value' => $item['Name'],
                     'submit_title' => $Title,
-                    'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false)));
+                    'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false));
+                $Button .= $this->html->getButton($arrButton);
+                $newAjaxButton[$Name] = $arrButton;
             }
 
             extract($item);
@@ -100,6 +105,11 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         } //end foreach
 
+
+        $this->ajax->setButtonArgs($newAjaxButton);
+//        $hasildebug = print_r($newAjaxButton, TRUE);
+//        echo "\n" . '<pre style="font-size:14px"><hr>' . '$newAjaxButton ' . htmlentities2($hasildebug) . '</pre>';
+//
         return $output;
 
     }

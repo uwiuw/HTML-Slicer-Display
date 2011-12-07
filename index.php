@@ -1,4 +1,5 @@
 <?php
+
 $config = getDefaultTheme($config);
 $loadXhtml = new Uw_Helper_LoadXhtml();
 $path = UW_PATH . SEP . 'xhtml';

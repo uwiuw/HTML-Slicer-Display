@@ -56,6 +56,12 @@ class Uw_Module_Templaty {
 
     }
 
+    /**
+     * Get ajax button hidden form
+     * @param array $args
+     * @return string
+     * @todo buat form ini memiliki template resoucesnya sendiri
+     */
     function getButton(array $args) {
         $themeName = UW_NAME;
         $actionname = 'actiontest';
@@ -65,7 +71,7 @@ class Uw_Module_Templaty {
             'method' => 'post',
             'id' => $id,
             'ajax' => $actionname,
-            'button_url_id' => $id . '_url',
+            'button_id' => $id . '_url',
             'button_url_output' => $id . '_url_output',
             'action' => admin_url('admin-ajax.php', false),
             'action_value' => 'goto',
@@ -76,14 +82,14 @@ class Uw_Module_Templaty {
 
         extract($args);
         $button = <<<HTML
-<form method="$method" id="$id" name="$name" action="$action">
+<form method="$method" id="$id" name="$form_id" action="$action" style="display:none">
     <input type="hidden" name="$themeName" value="$id" />
     <input type="hidden" name="action" value="$action_value" />
     <input type="submit" name="Submit" class="button-primary" value="$submit_title" style="display:none" />
     $nonce_field
 </form>
 <span class="$button_url_output">
-    <a href="#" id="$button_url_id" class="button-primary" style="display:inline-block;margin:5px">$submit_title</a>
+    <a href="#" id="$button_id" class="button-primary" style="display:inline-block;margin:5px">$submit_title</a>
 </span>
 HTML;
 
