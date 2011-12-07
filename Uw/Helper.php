@@ -42,7 +42,10 @@ function file_exists2($abdfile) {
         $directory = dir($path);
         while ((FALSE !== ($fl = $directory->read())))
         {
-            if (!is_dir($path . SEP . $fl) && $fl != '.' && $fl != '..') {
+            if (!is_dir($path . SEP . $fl)
+                && $fl != '.'
+                && $fl != '..'
+            ) {
                 if ($filename === $fl) {
                     return true;
                 }
@@ -53,5 +56,42 @@ function file_exists2($abdfile) {
     } else {
         return file_exists($abdfile);
     }
+
+}
+
+function getDefaultTheme(Uw_Config_Data $config) {
+    $pgURL = 'http';
+    if (isset($_SERVER["HTTPS"])
+        AND $_SERVER["HTTPS"] === "on"
+    ) {
+        $pgURL .= "s";
+    }
+
+    $pgURL .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pgURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } else {
+        $pgURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    }
+    $needle = UW_URL;
+    $temp = str_replace($needle, '', $pgURL);
+    if ($temp === $pgURL) {
+        $needle = dirname(WP_CONTENT_URL);
+        $temp = str_replace($needle . '/', '', $pgURL);
+    }
+
+    if ($temp !== $pgURL) {
+        $temp = explode('/', $temp);
+        if (!empty($pgURL) && is_array($temp)) {
+            foreach ($temp as $isThisCurrentTheme) {
+                if (!empty($isThisCurrentTheme)) {
+                    $config->set('defaulttheme', $isThisCurrentTheme);
+                    break;
+                }
+            }
+        }
+    }
+
+    return $config;
 
 }

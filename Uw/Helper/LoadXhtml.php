@@ -2,7 +2,9 @@
 
 class Uw_Helper_LoadXhtml {
 
-    private function load($themename, $filename, array $listofthemes) {
+    private $isVisibleNav = True;
+
+    private function _load($themename, $filename, array $listofthemes) {
         if (false !== $pos = array_search($themename, $listofthemes)) {
             if ($pos === 0) {
                 $previous = $listofthemes[count($listofthemes) - 1];
@@ -24,13 +26,17 @@ class Uw_Helper_LoadXhtml {
 
             $o = file_get_contents($filename);
             $o = str_replace('</title>', '</title>' . '<base href="' . $xhtmlUrl . '" />', $o);
-            $o = $this->_createNavigation($o, $themename, $prevFile, $nextFile);
+
+            if ($this->isVisibleNav) {
+                $o = $this->_frontNavigation($o, $themename, $prevFile, $nextFile);
+            }
         }
+
         return $o;
 
     }
 
-    private function _createNavigation($o, $themename, $prevFile, $nextFile) {
+    private function _frontNavigation($o, $themename, $prevFile, $nextFile) {
         $UW_URL = UW_URL;
         $prevname = basename($prevFile);
         $nextname = basename($nextFile);
@@ -54,8 +60,20 @@ HTML;
 
     }
 
+    /**
+     * Wrapper for _load private function
+     *
+     * @param type $themename
+     * @param type $filename
+     * @param array $listofthemes
+     */
     public function show($themename, $filename, array $listofthemes) {
-        echo $this->load($themename, $filename, $listofthemes);
+        echo $this->_load($themename, $filename, $listofthemes);
+
+    }
+
+    function setVisible($visibility = '') {
+        $this->isVisibleNav = empty($visibility) ? FALSE : TRUE;
 
     }
 

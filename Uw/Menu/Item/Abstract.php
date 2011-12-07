@@ -51,7 +51,7 @@ abstract class Uw_Menu_Item_Abstract {
      * @todo create them using certain navigation
      * @return string
      */
-    public function createNav() {
+    public function createTabNav() {
         foreach ($this->navigation as $k => $v) {
             if ($this->curPageSlug === $v) {
                 $class = 'nav-tab nav-tab-active';
