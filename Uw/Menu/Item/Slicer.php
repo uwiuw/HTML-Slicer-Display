@@ -56,7 +56,6 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $Button = '';
             foreach ($this->buttons as $but) {
                 extract($but);
-
                 $Name = ajaxStr($Name, $item['Name']);
                 $arrButton = array(
                     'form_id' => $Name,

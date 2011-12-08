@@ -1,7 +1,7 @@
 <?php
 
 $config = getDefaultTheme($config);
-$loadXhtml = new Uw_Helper_LoadXhtml();
+$loadXhtml = new Uw_Module_Loader($html);
 $path = UW_PATH . SEP . 'xhtml';
 $HtmlFileList = new Uw_Module_HtmlFileList($path);
 $listofthemes = array_keys($HtmlFileList->getList());

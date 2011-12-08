@@ -33,13 +33,13 @@
  */
 class Uw_Module_Templaty {
 
-    private $model;
+    public $model;
 
     function __construct($html = '') {
         if (is_object($html)) {
-            $this->html = $html;
+            $this->model = $html;
         } else {
-            include_once( UW_PATH . SEP . 'Uw' . SEP . 'thirdparty' . SEP . 'atTemplate.php');
+            include_once( UW_PATH . SEP . 'Uw' . SEP . '3Party' . SEP . 'atTemplate.php');
             $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
             $this->model->reConstruct(
                 array(
