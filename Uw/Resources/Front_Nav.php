@@ -1,3 +1,4 @@
+<!-- This code is not part of the the -->
 <script type='text/javascript' src='<?php echo UW_U ?>/wp-includes/js/jquery/jquery.js'></script>
 <style type="text/css">
     .<?php echo $cssClass ?> {width: 98%; height: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0;background-color:#fff }
@@ -35,3 +36,4 @@
     <div class="prev"><a href ="<?php echo $prevFile ?>">Prev</a></div>
     <div class="next"><a href ="<?php echo $nextFile ?>">Next</a></div>
 </div>
+<!-- End -->

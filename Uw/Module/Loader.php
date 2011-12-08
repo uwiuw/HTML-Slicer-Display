@@ -5,13 +5,22 @@ class Uw_Module_Loader {
     private $isVisibleNav = True;
 
     /**
-     * For rendering Front_Nav.php file in resources folder
+     * Object For rendering Front_Nav.php file in resources folder
      * @var Uw_Module_Templaty
      */
     private $template;
 
-    function __construct(Uw_Module_Templaty $template) {
+    /**
+     * Object for rendering default wordpress sidebar
+     * @var Uw_Widget_Sidebar
+     */
+    private $sidebar;
+
+    function __construct(Uw_Module_Templaty $template,
+        Uw_Widget_Sidebar $Uw_Sidebar = null
+    ) {
         $this->template = $template;
+        $this->sidebar = $Uw_Sidebar;
 
     }
 
@@ -42,30 +51,42 @@ class Uw_Module_Loader {
                 $o = $this->_frontNav($o, $themename, $prevFile, $nextFile);
             }
         }
-
         return $o;
 
     }
 
     private function _frontNav($defHTML, $themename, $prevFile, $nextFile) {
-        $args = array(
-            'UW_U' => UW_U,
-            'UW_URL' => UW_URL,
-            'cssClass' => 'navigation',
-            'prevFile' => UW_U . '/' . basename($prevFile),
-            'nextFile' => UW_U . '/' . basename($nextFile),
-        );
+        $sidebar = $this->sidebar->bufferWidget();
 
-        $nav = $this->template->model->getTemplate('Front_Nav.php', $args);
+        if (empty($sidebar)) {
+            $args = array(
+                'UW_U' => UW_U,
+                'UW_URL' => UW_URL,
+                'cssClass' => 'navigation',
+                'prevFile' => UW_U . '/' . basename($prevFile),
+                'nextFile' => UW_U . '/' . basename($nextFile),
+                'navigation_left' => $sidebar['navigation_left'],
+                'navigation_right' => $sidebar['navigation_right']);
+            $nav = $this->template->model->getTemplate('Front_Nav.php', $args);
+        } else {
+            $args = array(
+                'UW_U' => UW_U,
+                'UW_URL' => UW_URL,
+                'cssClass' => 'navigation',
+                'navigation_left' => $sidebar['navigation_left'],
+                'navigation_right' => $sidebar['navigation_right'],
+            );
+            $nav = $this->template->model->getTemplate('Front_Sidebar.php', $args);
+        }
         return str_replace('</body>', $nav . '</body>', $defHTML);
 
     }
 
     /**
-     * Wrapper for _load private function
+     * Wrapper for _load() private function
      *
-     * @param type $themename
-     * @param type $filename
+     * @param string $themename
+     * @param string $filename
      * @param array $listofthemes
      */
     public function show($themename, $filename, array $listofthemes) {
@@ -78,7 +99,7 @@ class Uw_Module_Loader {
      *
      * @param bool $visibility
      */
-    function setVisible($visibility = '') {
+    function setVisible($visibility = false) {
         $this->isVisibleNav = empty($visibility) ? FALSE : TRUE;
 
     }

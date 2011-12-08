@@ -104,11 +104,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         } //end foreach
 
-
         $this->ajax->setButtonArgs($newAjaxButton);
-//        $hasildebug = print_r($newAjaxButton, TRUE);
-//        echo "\n" . '<pre style="font-size:14px"><hr>' . '$newAjaxButton ' . htmlentities2($hasildebug) . '</pre>';
-//
         return $output;
 
     }
