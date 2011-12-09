@@ -83,9 +83,12 @@ function getDefaultTheme(Uw_Config_Data $config) {
     if ($temp !== $pgURL) {
         $temp = explode('/', $temp);
         if (!empty($pgURL) && is_array($temp)) {
-            foreach ($temp as $isThisCurrentTheme) {
-                if (!empty($isThisCurrentTheme)) {
-                    $config->set('defaulttheme', $isThisCurrentTheme);
+            foreach ($temp as $isValidTheme) {
+                if (!empty($isValidTheme)) {
+                    $fl = UW_PATH . SEP . 'xhtml' . SEP . $isValidTheme;
+                    if (is_dir($fl)) {
+                        $config->set('defaulttheme', $isValidTheme);
+                    }
                     break;
                 }
             }

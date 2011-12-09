@@ -20,7 +20,6 @@ class Uw_Widget_Sidebar {
 
     function init() {
         $this->regSidebars();
-//        add_action('init', array($this, 'bufferWidget'));
 
     }
 
@@ -31,7 +30,7 @@ class Uw_Widget_Sidebar {
 
     }
 
-    public function bufferWidget() {
+    public function getWidgetBuffer() {
         foreach ($this->sidebars as $k => $v) {
             ob_start();
             dynamic_sidebar($v['id']);
@@ -43,7 +42,5 @@ class Uw_Widget_Sidebar {
         }
 
         return $this->sidebar_html = $lists;
-
     }
-
 }

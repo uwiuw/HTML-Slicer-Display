@@ -1,0 +1,7 @@
+<FilesMatch "\.(htaccess|htpasswd|ini|)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+<IfModule mod_rewrite.c>
+IndexIgnore *
+</IfModule>

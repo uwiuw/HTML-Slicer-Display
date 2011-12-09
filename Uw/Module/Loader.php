@@ -56,7 +56,7 @@ class Uw_Module_Loader {
     }
 
     private function _frontNav($defHTML, $themename, $prevFile, $nextFile) {
-        $sidebar = $this->sidebar->bufferWidget();
+        $sidebar = $this->sidebar->getWidgetBuffer();
 
         if (empty($sidebar)) {
             $args = array(

@@ -1,5 +1,5 @@
 <?php
-
+ 
 $config = getDefaultTheme($config);
 
 $path = UW_PATH . SEP . 'xhtml';
