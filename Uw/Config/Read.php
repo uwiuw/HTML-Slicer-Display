@@ -29,6 +29,11 @@
  */
 class Uw_Config_Read {
 
+    /**
+     * Get value of firstime.ini
+     * @param string $filename
+     * @return mixed
+     */
     function getOutput($filename) {
         $stripClsName = rtrim(get_class(), strrchr(get_class(), '_'));
         $filename = getClassPath($stripClsName) . SEP . $filename;
@@ -45,6 +50,8 @@ class Uw_Config_Read {
             $data = trim($parts[1]);
             if ($data !== $temp = str_replace('[array]', '', $data)) {
                 $data = explode(',', $temp);
+            } elseif ($data !== $temp = str_replace('[serial]', '', $data)) {
+                $data = maybe_unserialize($temp);
             }
 
             $o += array($parts[0] => $data);

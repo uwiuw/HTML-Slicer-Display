@@ -104,3 +104,33 @@ function ajaxStr($x, $y) {
     return strtolower($x);
 
 }
+
+/**
+ * Get prev and next theme
+ * @param string $themename
+ * @param string $listofthemes
+ * @return string
+ * @todo pindahkan ke module terpisah
+ */
+function getNextPrevTheme($themename, array $themelist) {
+    if (false !== $pos = array_search($themename, $themelist)) {
+        if ($pos === 0) {
+            $previous = $themelist[count($themelist) - 1];
+            $next = $themelist[$pos + 1];
+        } elseif ($pos === count($themelist) - 1) {
+            $next = $themelist[0];
+            $previous = $themelist[$pos - 1];
+        } else {
+            if (count($themelist) > 2) {
+                $previous = $themelist[$pos - 1];
+                $next = $themelist[$pos + 1];
+            }
+        }
+
+        $o['prevFile'] = UW_U . '/' . $previous . '/';
+        $o['nextFile'] = UW_U . '/' . $next . '/';
+    }
+
+    return $o;
+
+}
