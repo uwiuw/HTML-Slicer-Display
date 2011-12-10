@@ -2,7 +2,17 @@
 
 class Uw_Module_Loader {
 
-    private $isVisibleNav = True;
+    /**
+     * Widgeting Resource HTML Template
+     * @var string
+     */
+    private $_froWidgetFile = 'Front_Sidebar.php';
+
+    /**
+     * Default navigating resource HTML Template
+     * @var string
+     */
+    private $_froNavFile = 'Front_Nav.php';
 
     /**
      * Object For rendering Front_Nav.php file in resources folder
@@ -16,74 +26,109 @@ class Uw_Module_Loader {
      */
     private $sidebar;
 
+    /**
+     * List of registered Sidebar
+     * @var array
+     */
+    private $sidebar_lists;
+
     function __construct(Uw_Module_Templaty $template,
         Uw_Widget_Sidebar $Uw_Sidebar = null
     ) {
         $this->template = $template;
         $this->sidebar = $Uw_Sidebar;
-
-    }
-
-    private function _load($themename, $filename, array $listofthemes) {
-        if (false !== $pos = array_search($themename, $listofthemes)) {
-            if ($pos === 0) {
-                $previous = $listofthemes[count($listofthemes) - 1];
-                $next = $listofthemes[$pos + 1];
-            } elseif ($pos === count($listofthemes) - 1) {
-                $next = $listofthemes[0];
-                $previous = $listofthemes[$pos - 1];
-            } else {
-                if (count($listofthemes) > 2) {
-                    $previous = $listofthemes[$pos - 1];
-                    $next = $listofthemes[$pos + 1];
-                }
-            }
-
-            $xhtmlUrl = UW_URL . '/xhtml/' . $themename . '/';
-            $filename = UW_PATH . SEP . 'xhtml' . SEP . $themename . SEP . $filename;
-            $prevFile = UW_U . '/' . $previous . '/';
-            $nextFile = UW_U . '/' . $next . '/';
-
-            $o = file_get_contents($filename);
-            $o = str_replace('</title>', '</title>' . '<base href="' . $xhtmlUrl . '" />', $o);
-
-            if ($this->isVisibleNav) {
-                $o = $this->_frontNav($o, $themename, $prevFile, $nextFile);
-            }
-        }
-        return $o;
-
-    }
-
-    private function _frontNav($defHTML, $themename, $prevFile, $nextFile) {
-        $sidebar = $this->sidebar->getWidgetBuffer();
-
-        if (empty($sidebar)) {
-            $args = array(
-                'UW_U' => UW_U,
-                'UW_URL' => UW_URL,
-                'cssClass' => 'navigation',
-                'prevFile' => UW_U . '/' . basename($prevFile),
-                'nextFile' => UW_U . '/' . basename($nextFile),
-                'navigation_left' => $sidebar['navigation_left'],
-                'navigation_right' => $sidebar['navigation_right']);
-            $nav = $this->template->model->getTemplate('Front_Nav.php', $args);
-        } else {
-            $args = array(
-                'UW_U' => UW_U,
-                'UW_URL' => UW_URL,
-                'cssClass' => 'navigation',
-                'navigation_left' => $sidebar['navigation_left'],
-                'navigation_right' => $sidebar['navigation_right'],
-            );
-            $nav = $this->template->model->getTemplate('Front_Sidebar.php', $args);
-        }
-        return str_replace('</body>', $nav . '</body>', $defHTML);
+        $this->sidebar_lists = $Uw_Sidebar->getListSidebar();
 
     }
 
     /**
-     * Wrapper for _load() private function
+     * Load
+     *
+     * If There no sidebar, will use default navigation menu
+     *
+     * @param string $themename theme name
+     * @param string $filename filename
+     * @param array $listofthemes list of themes
+     * @return html
+     */
+    private function _load($themename, $filename, array $listofthemes) {
+        $o = $this->_getCurPortoHmtl($themename, $filename);
+        $tNextPrev = getNextPrevTheme($themename, $listofthemes);
+        if ($sidebar = $this->sidebar->getWidgetBuffer()) {
+            $nav = $this->_getFrontWidget($sidebar);
+        } else {
+            $nav = $this->_frontNav($tNextPrev);
+        }
+
+        return str_replace('</body>', $nav . '</body>', $o);
+
+    }
+
+    /**
+     * Get current porto html
+     *
+     * @param string $theme
+     * @param string $file
+     * @return html
+     */
+    private function _getCurPortoHmtl($theme, $file) {
+        $xhtmlUrl = UW_URL . '/xhtml/' . $theme . '/';
+        $file = UW_PATH . SEP . 'xhtml' . SEP . $theme . SEP . $file;
+        $o = file_get_contents($file);
+        $o = str_replace('</title>', '</title>' . '<base href="' . $xhtmlUrl . '" />', $o);
+        return $o;
+
+    }
+
+    /**
+     * Default Front end navigation
+     *
+     * @param string $defHTML
+     * @param array $themename
+     * @param array $nextPrev
+     * @return html
+     */
+    private function _frontNav(array $nextPrev) {
+        if (!empty($nextPrev)) {
+            $args = array(
+                'UW_U' => UW_U,
+                'UW_URL' => UW_URL,
+                'cssClass' => 'navigation',
+                'prevFile' => UW_U . '/' . basename($nextPrev['prevFile']),
+                'nextFile' => UW_U . '/' . basename($nextPrev['nextFile'])
+            );
+            $o = $this->template->model->getTemplate($this->_froNavFile, $args);
+            return $o;
+        }
+
+    }
+
+    /**
+     * Get front widget
+     *
+     * @param array $sidebar
+     * @return type
+     */
+    private function _getFrontWidget(array $sidebar) {
+
+        $args = array(
+            'UW_U' => UW_U,
+            'UW_URL' => UW_URL,
+            'cssClass' => 'navigation');
+        if ($this->sidebar_lists) {
+            foreach ($this->sidebar_lists as $k => $v) {
+                $id = $v['id'];
+                $args[$id] = $sidebar[$id];
+            }
+        }
+
+        $o = $this->template->model->getTemplate($this->_froWidgetFile, $args);
+        return $o;
+
+    }
+
+    /**
+     * Print Html. Wrapper for _load() private function
      *
      * @param string $themename
      * @param string $filename
@@ -91,16 +136,6 @@ class Uw_Module_Loader {
      */
     public function show($themename, $filename, array $listofthemes) {
         echo $this->_load($themename, $filename, $listofthemes);
-
-    }
-
-    /**
-     * Set frontend navigation visibility
-     *
-     * @param bool $visibility
-     */
-    function setVisible($visibility = false) {
-        $this->isVisibleNav = empty($visibility) ? FALSE : TRUE;
 
     }
 
