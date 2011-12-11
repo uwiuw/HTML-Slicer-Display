@@ -9,7 +9,7 @@ class Uw_Widget_EmptyWidget extends WP_Widget {
     }
 
     function widget($args, $instance) {
-        echo "<div><!-- Uw_Widget_EmptyWidget -></div>";
+        echo "<div><!-- Uw_Widget_EmptyWidget --></div>";
 
     }
 

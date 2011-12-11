@@ -37,7 +37,7 @@ if (is_a($config, 'Uw_Config_Data')) {
     $tNextPrev = getNextPrevTheme($themename, $listofthemes);
     $tNextPrev['defaulttheme'] = $themename;
     $tNextPrev['UW_URL'] = UW_URL;
-    
+
     $Uw_Sidebar = new Uw_Widget_Sidebar($config, $tNextPrev);
     $Uw_Sidebar->init();
     $success = TRUE;

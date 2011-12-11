@@ -29,6 +29,7 @@
  */
 class Uw_Config_Data {
 
+    private $is_firsttime;
     private $defaulttheme;
     private $admin_menu;
     private $curPageSlug;
