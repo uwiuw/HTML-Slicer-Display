@@ -10,8 +10,17 @@ class Uw_Widget_NavLeft extends WP_Widget {
 
     function widget($args, $instance) {
         $prevFile = $this->dataForWidget['prevFile'];
+        $UW_URL = $this->dataForWidget['UW_URL'];
         ?>
-        <div class="Uw_Widget_NavLeft"><a href ="<?php echo $prevFile ?>">Prev</a></div>
+        <style type="text/css">
+            .prev a {
+                background: url(<?php echo $UW_URL ?>/assets/semlabs_arrow_left.png) no-repeat left top;
+                display: block; width: 40px; height: 40px;                
+            }
+        </style>
+        <div class="Uw_Widget_NavLeft">
+            <a class="prev" href ="<?php echo $prevFile ?>"></a>
+        </div>
         <?php
         echo $output;
 

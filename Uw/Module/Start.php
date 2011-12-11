@@ -14,10 +14,9 @@ class Uw_Module_Start {
      */
     private $filename = 'firsttime.ini';
 
-    public function init(Uw_Config_Data $config, Uw_Config_Read $reader, $opt,
-        $filename =''
+    public function init(
+    Uw_Config_Data $config, Uw_Config_Read $reader, $opt, $filename =''
     ) {
-
         if ($filename) {
             $this->filename = $filename;
         }
@@ -31,16 +30,19 @@ class Uw_Module_Start {
             if (TRUE === $this->_isNeedUpgrade($opt, $inInifile)) {
                 $opt = $reader->saveConfig($inInifile);
             }
+
+            $config->set('is_firsttime', FALSE);
         } else {
             //first time
             $this->_rebuildHtaccess();
             $opt = $reader->saveConfig($inInifile); //saving current config into option
+            $config->set('is_firsttime', TRUE);
         }
 
         if ($opt) {
             $config->sets($opt);
         }
- 
+
         return $config;
 
     }
@@ -53,8 +55,8 @@ class Uw_Module_Start {
 
     /**
      * Processnya bila pada data di db itu ternyata ada missingkey,lalu bila
-     * missing key itu ditemukan maka nilainya yg ada diconfig akan ditansfer ke 
-     * 
+     * missing key itu ditemukan maka nilainya yg ada diconfig akan ditansfer ke
+     *
      * @param array $inDb byreference. data yg ada di database
      * @param array $inIniFile by reference. config yg berada dalam file ini
      * @return bool
