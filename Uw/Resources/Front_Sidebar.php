@@ -29,10 +29,21 @@
     });
 </script>
 <style type="text/css">
-    h2,h3 {
+    h2,h3, form{
         font-size:14px;
     }
-    li, ul, h2 {
+
+    .label, font{
+        font-weight:100;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+        font-family: "proxima-nova-1", "proxima-nova-2", Tahoma, Helvetica, Verdana, sans-serif;
+        font-size: 14px;
+        color: #333;        
+    }
+    li, ul, h2,input, #searchform, .Uw_Widget_PortoSearch {
         padding:0;
         margin:0;
         list-style:none;
@@ -42,9 +53,21 @@
         padding:0 10px;
         margin:0 10px;
     }
-    .textwidget {
+    .textwidget,Uw_Widget_PortoSearch  {
         width:130px;
     }
+    #searchform {
+        margin-top:10px;
+        border:none;
+    }
+    .Uw_Widget_PortoSearch {
+        margin-top:5px;
+    }
+    #searchAgain {
+        height:10px;
+        width:100px;
+    }
+
 </style>
 <div class="<?php echo $cssClass ?>">
     <div class="prev" style="left:0">

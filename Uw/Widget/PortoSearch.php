@@ -12,24 +12,23 @@ class Uw_Widget_PortoSearch extends WP_Widget {
         ?>
         <div class="f_related_form">
             <?php
-            $form = '<form role="search" method="get" id="searchform" action="' . home_url('/') . '" >
-                        <fieldset>
-                        <label for="searchAgain">Search site</label>
-                        <div class="f_related_form_content">
-                        <span class="text">
-                        <input id="searchAgain" type="text"  value="' . get_search_query() . '" name="s"  />
-                        </span>
-                    <span class="submit">
-                    <input value="Go" type="submit" />
-                    </span>
-                    </div>
-                    </fieldset>
-                    </form>';
-
+            $theme_url = $this->dataForWidget['UW_URL'];
+            $homeurl = home_url();
+            $search_query = get_search_query();
+            $form = <<<HTML
+<form role="search" method="get" id="searchform" action="$homeurl/" >
+<label for="searchAgain" class="label">Search Portofolio</label>
+    <div class="Uw_Widget_PortoSearch">
+            <input id="searchAgain" type="text"  value="$search_query" name="s"  />
+            <input value="Go" type="submit" style="display:none"/>
+        </div>
+</form>
+HTML;
             echo $form;
             ?>
         </div><!-- /f_related_form -->
         <?php
+
     }
 
     function update($new_instance, $old_instance) {
@@ -39,4 +38,5 @@ class Uw_Widget_PortoSearch extends WP_Widget {
     function form($instance) {
         
     }
+
 }

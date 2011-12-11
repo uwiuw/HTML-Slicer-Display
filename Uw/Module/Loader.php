@@ -59,7 +59,7 @@ class Uw_Module_Loader {
         } else {
             $nav = $this->_frontNav($tNextPrev);
         }
-
+        //change title        
         return str_replace('</body>', $nav . '</body>', $o);
 
     }
