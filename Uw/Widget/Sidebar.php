@@ -44,7 +44,8 @@ class Uw_Widget_Sidebar {
     }
 
     /**
-     * Hook Public method to register theme widgets
+     * Hook Public method to register theme widgets. depenedcy $wp_widget_factory
+     * 
      */
     function regThemeWidget() {
         global $wp_widget_factory;
