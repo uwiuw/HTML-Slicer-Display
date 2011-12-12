@@ -7,7 +7,7 @@ define('UW_U', dirname(WP_CONTENT_URL));
 define('UW_URL', WP_CONTENT_URL . '/themes/' . UW_NAME);
 define('UW_PATH', TEMPLATEPATH);
 
-include_once(UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php');
+include_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
 
 /*
  * Main Logic

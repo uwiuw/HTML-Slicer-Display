@@ -28,18 +28,25 @@
  * @version    Release: @package_version@
  * @link       http://uwiuw.com/outerrim/
  * @since      3.0.3
- * @todo       hapus seluruh method class ini sehingga langsung memanggil class yg
- *             dibungkusnya
  */
-class Uw_Module_Templaty {
+class Uw_Module_Templaty
+{
 
+    /**
+     * Templating handler
+     * @var Atrim_Core_Model_Resource_Template_AtTemplate
+     */
     public $model;
 
-    function __construct($html = '') {
-        if (is_object($html)) {
-            $this->model = $html;
+    /**
+     * Constractor
+     * @param object $templateObj the instance of template onject
+     */
+    function __construct($templateObj = '') {
+        if (is_object($templateObj)) {
+            $this->model = $templateObj;
         } else {
-            include_once( UW_PATH . SEP . 'Uw' . SEP . '3Party' . SEP . 'atTemplate.php');
+            include_once UW_PATH . SEP . 'Uw' . SEP . '3Party' . SEP . 'atTemplate.php';
             $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
             $this->model->reConstruct(
                 array(
@@ -51,16 +58,27 @@ class Uw_Module_Templaty {
 
     }
 
-    function __call($name, $arguments) {
-        return call_user_func_array(array($this->model, $name), $arguments);
+    /**
+     * Call magic function
+     *
+     * Method have dependency into
+     *
+     * @param array $name missing method name
+     * @param array $args arguments
+     * @return mixed
+     */
+    function __call($name, $args) {
+        return call_user_func_array(array($this->model, $name), $args);
 
     }
 
     /**
-     * Get ajax button hidden form
-     * @param array $args
-     * @return string
-     * @todo buat form ini memiliki template resoucesnya sendiri
+     * Get html of ajaxed form
+     *
+     * @param array $args various argument for creating button
+     * @return html
+     * @todo buat form ini memiliki template resoucesnya sendiri. atau buat helper
+     * bagi pembuatan form seperti ci lakukan
      */
     function getButton(array $args) {
         $themeName = UW_NAME;
@@ -97,14 +115,22 @@ HTML;
 
     }
 
-    function getButtonAjax($button_id, $form_id, $result)
+    /**
+     * Get html ajax button
+     *
+     * @param string $button_id the link id name
+     * @param string $form_id   the form id name
+     * @param string $result    the class name of ajax respond container
+     * @return html
+     */
+    function getButtonAjax($button_id, $form_id, $output = 'ajax_reponse_output')
     {
         $button = <<<HTML
     jQuery('#$button_id').click(function()
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
             if (data) {
-                jQuery('.ajax_reponse_output').html(data);
+                jQuery('.$output').html(data);
             }
 //        alert(data);
 //        jQuery.print(data);
