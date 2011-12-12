@@ -9,7 +9,7 @@
     .<?php echo $cssClass ?> .next {float: right; margin: 100px 0 0; height: 40px; clear: none;text-align: right }
 </style>
 <script>
-    // once the dom is loaded
+    // once the bloody dom is loaded
     jQuery(document).ready(function(){
         if ( jQuery(".<?php echo $cssClass ?>").length ) {
             jQuery(".<?php echo $cssClass ?>.bottom").remove();

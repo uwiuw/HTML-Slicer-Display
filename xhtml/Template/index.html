@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>HtmlSlicerDisplay Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;HTMLSlicerDisplay&rdquo; Documentation by &ldquo;Uwiuw&rdquo; v1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;HTML Slicer Display&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 12/12/2011<br>
+					By: Aulia Ashari(uwiuw)<br>
+					Email: <a href="mailto:youremail@yourdomain.com">uwiuw.inlove@gmail.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/user/uwiuw">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#cssFiles">CSS Files and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+			<li><a href="#psdFiles">PSD Files</a></li>
+			<li><a href="#credits">Sources and Credits</a></li>
+			
+			<li><a href="#">PHP Code Explanation</a> <em class="quiet small">(If your theme uses PHP)</em></li>
+			<li><a href="#">Flash</a>  <em class="quiet small">(If your theme uses Flash)</em></li>
+			<li><a href="#">API Usage</a> <em class="quiet small">(If your theme uses an API)</em></li>
+			<li><a href="#">Any additional unique features that need an overview</a></li>
+		</ol>
+		
+		<hr>
+		
+		<h3 id="htmlStructure"><strong>A) HTML Structure</strong> - <a href="#toc">top</a></h3>
+		<p>This theme has no HTML structure. It has no layout. All layout based on your own uploaded html. But there's html sample you can play around. You can found them at xhtml/profile. This theme has my face on it. Change it.</p>
+		 		 
+
+		<h3 id="cssFiles"><strong>B) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>These theme has no default css. All esthetic based on your theme. And eventually, based on your skill with css and html</p> 
+ 
+		<hr>
+		
+		<h3 id="javascript"><strong>C) JavaScript</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This theme imports three Javascript files.</p>
+		
+		<ol>
+			<li>jQuery</li>
+			<li>My custom scripts</li>
+		</ol>
+		  
+		<ol>
+			<li>jQuery is a Javascript library that greatly reduces the amount of code that you must write.</li>
+			<li>Most of the animation in this site is carried out from the customs scripts. There are a few functions worth looking over.
+<pre>	
+	// once the bloody dom is loaded the navigation arrow will have absolute positioning
+    jQuery(document).ready(function(){
+        if ( jQuery(".<?php echo $cssClass ?>").length ) {
+            jQuery(".<?php echo $cssClass ?>.bottom").remove();
+            var navi = jQuery(".<?php echo $cssClass ?>"),
+            scrollTop = jQuery(window).scrollTop(),
+            lowerBound = navi.parent().height() - 108;
+            jQuery(window).scroll(function(){
+                scrollTop = jQuery(window).scrollTop();
+                lowerBound = navi.parent().height() - 108;
+                if ( parseInt(navi.css("top")) <= lowerBound && scrollTop <= lowerBound ) {
+                    navi.stop().animate({ top: scrollTop },300);
+                } else {
+                    navi.stop().animate({ top: lowerBound },300);
+                }
+            });
+        }
+    });
+</pre>
+			 
+		</ol>
+		
+		<hr>
+		
+		<h3 id="psdFiles"><strong>D) PSD Files</strong> - <a href="#toc">top</a></h3>
+		
+		<p>There is no PSD file</p>
+		
+		<h3 id="credits"><strong>E) Sources and Credits</strong> - <a href="#toc">top</a></h3> 
+		<p>I've used the following images, icons or other files as listed.
+		<ul>
+			<li>semlabs_terminal.png from semlabs.co.uk</li>
+			<li>semlabs_arrow_left.png from semlabs.co.uk</li>
+			<li>semlabs_arrow_right.png from semlabs.co.uk</li>
+			<li>semlabs_arrow_circle_down.png from semlabs.co.uk</li>
+			<li>Colourise from Erwin Aligam</li>
+			<li>Fresh Pick from Erwin Aligam</li>
+			<li>Keep it simple from Erwin Aligam</li>
+		</ul>
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Aulia Ashari(Uwiuw)</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
