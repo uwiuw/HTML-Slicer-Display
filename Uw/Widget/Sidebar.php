@@ -57,7 +57,7 @@ class Uw_Widget_Sidebar {
                 $id = $v['id'];
                 $widget_id = $this->config->get($id);
                 foreach ($array_key as $akk => $akv) {
-                    if (FALSE !== strripos($akv, $widget_id)) {
+                    if (false !== strripos($akv, $widget_id)) {
                         $temp[$id] = array($akv);
                         break;
                     }

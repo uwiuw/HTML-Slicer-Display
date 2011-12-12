@@ -33,7 +33,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
         $action = $_POST['HtmlSlicerDisplay'];
         $ajaxResponse = 'Process is failing for unknown reason';
 
-        if (FALSE !== $this->_getThisAjaxAction($action, 'edit_portofolio')) {
+        if (false !== $this->_getThisAjaxAction($action, 'edit_portofolio')) {
             //@todo buat quickedit menu bagi form portofolio
             $ajaxResponse = 'Portofolio on editing mode';
             $portoname = $_POST['action'];
@@ -57,7 +57,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract {
             <?php die() ?>
             </script>
             <?php
-        } elseif (FALSE !== $themeName = $this->_getThisAjaxAction($action, 'del_portofolio')) {
+        } elseif (false !== $themeName = $this->_getThisAjaxAction($action, 'del_portofolio')) {
             $ajaxResponse = $themeName . ' delete permanently';
         }
 

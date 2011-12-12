@@ -48,12 +48,12 @@ class Uw_Module_HtmlFileList {
 
         // Loop while the read method goes through each and
         // every file
-        while ((FALSE !== ($dirname = $directory->read())))
+        while ((false !== ($dirname = $directory->read())))
         {
             // If an item is not "." and "..", then something
             // exists in the directory and it is not empty
             if (is_dir($this->path . SEP . $dirname) && $dirname != '.' && $dirname != '..') {
-                $isDirNotEmpty = TRUE;
+                $isDirNotEmpty = true;
                 $listFile[$dirname] = $this->_checkInsideDir($dirname);
             }
         }

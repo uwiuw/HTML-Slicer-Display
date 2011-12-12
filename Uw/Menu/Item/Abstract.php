@@ -25,7 +25,7 @@ abstract class Uw_Menu_Item_Abstract {
 
     final function __construct(
     Uw_Config_Data $data, Uw_Module_Templaty $html,
-        Uw_Menu_Ajax_Abstract $ajax = NULL
+        Uw_Menu_Ajax_Abstract $ajax = null
     ) {
         $this->config = &$data;
         $this->html = $html;

@@ -76,15 +76,16 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
     /**
      * Constractor
      *
-     * @param Atrim_Core_Model_Library_Request_GRequestBox $gRequestBox handler consist of path
+     * @param Atrim_Core_Model_Library_Request_GRequestBox $box handler
+     *
+     * @return void     *
      */
-    function __construct(Atrim_Core_Model_Library_Request_GRequestBox $gRequestBox = NULL)
+    function __construct(Atrim_Core_Model_Library_Request_GRequestBox $box = null)
     {
-        if ($gRequestBox) {
-            //$filterMethod
-            $this->gFilter = $gRequestBox->gFilter;
-            $this->_resourcePath = $gRequestBox->_PATHGFRRESOURCEDIR . SEP . 'Template';
-            $this->_PATHGFRHOME = $gRequestBox->_PATHGFRHOME;
+        if ($box) {
+            $this->gFilter = $box->gFilter; //$filterMethod
+            $this->_resourcePath = $box->_PATHGFRRESOURCEDIR . SEP . 'Template';
+            $this->_PATHGFRHOME = $box->_PATHGFRHOME;
         }
 
     }
@@ -93,8 +94,11 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
      * Reconstrcut class properties
      *
      * @param array $args class argument
+     *
+     * @return void
      */
-    function reConstruct(array $args) {
+    function reConstruct(array $args)
+    {
         extract($args);
 
         $this->gFilter = $filterObj;
@@ -108,7 +112,8 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
      * Get template
      *
      * @param string $fileName      filename
-     * @param array  $args          will extracted variable needed by templating process
+     * @param array  $args          will extracted variable needed
+     *                              by templating process
      * @param array  $defaultFilter list methodname of $gFilter object
      *
      * @return HTML
@@ -183,7 +188,8 @@ class Atrim_Core_Model_Resource_Template_AtTemplate
     /**
      * Return missing file error msg
      *
-     * @param string $filepath the path of missing file. consist complete location of filename
+     * @param string $filepath the path of missing file.
+     *                         consist complete location of filename
      *
      * @return void
      */
