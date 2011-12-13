@@ -32,8 +32,8 @@
 class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
 {
 
-    protected $config;
-    protected $itemArgs = array(
+    protected $_config;
+    protected $_itemArgs = array(
         'fix_htaccess' => array(
             'Name' => 'fix_htaccess',
             'Title' => 'Fixing htaccess',

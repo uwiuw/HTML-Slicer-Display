@@ -1,5 +1,20 @@
-<!-- This code is not part of the -->
-<script type='text/javascript' src='<?php echo UW_U ?>/wp-includes/js/jquery/jquery.js'></script>
+<?php
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * Default front nav when there's docked widget in sidebar
+ *
+ * @category  Uw
+ * @package   Resources
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+?><script type='text/javascript' src='<?php echo UW_U ?>/wp-includes/js/jquery/jquery.js'></script>
 <style type="text/css">
     .<?php echo $cssClass ?> {width: 98%; height: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0;background-color:#fff }
     .<?php echo $cssClass ?> .bottom { top: 100%; margin-top: -108px; clear: both; }

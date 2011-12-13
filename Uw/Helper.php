@@ -78,8 +78,7 @@ function file_exists2($abdfile)
         }
 
         $directory = dir($path);
-        while ((false !== ($fl = $directory->read())))
-        {
+        while ((false !== ($fl = $directory->read()))) {
             if (!is_dir($path . SEP . $fl)
                 && $fl != '.'
                 && $fl != '..'
@@ -200,7 +199,7 @@ function getNextPrevTheme($themename, array $themelist)
  *
  * @param Uw_Config_Data $config object handler
  *
- * @return type
+ * @return array
  */
 function buildDataForTemplate(Uw_Config_Data $config)
 {

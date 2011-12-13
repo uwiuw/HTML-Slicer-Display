@@ -31,8 +31,8 @@
 class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
 {
 
-    protected $config;
-    protected $itemArgs = array(
+    protected $_config;
+    protected $_itemArgs = array(
         'del_portofolio' => array(
             'Name' => 'del_portofolio',
             'Title' => 'Delete',

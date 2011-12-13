@@ -33,7 +33,7 @@ abstract class Uw_Menu_Ajax_Abstract
 {
 
     protected $html;
-    protected $config;
+    protected $_config;
     private $action;
 
     /**
@@ -52,11 +52,11 @@ abstract class Uw_Menu_Ajax_Abstract
      */
     final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html)
     {
-        if (empty($this->itemArgs)) {
+        if (empty($this->_itemArgs)) {
             throw new Uw_Exception('E123 : Item arguments is empty');
         }
         $this->html = $html;
-        $this->config = &$data;
+        $this->_config = &$data;
         $this->action = $_POST['action'];
 
     }
@@ -68,8 +68,8 @@ abstract class Uw_Menu_Ajax_Abstract
      */
     public function inject()
     {
-        if ($this->itemArgs) {
-            foreach ($this->itemArgs as $k => $v) {
+        if ($this->_itemArgs) {
+            foreach ($this->_itemArgs as $k => $v) {
                 $o .= $this->html->getButtonAjax(
                     $v['button_id'], $v['form_id'], $v['button_id_output']
                 );
@@ -87,7 +87,7 @@ abstract class Uw_Menu_Ajax_Abstract
      */
     final function getButtons()
     {
-        return $this->itemArgs;
+        return $this->_itemArgs;
 
     }
 
@@ -100,7 +100,7 @@ abstract class Uw_Menu_Ajax_Abstract
      */
     public function setButtonArgs(array $newItemArgs)
     {
-        $this->itemArgs = $newItemArgs;
+        $this->_itemArgs = $newItemArgs;
 
     }
 

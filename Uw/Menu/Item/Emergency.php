@@ -87,9 +87,16 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                 'screenshot' => $Icon,
                 'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
             $Img = $this->html->getTemplate('Img.php', $args);
-            $content = $this->html->getTemplate('Emergency_Content.php', array(
-                'Description' => $Description,
-                'Button' => $this->html->getButton(array(
+            $content = $this->html->getTemplate('Emergency_Content.php', array('Description' => $Description ));
+
+            $args = array(
+                'tbody_class' => getCls($active),
+                'th_class' => getCls('check-column'),
+                'td_class' => getCls('plugin-title'),
+                'disabled' => $disabled,
+                'Name' => $Name,
+                'Img' => $Img,
+				'Button' => $this->html->getButton(array(
                     'name' => $Name,
                     'id' => $Name,
                     'button_id' => $button_id,
@@ -101,15 +108,6 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                     'submit_title' => $Title,
                     'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false))
                 ),
-                ));
-
-            $args = array(
-                'tbody_class' => getCls($active),
-                'th_class' => getCls('check-column'),
-                'td_class' => getCls('plugin-title'),
-                'disabled' => $disabled,
-                'Name' => $Name,
-                'Img' => $Img,
                 'content' => $content);
             $output .= $this->html->getTemplate('Slicer_TD.php', $args);
         }

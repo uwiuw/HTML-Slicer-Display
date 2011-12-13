@@ -109,7 +109,7 @@ class Uw_System_Starter
      * parameter. If a missing key found, the value will transfer to $inDb and it
      * will override $inIniFile as by reference param
      *
-     * @param array $inDb       data yg ada di database
+     * @param array $inDb       saved database data
      * @param array &$inIniFile by reference. config yg berada dalam file ini
      *
      * @return bool
