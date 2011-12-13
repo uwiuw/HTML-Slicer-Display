@@ -31,6 +31,8 @@
 class Uw_Widget_NavRight extends WP_Widget
 {
 
+    private $_icon = 'semlabs_arrow_right.png';
+
     /**
      * Constractor
      *
@@ -40,7 +42,9 @@ class Uw_Widget_NavRight extends WP_Widget
      */
     function __construct()
     {
-        $widget_ops = array('description' => __("Help visitor navigate your next portofolio"));
+        $widget_ops = array(
+            'description' => __("Help visitor navigate your next portofolio")
+        );
         parent::__construct('navright', __('Next Portofolio'), $widget_ops);
 
     }
@@ -55,12 +59,13 @@ class Uw_Widget_NavRight extends WP_Widget
      */
     function widget($args, $instance)
     {
-        $nextFile = $this->dataForWidget['nextFile'];
-        $UW_URL = $this->dataForWidget['UW_URL'];
+        $nextFile = $this->_dataWidget['nextFile'];
+        $iconURL = $this->_dataWidget['UW_URL'] . '/assets/' . $this->_icon;
+
         ?>
         <style type="text/css">
             .next a {
-                background: url(<?php echo $UW_URL ?>/assets/semlabs_arrow_right.png) no-repeat  right top;
+                background: url(<?php echo $iconURL ?>) no-repeat  right top;
                 display: block; width: 40px; height: 40px;
             }
         </style>

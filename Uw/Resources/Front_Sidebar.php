@@ -1,5 +1,20 @@
-<!-- This code is not part og the the -->
-<script type='text/javascript' src='<?php echo $UW_U ?>/wp-includes/js/jquery/jquery.js'></script>
+<?php
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * Template for default sidebar
+ *
+ * @category  Uw
+ * @package   Resources
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+?><script type='text/javascript' src='<?php echo $UW_U ?>/wp-includes/js/jquery/jquery.js'></script>
 <style type="text/css">
     .<?php echo $cssClass ?> {
         width:100%;height: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0;
@@ -41,7 +56,7 @@
         vertical-align: baseline;
         font-family: "proxima-nova-1", "proxima-nova-2", Tahoma, Helvetica, Verdana, sans-serif;
         font-size: 14px;
-        color: #333;        
+        color: #333;
     }
     li, ul, h2,input, #searchform, .Uw_Widget_PortoSearch {
         padding:0;

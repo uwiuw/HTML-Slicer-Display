@@ -46,15 +46,14 @@ class Uw_Module_UploadUpgrader
     /**
      * Do upload process
      *
-     * @param string $urlholder string of url data
-     * @param array  $updir     data of upload folder
+     * @param array $updir data of upload folder
      *
      * @return string
      */
     function doUpload($updir = '')
     {
         if (!current_user_can('install_themes')) {
-            wp_die(__('You do not have sufficient permissions to install themes for this site.'));
+            wp_die(__('You do not have sufficient permissions to install themes'));
         }
         check_admin_referer($this->_nonceID);
         if (!class_exists('File_Upload_Upgrader', false)) {
@@ -117,16 +116,32 @@ class Uw_Module_UploadUpgrader
 
     }
 
+    /**
+     * Create HTML for upload button
+     *
+     * @param string $text button title
+     * @param string $type button type
+     * @param string $name button name
+     * @param string $wrap butto wrapping for title
+     *
+     * @return html     *
+     * @todo perbaiki bagian ini karena paramnya tidak nyambung dengan logika di
+     *       dalamnya
+     */
     private function _submitButton($text, $type, $name, $wrap)
     {
         if (!function_exists('get_submit_button')) {
             include_once ABSPATH . 'wp-admin/includes/template.php';
         }
 
-        return get_submit_button('Install Now', 'button', 'install-theme-submit', false);
-
+        return get_submit_button($text, $type, $name, $wrap);
     }
 
+    /**
+     * Create upload form
+     *
+     * @return html
+     */
     function createUploadForm()
     {
         $actionUrl = menu_page_url('upload', false) . '&action=' . $this->_action;

@@ -140,7 +140,7 @@ class Uw_Widget_Sidebar
         if ($this->_widgets) {
             foreach ($this->_widgets as $k => $v) {
                 register_widget($v);
-                $wp_widget_factory->_widgets[$v]->_dataWidget = $this->_dataWidget;
+                $wp_widget_factory->widgets[$v]->_dataWidget = $this->_dataWidget;
             }
         }
 

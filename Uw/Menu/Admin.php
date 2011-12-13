@@ -32,15 +32,15 @@
 class Uw_Menu_Admin
 {
 
-    private $menuItemCls = 'Uw_Menu_Item_';
-    private $menuAjaxCls = 'Uw_Menu_Ajax_';
-    private $config;
+    private $_menuItemCls = 'Uw_Menu_Item_';
+    private $_menuAjaxCls = 'Uw_Menu_Ajax_';
+    private $_config;
     private $html;
-    private $creator;
-    private $navigation;
-    private $curPageSlug;
-    private $curPageFile;
-    private $curPageAjCls;
+    private $_creator;
+    private $_navigation;
+    private $_curPageSlug;
+    private $_curPageFile;
+    private $_curPageAjCls;
 
     /**
      * Constractor
@@ -54,12 +54,12 @@ class Uw_Menu_Admin
     function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
         Uw_Menu_Creator $creator
     ) {
-        $this->config = & $data;
+        $this->_config = & $data;
         $this->html = & $html;
-        $this->creator = & $creator;
-        $this->curPageSlug = $this->config->get('curPageSlug');
-        $this->curPageFile = $this->config->get('curPageFile');
-        $this->navigation = $this->config->get('admin_menu_lists');
+        $this->_creator = & $creator;
+        $this->_curPageSlug = $this->_config->get('_curPageSlug');
+        $this->_curPageFile = $this->_config->get('_curPageFile');
+        $this->_navigation = $this->_config->get('admin_menu_lists');
 
     }
 
@@ -73,8 +73,8 @@ class Uw_Menu_Admin
         if (defined('DOING_AJAX')) {
             $this->_preDoAjaxAction();
         } else {
-            if (false !== $clsname = $this->_initClass($this->curPageFile)) {
-                $this->curPageAjCls = $clsname;
+            if (false !== $clsname = $this->_initClass($this->_curPageFile)) {
+                $this->_curPageAjCls = $clsname;
             }
             /*
              * Register theme menu into backend
@@ -92,12 +92,12 @@ class Uw_Menu_Admin
      */
     public function regItemMenu()
     {
-        if ($this->navigation) {
+        if ($this->_navigation) {
             $number = 4;
             add_menu_page(
                 'Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number
             );
-            foreach ($this->navigation as $k => $v) {
+            foreach ($this->_navigation as $k => $v) {
                 $name = ucfirst($v);
                 add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItemMenu'), '', $number++);
             }
@@ -114,12 +114,15 @@ class Uw_Menu_Admin
      */
     public function loadItemMenu()
     {
-        $clsname = $this->menuItemCls . $this->curPageFile;
-        $clsname = new $clsname($this->config, $this->html, $this->curPageAjCls);
-        $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
+        $clsname = $this->_menuItemCls . $this->_curPageFile;
+
+        $clsname = new $clsname($this->_config, $this->html, $this->_curPageAjCls);
+        $clsname->setNav(
+            $this->_curPageSlug, $this->_curPageFile, $this->_navigation
+        );
         $clsname->selfRender();
 
-        $this->creator->buildForm($clsname);
+        $this->_creator->buildForm($clsname);
 
     }
 
@@ -135,8 +138,8 @@ class Uw_Menu_Admin
         $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP;
         $fl .=$checkMe . '.php';
         if (file_exists2($fl)) {
-            $clsname = $this->menuAjaxCls . $checkMe;
-            return new $clsname($this->config, $this->html);
+            $clsname = $this->_menuAjaxCls . $checkMe;
+            return new $clsname($this->_config, $this->html);
         }
         return false;
 
@@ -156,8 +159,8 @@ class Uw_Menu_Admin
             if ($url['query']) {
                 parse_str($url['query'], $url);
                 if ($url['page'] != '') {
-                    $this->curPageFile = ucfirst($url['page']);
-                    $clsname = $this->_initClass($this->curPageFile);
+                    $this->_curPageFile = ucfirst($url['page']);
+                    $clsname = $this->_initClass($this->_curPageFile);
                     if (false !== $clsname
                         && is_object($clsname)
                     ) {

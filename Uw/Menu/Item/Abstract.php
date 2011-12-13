@@ -32,14 +32,14 @@
 abstract class Uw_Menu_Item_Abstract
 {
 
-    public $title = 'No Title';
-    public $title_before = '<h2>';
-    public $title_after = '</h2>';
+    protected $_title = 'No Title';
+    protected $_titlebefore = '<h2>';
+    protected $_titleafter = '</h2>';
     public $decription = 'No Description';
     public $content = '';
-    public $navigation;
-    public $curPageSlug;
-    public $curPageFile;
+    protected $_navigation;
+    protected $_curPageSlug;
+    protected $_curPageFile;
 
     /**
      * HTML creator module
@@ -47,7 +47,7 @@ abstract class Uw_Menu_Item_Abstract
      */
     protected $html;
     protected $ajax;
-    protected $config;
+    protected $_config;
 
     /**
      * Inititate the process of rendenring page and set the value of $content
@@ -56,6 +56,11 @@ abstract class Uw_Menu_Item_Abstract
      */
     abstract public function selfRender();
 
+    /**
+     * get content
+     *
+     * @return html
+     */
     abstract protected function _getContent();
 
     /**
@@ -70,7 +75,7 @@ abstract class Uw_Menu_Item_Abstract
     final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
         Uw_Menu_Ajax_Abstract $ajax = null
     ) {
-        $this->config = &$data;
+        $this->_config = &$data;
         $this->html = $html;
         if ($ajax instanceof Uw_Menu_Ajax_Abstract) {
             $this->ajax = $ajax;
@@ -93,9 +98,9 @@ abstract class Uw_Menu_Item_Abstract
      */
     public function setNav($curPageSlug, $curPageFile, array $navs)
     {
-        $this->curPageSlug = $curPageSlug;
-        $this->curPageFile = $curPageFile;
-        $this->navigation = $navs;
+        $this->_curPageSlug = $curPageSlug;
+        $this->_curPageFile = $curPageFile;
+        $this->_navigation = $navs;
 
     }
 
@@ -107,8 +112,8 @@ abstract class Uw_Menu_Item_Abstract
      */
     public function createTabNav()
     {
-        foreach ($this->navigation as $k => $v) {
-            if ($this->curPageSlug === $v) {
+        foreach ($this->_navigation as $k => $v) {
+            if ($this->_curPageSlug === $v) {
                 $class = 'nav-tab nav-tab-active';
             } else {
                 $class = 'nav-tab';

@@ -30,12 +30,12 @@
 class Uw_Config_Data
 {
 
-    private $is_firsttime;
-    private $defaulttheme;
-    private $admin_menu;
-    private $curPageSlug;
-    private $curPageFile;
-    private $admin_menu_lists;
+    private $_isFirsttime;
+    private $_deftheme;
+    private $_adminmenu;
+    private $_curPageSlug;
+    private $_curPageFile;
+    private $_adminmenulists;
 
     /**
      * Constractor
@@ -44,8 +44,8 @@ class Uw_Config_Data
      */
     function __construct()
     {
-        $this->curPageSlug = trim($_GET['page']);
-        $this->curPageFile = ucfirst($_GET['page']);
+        $this->_curPageSlug = trim($_GET['page']);
+        $this->_curPageFile = ucfirst($_GET['page']);
 
     }
 
