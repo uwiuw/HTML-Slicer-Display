@@ -64,7 +64,7 @@ class Uw_Menu_Admin
     }
 
     /**
-     * Initiation
+     * Initiator
      *
      * @return void
      */
@@ -117,7 +117,7 @@ class Uw_Menu_Admin
         $clsname = $this->menuItemCls . $this->curPageFile;
         $clsname = new $clsname($this->config, $this->html, $this->curPageAjCls);
         $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
-        $clsname->init();
+        $clsname->selfRender();
 
         $this->creator->buildForm($clsname);
 

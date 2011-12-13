@@ -1,14 +1,60 @@
 <?php
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Widget
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
 
-class Uw_Widget_PortoSearch extends WP_Widget {
+/**
+ * Uw_Widget_PortoSearch
+ *
+ * Widget for searching portofolio
+ *
+ * @category   Uw
+ * @package    Uw_Widget
+ * @subpackage Uw_Widget_PortoSearch
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Widget_PortoSearch extends WP_Widget
+{
 
-    function __construct() {
+    /**
+     * Constractor
+     *
+     * Method will static call the parent constractor
+     *
+     * @return void
+     */
+    function __construct()
+    {
         $widget_ops = array('description' => __("Custom Portofolio Search"));
         parent::__construct('search', __('Search Portofolio'), $widget_ops);
 
     }
 
-    function widget($args, $instance) {
+    /**
+     * Widget
+     *
+     * @param type $args     handler
+     * @param type $instance handler
+     *
+     * @return void
+     */
+    function widget($args, $instance)
+    {
         ?>
         <div class="f_related_form">
             <?php
@@ -31,12 +77,29 @@ HTML;
 
     }
 
-    function update($new_instance, $old_instance) {
-        
+    /**
+     * Update
+     *
+     * @param object $new_instance handler
+     * @param object $old_instance handler
+     *
+     * @return void
+     */
+    function update($new_instance, $old_instance)
+    {
+
     }
 
-    function form($instance) {
-        
+    /**
+     * Form
+     *
+     * @param object $instance handler
+     *
+     * @return void
+     */
+    function form($instance)
+    {
+
     }
 
 }

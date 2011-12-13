@@ -49,7 +49,12 @@ abstract class Uw_Menu_Item_Abstract
     protected $ajax;
     protected $config;
 
-    abstract protected function init();
+    /**
+     * Inititate the process of rendenring page and set the value of $content
+     *
+     * @return void
+     */
+    abstract public function selfRender();
 
     abstract protected function _getContent();
 

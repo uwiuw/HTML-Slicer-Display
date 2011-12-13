@@ -1,11 +1,48 @@
 <?php
 
-class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+
+/**
+ * Uw_Menu_Item_Slicer
+ *
+ * Slicer menu page data for rendering
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Item
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ * @todo       perbaiki lokasi tombol ajax ada bagian frontendnya.
+ */
+class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
+{
 
     public $title = 'Emergency';
     public $description = 'Various emergency mechanism';
 
-    function init() {
+    /**
+     * Inititate the process of rendenring page and set the value of $content
+     *
+     * @return void
+     */
+    function selfRender()
+    {
         $path = UW_PATH . SEP . 'xhtml';
         try
         {
@@ -32,7 +69,8 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
      *
      * @return string
      */
-    protected function _getContent() {
+    protected function _getContent()
+    {
         $o = $this->buttons;
         if (empty($o)) {
             throw new Uw_Exception('EM997 : Emergency button is empty');
@@ -47,7 +85,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
             extract($item);
             $args = array(
                 'screenshot' => $Icon,
-                'imgcls' => 'width="64" height="64" style="float:left; padding: 5px"');
+                'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
             $Img = $this->html->getTemplate('Img.php', $args);
             $content = $this->html->getTemplate('Emergency_Content.php', array(
                 'Description' => $Description,
@@ -61,7 +99,8 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract {
                     'action' => admin_url('admin-ajax.php', false),
                     'action_value' => $item['Name'],
                     'submit_title' => $Title,
-                    'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false))),
+                    'nonce_field' => wp_nonce_field($Ajax, "_wpnonce", true, false))
+                ),
                 ));
 
             $args = array(

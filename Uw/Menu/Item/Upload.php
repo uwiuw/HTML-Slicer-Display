@@ -36,11 +36,11 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract
     public $description = 'Upload new portfolio';
 
     /**
-     * Initiator
+     * Inititate the process of rendenring page and set the value of $content
      *
      * @return void
      */
-    function init()
+    function selfRender()
     {
         $file_upload = new Uw_Module_UploadUpgrader();
         if ($_GET['action'] === $file_upload->getAction()) {
@@ -48,9 +48,16 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract
         } else {
             $this->content = $file_upload->createUploadForm();
         }
+
     }
 
-    protected function _getContent() {
+    /**
+     * Get Content
+     *
+     * @return void
+     */
+    protected function _getContent()
+    {
 
     }
 
