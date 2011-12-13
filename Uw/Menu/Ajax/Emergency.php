@@ -49,7 +49,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
             'Title' => 'Rebuild Config',
             'Description' => 'Rebuild config. Sometimes needed to refresh config',
             'Ajax' => 'rebuild_config',
-            'Icon' => 'semlabs_arrow_circle_right.png',
+            'Icon' => 'semlabs_arrow_circle_down.png',
             'form_id' => 'rebuild_config',
             'button_id' => 'rebuild_config_url',
             'button_id_output' => 'rebuild_config_output'

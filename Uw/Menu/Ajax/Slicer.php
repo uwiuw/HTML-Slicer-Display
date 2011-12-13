@@ -38,7 +38,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
             'Title' => 'Delete',
             'Description' => '',
             'Ajax' => 'del_portofolio',
-            'Icon' => 'semlabs_arrow_circle_right.png',
+            'Icon' => 'semlabs_arrow_circle_down.png',
             'form_id' => 'del_portofolio',
             'button_id' => 'del_portofolio_url',
             'button_id_output' => 'del_portofolio_output'

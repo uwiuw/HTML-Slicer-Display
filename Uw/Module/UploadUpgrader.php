@@ -32,30 +32,54 @@
 class Uw_Module_UploadUpgrader
 {
 
+    private $_action = 'upload-theme';
+
+    /**
+     * Form Upload ID
+     * @var string
+     */
+    private $_frmUpID = 'themezip';
+    private $_nonceID = 'theme-upload';
     var $package;
     var $filename;
 
     /**
-     * Constractor
+     * Do upload process
      *
-     * @param string $form_id   form id
      * @param string $urlholder string of url data
-     * @param array  $updir   data of upload folder
+     * @param array  $updir     data of upload folder
      *
-     * @return void
+     * @return string
      */
-    function __construct($form_id, $urlholder, $updir)
+    function doUpload($updir = '')
     {
+        if (!current_user_can('install_themes')) {
+            wp_die(__('You do not have sufficient permissions to install themes for this site.'));
+        }
+        check_admin_referer($this->_nonceID);
+        if (!class_exists('File_Upload_Upgrader', false)) {
+            include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        }
+
+        $uploads = array(
+            'path' => UW_PATH . SEP . 'xhtml',
+            'url' => UW_URL . '/xhtml',
+            'subdir' => '/xhtml',
+            'basedir' => UW_PATH . SEP . 'xhtml',
+            'baseurl' => UW_URL . '/xhtml',
+            'error' => '',
+        );
+
         if (empty($updir)) {
             $updir = wp_upload_dir();
         }
 
-        if (empty($_FILES[$form_id]['name']) && empty($_GET[$urlholder])) {
+        if (empty($_FILES[$this->_frmUpID]['name']) && empty($_GET[$urlholder])) {
             wp_die(__('Please select a file'));
         }
 
         if (!empty($_FILES)) {
-            $this->filename = $_FILES[$form_id]['name'];
+            $this->filename = $_FILES[$this->_frmUpID]['name'];
         } else if (isset($_GET[$urlholder])) {
             $this->filename = $_GET[$urlholder];
         }
@@ -66,12 +90,63 @@ class Uw_Module_UploadUpgrader
             $this->package = $updir['basedir'] . '/' . $this->filename;
 
             // Move the file to the uploads dir
-            if (false === @move_uploaded_file($_FILES[$form_id]['tmp_name'], $this->package)) {
+            if (false === @move_uploaded_file($_FILES[$this->_frmUpID]['tmp_name'], $this->package)) {
                 wp_die('The uploaded file could not be moved to ' . $updir['path']);
             }
         } else {
             $this->package = $updir['basedir'] . '/' . $this->filename;
         }
+
+        if (WP_Filesystem()) {
+            $o = unzip_file($this->package, $uploads['path']);
+            return 'Success to upload archieve file : ' . $this->filename;
+        }
+
+        return 'Fail to upload archieve file : ' . $this->filename;
+
+    }
+
+    /**
+     * Get Action property value
+     *
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->_action;
+
+    }
+
+    private function _submitButton($text, $type, $name, $wrap)
+    {
+        if (!function_exists('get_submit_button')) {
+            include_once ABSPATH . 'wp-admin/includes/template.php';
+        }
+
+        return get_submit_button('Install Now', 'button', 'install-theme-submit', false);
+
+    }
+
+    function createUploadForm()
+    {
+        $actionUrl = menu_page_url('upload', false) . '&action=' . $this->_action;
+        $nonce = wp_nonce_field($this->_nonceID, "_wpnonce", true, false);
+        $submit = $this->_submitButton('Install Now', 'button', 'install-theme-submit', false);
+        $formUpload_id = $this->_frmUpID;
+
+        $upload = <<<HTML
+<h4>Install a theme in .zip format</h4>
+<p class="install-help">
+    If you have a theme in a .zip format,
+    you may install it by uploading it here.
+</p>
+<form method="post" enctype="multipart/form-data" action="$actionUrl">
+    $nonce
+    <input type="file" name="$formUpload_id" />
+    $submit
+</form>
+HTML;
+        return $upload;
 
     }
 
