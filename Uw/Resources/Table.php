@@ -1,4 +1,4 @@
-<div class="ajax_reponse_output"></div>
+<div class="ajax_output"></div>
 <table class="widefat" cellspacing="0" id="update-themes-table">
     <thead>
         <tr>

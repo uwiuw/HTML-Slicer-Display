@@ -27,14 +27,18 @@
  * @link       http://uwiuw.com/outerrim/
  * @since      3.0.3
  */
-class Uw_Config_Read {
+class Uw_Config_Read
+{
 
     /**
      * Get value of firstime.ini
-     * @param string $filename
+     *
+     * @param string $filename filename
+     *
      * @return mixed
      */
-    function getOutput($filename) {
+    function getOutput($filename)
+    {
         $stripClsName = rtrim(get_class(), strrchr(get_class(), '_'));
         $filename = getClassPath($stripClsName) . SEP . $filename;
         if (!file_exists2($filename)) {
@@ -43,8 +47,7 @@ class Uw_Config_Read {
 
         $file_handle = fopen($filename, "rb");
         $o = array();
-        while (!feof($file_handle))
-        {
+        while (!feof($file_handle)) {
             $line_of_text = fgets($file_handle);
             $parts = explode('=', $line_of_text);
             $data = trim($parts[1]);
@@ -65,14 +68,16 @@ class Uw_Config_Read {
     /**
      * Save current config
      *
-     * @param array $newvalue
-     * @param string $option_name
+     * @param array  $newvalue    value going to be save
+     * @param string $option_name option name
+     *
      * @return array
      *
      * @todo buat penggunaan UW_NAME pada parameter ini dinamis aja. jadi nantinya
      * kita bisa membuat pen-save-an config berbasis session
      */
-    function saveConfig(array $newvalue, $option_name = UW_NAME_LOWERCASE) {
+    function saveConfig(array $newvalue, $option_name = UW_NAME_LOWERCASE)
+    {
         if (!empty($newvalue)) {
             $oldvalue = get_option($option_name);
             if (empty($oldvalue)) {

@@ -141,7 +141,7 @@ HTML;
      *
      * @return html
      */
-    function getButtonAjax($button_id, $form_id, $output = 'ajax_reponse_output')
+    function getButtonAjax($button_id, $form_id, $output = 'ajax_output')
     {
         $button = <<<HTML
     jQuery('#$button_id').click(function()

@@ -1,10 +1,45 @@
 <?php
 
-class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+
+/**
+ * Uw_Menu_Item_Upload
+ *
+ * Upload menu page data for rendering
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Item
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract
+{
 
     public $title = 'Upload';
     public $description = 'Upload new portfolio';
 
+    /**
+     * Initiator
+     *
+     * @return void
+     */
     function init() {
         if ($_GET['action'] === 'upload-theme') {
             $this->content = $this->doUpload();
@@ -62,7 +97,10 @@ class Uw_Menu_Item_Upload extends Uw_Menu_Item_Abstract {
 
         $upload = <<<HTML
 <h4>Install a theme in .zip format</h4>
-<p class="install-help">If you have a theme in a .zip format, you may install it by uploading it here.</p>
+<p class="install-help">
+    If you have a theme in a .zip format,
+    you may install it by uploading it here.
+</p>
 <form method="post" enctype="multipart/form-data" action="$actionUrl">
     $nonce
     <input type="file" name="themezip" />

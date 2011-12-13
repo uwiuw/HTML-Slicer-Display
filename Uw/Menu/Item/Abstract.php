@@ -1,6 +1,36 @@
 <?php
 
-abstract class Uw_Menu_Item_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+
+/**
+ * Uw_Menu_Item_Abstract
+ *
+ * Abstract
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Item
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+abstract class Uw_Menu_Item_Abstract
+{
 
     public $title = 'No Title';
     public $title_before = '<h2>';
@@ -23,8 +53,16 @@ abstract class Uw_Menu_Item_Abstract {
 
     abstract protected function _getContent();
 
-    final function __construct(
-    Uw_Config_Data $data, Uw_Module_Templaty $html,
+    /**
+     * Constractor
+     *
+     * @param Uw_Config_Data        $data handler
+     * @param Uw_Module_Templaty    $html handler
+     * @param Uw_Menu_Ajax_Abstract $ajax handler
+     *
+     * @return void
+     */
+    final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
         Uw_Menu_Ajax_Abstract $ajax = null
     ) {
         $this->config = &$data;
@@ -38,7 +76,18 @@ abstract class Uw_Menu_Item_Abstract {
 
     }
 
-    public function setNav($curPageSlug, $curPageFile, array $navs) {
+    /**
+     * Set Navigation
+     *
+     * @param string $curPageSlug current page slug or portofolio
+     * @param string $curPageFile current portoflio filename
+     * @param array  $navs        current navigation data
+     *
+     * @return void
+     * @todo perjelaslah. terutama darimana dipanggilnya, $navs itu apa aja isinya ?
+     */
+    public function setNav($curPageSlug, $curPageFile, array $navs)
+    {
         $this->curPageSlug = $curPageSlug;
         $this->curPageFile = $curPageFile;
         $this->navigation = $navs;
@@ -51,7 +100,8 @@ abstract class Uw_Menu_Item_Abstract {
      * @todo create them using certain navigation
      * @return string
      */
-    public function createTabNav() {
+    public function createTabNav()
+    {
         foreach ($this->navigation as $k => $v) {
             if ($this->curPageSlug === $v) {
                 $class = 'nav-tab nav-tab-active';
@@ -60,7 +110,8 @@ abstract class Uw_Menu_Item_Abstract {
             }
 
             if ($url = menu_page_url($v, false)) {
-                $listOfNav .= '<a href="' . $url . '" class="' . $class . '">' . ucfirst($v) . '</a>';
+                $listOfNav .= '<a href="' . $url . '" class="' . $class . '">' .
+                    ucfirst($v) . '</a>';
             }
         }
 
@@ -71,8 +122,14 @@ HTML;
 
     }
 
-    protected function _regAjaxButton() {
-        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 99999);
+    /**
+     * Registering ajax button into its wp hook admin_print_footer_scripts
+     *
+     * @return void
+     */
+    protected function _regAjaxButton()
+    {
+        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 9999);
 
     }
 
