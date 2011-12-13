@@ -27,38 +27,69 @@
  * @link       http://uwiuw.com/outerrim/
  * @since      3.0.3
  */
-class Uw_Config_Data {
+class Uw_Config_Data
+{
 
-    private $is_firsttime;
-    private $defaulttheme;
-    private $admin_menu;
-    private $curPageSlug;
-    private $curPageFile;
-    private $admin_menu_lists;
+    private $_isFirsttime;
+    private $_deftheme;
+    private $_adminmenu;
+    private $_curPageSlug;
+    private $_curPageFile;
+    private $_adminmenulists;
 
-    function __construct() {
-        $this->curPageSlug = trim($_GET['page']);
-        $this->curPageFile = ucfirst($_GET['page']);
+    /**
+     * Constractor
+     *
+     * @return void
+     */
+    function __construct()
+    {
+        $this->_curPageSlug = trim($_GET['page']);
+        $this->_curPageFile = ucfirst($_GET['page']);
 
     }
 
-    function get($prope) {
+    /**
+     * Getter
+     *
+     * @param string $prope property names
+     *
+     * @return mixed
+     */
+    function get($prope)
+    {
         return $this->$prope;
 
     }
 
-    function set($prope, $value) {
+    /**
+     * Setter
+     *
+     * @param string $prope property name
+     * @param mixed  $value property value
+     *
+     * @return mixed
+     */
+    function set($prope, $value)
+    {
         return $this->$prope = $value;
 
     }
 
-    function sets(array $prope) {
-
-        foreach ($prope as $k => $v) {
+    /**
+     * Set multiple properties
+     *
+     * @param array $properties list of inejcetd properties
+     *
+     * @return array
+     */
+    function sets(array $properties)
+    {
+        foreach ($properties as $k => $v) {
             $this->$k = $v;
         }
 
-        return $prope;
+        return $properties;
 
     }
 

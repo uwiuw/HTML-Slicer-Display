@@ -1,34 +1,80 @@
 <?php
 
-class Uw_Menu_Admin {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
 
-    private $menuItemCls = 'Uw_Menu_Item_';
-    private $menuAjaxCls = 'Uw_Menu_Ajax_';
-    private $config;
+/**
+ * Uw_Menu_Admin
+ *
+ * Admin menu initiator
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Admin
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Menu_Admin
+{
+
+    private $_menuItemCls = 'Uw_Menu_Item_';
+    private $_menuAjaxCls = 'Uw_Menu_Ajax_';
+    private $_config;
     private $html;
-    private $creator;
-    private $navigation;
-    private $curPageSlug;
-    private $curPageFile;
-    private $curPageAjCls;
+    private $_creator;
+    private $_navigation;
+    private $_curPageSlug;
+    private $_curPageFile;
+    private $_curPageAjCls;
 
+    /**
+     * Constractor
+     *
+     * @param Uw_Config_Data     $data    handler
+     * @param Uw_Module_Templaty $html    handler
+     * @param Uw_Menu_Creator    $creator hander
+     *
+     * @return void
+     */
     function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
-        Uw_Menu_Creator $creator) {
-        $this->config = & $data;
+        Uw_Menu_Creator $creator
+    ) {
+        $this->_config = & $data;
         $this->html = & $html;
-        $this->creator = & $creator;
-        $this->curPageSlug = $this->config->get('curPageSlug');
-        $this->curPageFile = $this->config->get('curPageFile');
-        $this->navigation = $this->config->get('admin_menu_lists');
+        $this->_creator = & $creator;
+        $this->_curPageSlug = $this->_config->get('_curPageSlug');
+        $this->_curPageFile = $this->_config->get('_curPageFile');
+        $this->_navigation = $this->_config->get('admin_menu_lists');
 
     }
 
-    function init() {
+    /**
+     * Initiator
+     *
+     * @return void
+     */
+    function init()
+    {
         if (defined('DOING_AJAX')) {
-            $this->_preAjaxAction();
+            $this->_preDoAjaxAction();
         } else {
-            if (false !== $clsname = $this->_initClass($this->curPageFile)) {
-                $this->curPageAjCls = $clsname;
+            if (false !== $clsname = $this->_initClass($this->_curPageFile)) {
+                $this->_curPageAjCls = $clsname;
             }
             /*
              * Register theme menu into backend
@@ -40,12 +86,18 @@ class Uw_Menu_Admin {
 
     /**
      * Register Menu items
+     *
+     * @return void
+     * @throws Uw_Exception if backend menu navigation is empty
      */
-    public function regItemMenu() {
-        if ($this->navigation) {
+    public function regItemMenu()
+    {
+        if ($this->_navigation) {
             $number = 4;
-            add_menu_page('Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number);
-            foreach ($this->navigation as $k => $v) {
+            add_menu_page(
+                'Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number
+            );
+            foreach ($this->_navigation as $k => $v) {
                 $name = ucfirst($v);
                 add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItemMenu'), '', $number++);
             }
@@ -55,41 +107,60 @@ class Uw_Menu_Admin {
 
     }
 
-    public function loadItemMenu() {
-        $clsname = $this->menuItemCls . $this->curPageFile;
-        $clsname = new $clsname($this->config, $this->html, $this->curPageAjCls);
-        $clsname->setNav($this->curPageSlug, $this->curPageFile, $this->navigation);
-        $clsname->init();
+    /**
+     * Load item menu and transform it into a form
+     *
+     * @return void
+     */
+    public function loadItemMenu()
+    {
+        $clsname = $this->_menuItemCls . $this->_curPageFile;
 
-        $this->creator->buildForm($clsname);
+        $clsname = new $clsname($this->_config, $this->html, $this->_curPageAjCls);
+        $clsname->setNav(
+            $this->_curPageSlug, $this->_curPageFile, $this->_navigation
+        );
+        $clsname->selfRender();
+
+        $this->_creator->buildForm($clsname);
 
     }
 
     /**
      * Check the existance of menu
      *
-     * @param string filename with out php exstention
+     * @param string $checkMe filename
+     *
      * @return object|false
      */
-    private function _initClass($checkMe) {
-        $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP . $checkMe . '.php';
+    private function _initClass($checkMe)
+    {
+        $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP;
+        $fl .=$checkMe . '.php';
         if (file_exists2($fl)) {
-            $clsname = $this->menuAjaxCls . $checkMe;
-            return new $clsname($this->config, $this->html);
+            $clsname = $this->_menuAjaxCls . $checkMe;
+            return new $clsname($this->_config, $this->html);
         }
         return false;
 
     }
 
-    private function _preAjaxAction() {
+    /**
+     * Validating action in $_POST['HtmlSlicerDisplay'] before caling doAjaxAction()
+     *
+     * @return bool
+     * @todo ganti HtmlSlicerDisplay dengan constant khusus
+     */
+    private function _preDoAjaxAction()
+    {
         $flaq = $_POST['HtmlSlicerDisplay'];
         if ($flaq && false != $_POST['action'] && $_POST['_wp_http_referer']) {
             $url = parse_url($_POST['_wp_http_referer']);
             if ($url['query']) {
                 parse_str($url['query'], $url);
                 if ($url['page'] != '') {
-                    $this->curPageFile = ucfirst($url['page']);
-                    $clsname = $this->_initClass($this->curPageFile);
+                    $this->_curPageFile = ucfirst($url['page']);
+                    $clsname = $this->_initClass($this->_curPageFile);
                     if (false !== $clsname
                         && is_object($clsname)
                     ) {

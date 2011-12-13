@@ -1,11 +1,47 @@
 <?php
 
-class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+
+/**
+ * Uw_Menu_Item_Slicer
+ *
+ * Slicer menu page data for rendering
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Item
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
+{
 
     public $title = 'Slicer';
-    public $description = 'You can choose which html template you going to show to public';
+    public $description = 'You can choose which one public portofolio';
 
-    function init() {
+    /**
+     * Inititate the process of rendenring page and set the value of $content
+     *
+     * @return void
+     */
+    function selfRender()
+    {
         try
         {
             $args = array(
@@ -31,12 +67,11 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
     /**
      * Get content of the page. Build list of portofolio
      *
-     * @param array $o list of themes in xhtml directory
-     *
      * @return string
      * @todo cara kerja method ini tidak intuitif, dan terlalu banyak conditionalnya
      */
-    protected function _getContent() {
+    protected function _getContent()
+    {
         $path = UW_PATH . SEP . 'xhtml';
         $HtmlFileList = new Uw_Module_HtmlFileList($path);
         $o = $HtmlFileList->getList();
@@ -75,7 +110,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
             extract($item);
             $args = array(
                 'screenshot' => $Screenshot,
-                'imgcls' => 'width="64" height="64" style="float:left; padding: 5px"');
+                'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
             $Img = $this->html->getTemplate('Img.php', $args);
 
             $content = $this->html->getTemplate('Slicer_Content.php', array(
@@ -88,8 +123,10 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract {
                     'Hidden_ID' => 'hiddenedit' . '_' . $Name,
                     'Name' => $Name,
                     'Author' => $Author,
-                    'Description' => $Description,
-                ))));
+                    'Description' => $Description)
+                )
+                )
+            );
 
             $args = array(
                 'tbody_class' => getCls($active),

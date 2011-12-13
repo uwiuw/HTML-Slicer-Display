@@ -1,15 +1,45 @@
 <?php
 
-abstract class Uw_Menu_Item_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
 
-    public $title = 'No Title';
-    public $title_before = '<h2>';
-    public $title_after = '</h2>';
+/**
+ * Uw_Menu_Item_Abstract
+ *
+ * Abstract
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Item
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+abstract class Uw_Menu_Item_Abstract
+{
+
+    protected $_title = 'No Title';
+    protected $_titlebefore = '<h2>';
+    protected $_titleafter = '</h2>';
     public $decription = 'No Description';
     public $content = '';
-    public $navigation;
-    public $curPageSlug;
-    public $curPageFile;
+    protected $_navigation;
+    protected $_curPageSlug;
+    protected $_curPageFile;
 
     /**
      * HTML creator module
@@ -17,17 +47,35 @@ abstract class Uw_Menu_Item_Abstract {
      */
     protected $html;
     protected $ajax;
-    protected $config;
+    protected $_config;
 
-    abstract protected function init();
+    /**
+     * Inititate the process of rendenring page and set the value of $content
+     *
+     * @return void
+     */
+    abstract public function selfRender();
 
+    /**
+     * get content
+     *
+     * @return html
+     */
     abstract protected function _getContent();
 
-    final function __construct(
-    Uw_Config_Data $data, Uw_Module_Templaty $html,
-        Uw_Menu_Ajax_Abstract $ajax = NULL
+    /**
+     * Constractor
+     *
+     * @param Uw_Config_Data        $data handler
+     * @param Uw_Module_Templaty    $html handler
+     * @param Uw_Menu_Ajax_Abstract $ajax handler
+     *
+     * @return void
+     */
+    final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
+        Uw_Menu_Ajax_Abstract $ajax = null
     ) {
-        $this->config = &$data;
+        $this->_config = &$data;
         $this->html = $html;
         if ($ajax instanceof Uw_Menu_Ajax_Abstract) {
             $this->ajax = $ajax;
@@ -38,10 +86,21 @@ abstract class Uw_Menu_Item_Abstract {
 
     }
 
-    public function setNav($curPageSlug, $curPageFile, array $navs) {
-        $this->curPageSlug = $curPageSlug;
-        $this->curPageFile = $curPageFile;
-        $this->navigation = $navs;
+    /**
+     * Set Navigation
+     *
+     * @param string $curPageSlug current page slug or portofolio
+     * @param string $curPageFile current portoflio filename
+     * @param array  $navs        current navigation data
+     *
+     * @return void
+     * @todo perjelaslah. terutama darimana dipanggilnya, $navs itu apa aja isinya ?
+     */
+    public function setNav($curPageSlug, $curPageFile, array $navs)
+    {
+        $this->_curPageSlug = $curPageSlug;
+        $this->_curPageFile = $curPageFile;
+        $this->_navigation = $navs;
 
     }
 
@@ -51,16 +110,18 @@ abstract class Uw_Menu_Item_Abstract {
      * @todo create them using certain navigation
      * @return string
      */
-    public function createTabNav() {
-        foreach ($this->navigation as $k => $v) {
-            if ($this->curPageSlug === $v) {
+    public function createTabNav()
+    {
+        foreach ($this->_navigation as $k => $v) {
+            if ($this->_curPageSlug === $v) {
                 $class = 'nav-tab nav-tab-active';
             } else {
                 $class = 'nav-tab';
             }
 
             if ($url = menu_page_url($v, false)) {
-                $listOfNav .= '<a href="' . $url . '" class="' . $class . '">' . ucfirst($v) . '</a>';
+                $listOfNav .= '<a href="' . $url . '" class="' . $class . '">' .
+                    ucfirst($v) . '</a>';
             }
         }
 
@@ -71,8 +132,14 @@ HTML;
 
     }
 
-    protected function _regAjaxButton() {
-        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 99999);
+    /**
+     * Registering ajax button into its wp hook admin_print_footer_scripts
+     *
+     * @return void
+     */
+    protected function _regAjaxButton()
+    {
+        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 9999);
 
     }
 

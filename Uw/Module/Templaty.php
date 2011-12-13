@@ -40,13 +40,16 @@ class Uw_Module_Templaty
 
     /**
      * Constractor
+     *
      * @param object $templateObj the instance of template onject
      */
-    function __construct($templateObj = '') {
+    function __construct($templateObj = '')
+    {
         if (is_object($templateObj)) {
             $this->model = $templateObj;
         } else {
-            include_once UW_PATH . SEP . 'Uw' . SEP . '3Party' . SEP . 'atTemplate.php';
+            $fl = UW_PATH . SEP . 'Uw' . SEP . '3Party' . SEP . 'atTemplate.php';
+            include_once $fl;
             $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
             $this->model->reConstruct(
                 array(
@@ -65,9 +68,11 @@ class Uw_Module_Templaty
      *
      * @param array $name missing method name
      * @param array $args arguments
+     *
      * @return mixed
      */
-    function __call($name, $args) {
+    function __call($name, $args)
+    {
         return call_user_func_array(array($this->model, $name), $args);
 
     }
@@ -76,11 +81,14 @@ class Uw_Module_Templaty
      * Get html of ajaxed form
      *
      * @param array $args various argument for creating button
+     *
      * @return html
+     *
      * @todo buat form ini memiliki template resoucesnya sendiri. atau buat helper
      * bagi pembuatan form seperti ci lakukan
      */
-    function getButton(array $args) {
+    function getButton(array $args)
+    {
         $themeName = UW_NAME;
         $actionname = 'actiontest';
         $id = 'button_' . $themeName;
@@ -100,14 +108,23 @@ class Uw_Module_Templaty
 
         extract($args);
         $button = <<<HTML
-<form method="$method" id="$id" name="$form_id" action="$action" style="display:none">
+<form method="$method"
+        id="$id"
+        name="$form_id"
+        action="$action" style="display:none">
     <input type="hidden" name="$themeName" value="$id" />
     <input type="hidden" name="action" value="$action_value" />
-    <input type="submit" name="Submit" class="button-primary" value="$submit_title" style="display:none" />
+    <input type="submit"
+        name="Submit"
+        class="button-primary"
+        value="$submit_title" style="display:none" />
     $nonce_field
 </form>
 <span class="$button_url_output">
-    <a href="#" id="$button_id" class="button-primary" style="display:inline-block;margin:5px">$submit_title</a>
+    <a href="#"
+        id="$button_id"
+        class="button-primary"
+        style="display:inline-block;margin:5px">$submit_title</a>
 </span>
 HTML;
 
@@ -120,10 +137,11 @@ HTML;
      *
      * @param string $button_id the link id name
      * @param string $form_id   the form id name
-     * @param string $result    the class name of ajax respond container
+     * @param string $output    the class name of ajax respond container
+     *
      * @return html
      */
-    function getButtonAjax($button_id, $form_id, $output = 'ajax_reponse_output')
+    function getButtonAjax($button_id, $form_id, $output = 'ajax_output')
     {
         $button = <<<HTML
     jQuery('#$button_id').click(function()

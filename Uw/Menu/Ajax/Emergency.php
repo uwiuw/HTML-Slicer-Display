@@ -1,13 +1,43 @@
 <?php
 
-class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Menu
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
 
-    protected $config;
-    protected $itemArgs = array(
+/**
+ * Uw_Menu_Ajax_Emergency
+ *
+ * Emergency page ajax
+ *
+ * @category   Uw
+ * @package    Uw_Menu
+ * @subpackage Uw_Menu_Ajax
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
+{
+
+    protected $_config;
+    protected $_itemArgs = array(
         'fix_htaccess' => array(
             'Name' => 'fix_htaccess',
             'Title' => 'Fixing htaccess',
-            'Description' => 'reconfigurate theme rewrite rule (will not change blog permalink)',
+            'Description' => 'Rewrite htaccess file (will not change permalink)',
             'Ajax' => 'fix_htaccess',
             'Icon' => 'semlabs_terminal.png',
             'form_id' => 'fix_htaccess',
@@ -17,16 +47,23 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
         'rebuild_config' => array(
             'Name' => 'rebuild_config',
             'Title' => 'Rebuild Config',
-            'Description' => 'Rebuild current config. Sometimes this needed cause by various reason',
+            'Description' => 'Rebuild config. Sometimes needed to refresh config',
             'Ajax' => 'rebuild_config',
-            'Icon' => 'semlabs_arrow_circle_right.png',
+            'Icon' => 'semlabs_arrow_circle_down.png',
             'form_id' => 'rebuild_config',
             'button_id' => 'rebuild_config_url',
             'button_id_output' => 'rebuild_config_output'
         ),
     );
 
-    function doAjaxAction() {
+    /**
+     * Doing ajax operation and call die. This method will echo result of ajax
+     * operation to be retrieve by related method to be process
+     *
+     * @return void
+     */
+    function doAjaxAction()
+    {
         $action = $_POST['HtmlSlicerDisplay'];
         $ajaxResponse = 'Process is failing for unknown reason';
 
@@ -40,6 +77,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract {
             }
         }
         die($ajaxResponse);
+
     }
 
 }

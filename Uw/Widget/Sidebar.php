@@ -1,53 +1,111 @@
 <?php
 
-class Uw_Widget_Sidebar {
+/**
+ * Uw Framework
+ *
+ * PHP version 5
+ *
+ * @category  Uw
+ * @package   Uw_Widget
+ * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright 2011 Outerim Aulia Ashari
+ * @license   http://dummylicense/ dummylicense License
+ * @version   $SVN: $
+ * @link      http://uwiuw.com/outerrim/
+ */
+
+/**
+ * Uw_Widget_Sidebar
+ *
+ * Registering Sidebar, Widget and etc. All data came from config inside
+ * firsttime.ini
+ *
+ * @category   Uw
+ * @package    Uw_Widget
+ * @subpackage Uw_Widget_Sidebar
+ * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
+ * @copyright  2011 Outerim Aulia Ashari
+ * @license    http://dummylicense/ dummylicense License
+ * @version    Release: @package_version@
+ * @link       http://uwiuw.com/outerrim/
+ * @since      3.0.3
+ */
+class Uw_Widget_Sidebar
+{
 
     /**
      * Config data
      * @var Uw_Config_Data
      */
-    private $config;
-    private $widgets;
+    private $_config;
+    private $_widgets;
 
     /**
      * List of registered sidebar
      * @var array
      */
-    private $sidebars;
-    private $sidebar_html = array();
-    private $dataForWidget = array();
+    private $_sidebars;
+    private $_sdbarHtml = array();
+    private $_dataWidget = array();
 
-    function __construct(Uw_Config_Data $config, array $dataForWidget) {
-        $this->config = $config;
-        $this->widgets = $this->config->get('widget_lists');
-        $this->sidebars = $this->config->get('sidebar_lists');
-        $this->dataForWidget = $dataForWidget;
+    /**
+     * Constractor
+     *
+     * Method will static call the parent constractor
+     *
+     * @param Uw_Config_Data $config        handler
+     * @param array          $dataForWidget data that going to be injected into
+     *                                      a widget
+     *
+     * @return void
+     */
+    function __construct(Uw_Config_Data $config, array $dataForWidget)
+    {
+        $this->_config = $config;
+        $this->_widgets = $this->_config->get('widget_lists');
+        $this->_sidebars = $this->_config->get('sidebar_lists');
+        $this->_dataWidget = $dataForWidget;
 
     }
 
     /**
      * Initiate all the Sidebars logic such as registering sidebars and widgets
+     *
+     * Method will hook into related action
+     *
+     * @param bool $firsttime Optional. Default is false. state of the initiation
+     *
+     * @return void
      */
-    function init($firsttime = false) {
-        $this->regThemeSidebars();
+    function init($firsttime = false)
+    {
+        $this->_regThemeSidebars();
         add_action('widgets_init', array($this, 'regThemeWidget'));
-        $is_firsttime = $this->config->get('is_firsttime');
+        $is_firsttime = $this->_config->get('is_firsttime');
         if ($is_firsttime) {
-            add_action('init', array($this, 'regDefaultWidget'), 9999);
+            add_action('init', array($this, 'regFirstTimeWidget'), 9999);
         }
 
     }
 
     /**
      * Public method to retrieve list of registered sidebar
+     *
      * @return array
      */
-    function getListSidebar() {
-        return $this->sidebars;
+    function getListSidebar()
+    {
+        return $this->_sidebars;
 
     }
 
-    function regDefaultWidget() {
+    /**
+     * Register first time default widget
+     *
+     * @return void
+     */
+    function regFirstTimeWidget()
+    {
         $temp = array();
         $sidebars = $this->getListSidebar();
         if (count($sidebars)) {
@@ -55,9 +113,9 @@ class Uw_Widget_Sidebar {
             $array_key = array_keys($wp_registered_widgets);
             foreach ($sidebars as $k => $v) {
                 $id = $v['id'];
-                $widget_id = $this->config->get($id);
+                $widget_id = $this->_config->get($id);
                 foreach ($array_key as $akk => $akv) {
-                    if (FALSE !== strripos($akv, $widget_id)) {
+                    if (false !== strripos($akv, $widget_id)) {
                         $temp[$id] = array($akv);
                         break;
                     }
@@ -70,15 +128,19 @@ class Uw_Widget_Sidebar {
     }
 
     /**
-     * Hook Public method to register theme widgets. depenedcy $wp_widget_factory
+     * Hook Public method to register theme widgets.
      *
+     * depenedcy $wp_widget_factory and must be public
+     *
+     * @return void
      */
-    function regThemeWidget() {
+    function regThemeWidget()
+    {
         global $wp_widget_factory;
-        if ($this->widgets) {
-            foreach ($this->widgets as $k => $v) {
+        if ($this->_widgets) {
+            foreach ($this->_widgets as $k => $v) {
                 register_widget($v);
-                $wp_widget_factory->widgets[$v]->dataForWidget = $this->dataForWidget;
+                $wp_widget_factory->widgets[$v]->_dataWidget = $this->_dataWidget;
             }
         }
 
@@ -86,16 +148,25 @@ class Uw_Widget_Sidebar {
 
     /**
      * Register theme Sidebars
+     *
+     * @return void
      */
-    private function regThemeSidebars() {
-        foreach ($this->sidebars as $k => $v) {
+    private function _regThemeSidebars()
+    {
+        foreach ($this->_sidebars as $k => $v) {
             register_sidebar($v);
         }
 
     }
 
-    public function getWidgetBuffer() {
-        foreach ($this->sidebars as $k => $v) {
+    /**
+     * Get HTML buffer output of all widgets inside a sidebar
+     *
+     * @return array
+     */
+    public function getWidgetBuffer()
+    {
+        foreach ($this->_sidebars as $k => $v) {
             ob_start();
             dynamic_sidebar($v['id']);
             $html = ob_get_clean();
@@ -105,7 +176,7 @@ class Uw_Widget_Sidebar {
             ob_end_clean();
         }
 
-        return $this->sidebar_html = $lists;
+        return $this->_sdbarHtml = $lists;
 
     }
 
