@@ -76,6 +76,7 @@ class Uw_Module_HtmlFileList
      * Get list of xhtml directory
      *
      * @return array
+     * @throws Uw_Module_Exception if the path is not exists or its not directory
      */
     function getList()
     {
@@ -87,7 +88,7 @@ class Uw_Module_HtmlFileList
         $listFile = array();
 
         // Loop while the read method goes through each and
-        // every file
+        // on every file
         while ((false !== ($dirname = $directory->read()))) {
             // If an item is not "." and "..", then something
             // exists in the directory and it is not empty
@@ -124,9 +125,16 @@ class Uw_Module_HtmlFileList
         );
 
         $themedata = $this->getTemplateData($dir, $this->_FileStyle, $this->_desc);
-        $o['Description'] = $themedata['Description'];
-        $o['Version'] = $themedata['Version'];
-        $o['Author'] = $themedata['Author'];
+
+        if (is_array($themedata)) {
+            $o['Description'] = $themedata['Description'];
+            $o['Version'] = $themedata['Version'];
+            $o['Author'] = $themedata['Author'];
+        } else {
+            $o['Description'] = 'No Description';
+            $o['Version'] = '0.0.0';
+            $o['Author'] = 'Empty';
+        }
         return $o;
 
     }

@@ -50,6 +50,9 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
      * operation to be retrieve by related method to be process
      *
      * @return void
+     *
+     * @todo buat quickedit menu bagi form portofolio dimana bisa diset list of
+     * portofolio utamanya
      */
     function doAjaxAction()
     {
@@ -57,7 +60,6 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
         $ajaxResponse = 'Process is failing for unknown reason';
 
         if (false !== $this->_getSubStringAction($action, 'edit_portofolio')) {
-            //@todo buat quickedit menu bagi form portofolio
             $ajaxResponse = 'Portofolio on editing mode';
             $portoname = $_POST['action'];
             ?>

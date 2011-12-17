@@ -80,6 +80,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
         }
 
         foreach ($o as $theme => $item) {
+
             $active = '';
             if ($item['Screenshot'] && $item['Indexfile']) {
                 $active = 'active';
@@ -108,6 +109,8 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
             }
 
             extract($item);
+
+
             $args = array(
                 'screenshot' => $Screenshot,
                 'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
