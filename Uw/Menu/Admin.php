@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_Menu_Admin
@@ -149,7 +149,7 @@ class Uw_Menu_Admin
      * Validating action in $_POST['HtmlSlicerDisplay'] before caling doAjaxAction()
      *
      * @return bool
-     * @todo ganti HtmlSlicerDisplay dengan constant khusus
+     * @todo ganti HtmlSlicerDisplay dengan constant khusus. sitewide changing
      */
     private function _preDoAjaxAction()
     {

@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_Module_HtmlFileList
@@ -76,6 +76,7 @@ class Uw_Module_HtmlFileList
      * Get list of xhtml directory
      *
      * @return array
+     * @throws Uw_Module_Exception if the path is not exists or its not directory
      */
     function getList()
     {
@@ -87,7 +88,7 @@ class Uw_Module_HtmlFileList
         $listFile = array();
 
         // Loop while the read method goes through each and
-        // every file
+        // on every file
         while ((false !== ($dirname = $directory->read()))) {
             // If an item is not "." and "..", then something
             // exists in the directory and it is not empty
@@ -124,9 +125,16 @@ class Uw_Module_HtmlFileList
         );
 
         $themedata = $this->getTemplateData($dir, $this->_FileStyle, $this->_desc);
-        $o['Description'] = $themedata['Description'];
-        $o['Version'] = $themedata['Version'];
-        $o['Author'] = $themedata['Author'];
+
+        if (is_array($themedata)) {
+            $o['Description'] = $themedata['Description'];
+            $o['Version'] = $themedata['Version'];
+            $o['Author'] = $themedata['Author'];
+        } else {
+            $o['Description'] = 'No Description';
+            $o['Version'] = '0.0.0';
+            $o['Author'] = 'undefine';
+        }
         return $o;
 
     }
@@ -210,6 +218,8 @@ class Uw_Module_HtmlFileList
         return $return;
 
     }
+
+    
 
 }
 

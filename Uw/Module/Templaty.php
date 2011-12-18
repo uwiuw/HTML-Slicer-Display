@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_Module_Templaty
@@ -89,6 +89,7 @@ class Uw_Module_Templaty
      */
     function getButton(array $args)
     {
+
         $themeName = UW_NAME;
         $actionname = 'actiontest';
         $id = 'button_' . $themeName;
@@ -98,7 +99,7 @@ class Uw_Module_Templaty
             'id' => $id,
             'ajax' => $actionname,
             'button_id' => $id . '_url',
-            'button_url_output' => $id . '_url_output',
+            'ajax_response_output' => $id . '_url_output',
             'action' => admin_url('admin-ajax.php', false),
             'action_value' => 'goto',
             'submit_title' => 'Save',
@@ -120,7 +121,7 @@ class Uw_Module_Templaty
         value="$submit_title" style="display:none" />
     $nonce_field
 </form>
-<span class="$button_url_output">
+<span class="$ajax_response_output">
     <a href="#"
         id="$button_id"
         class="button-primary"
@@ -141,17 +142,15 @@ HTML;
      *
      * @return html
      */
-    function getButtonAjax($button_id, $form_id, $output = 'ajax_output')
+    function getButtonAjax($button_id, $form_id, $button_url_output)
     {
         $button = <<<HTML
     jQuery('#$button_id').click(function()
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
             if (data) {
-                jQuery('.$output').html(data);
+                jQuery('.$button_url_output').html(data);
             }
-//        alert(data);
-//        jQuery.print(data);
         });
     });
 HTML;

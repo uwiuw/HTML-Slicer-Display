@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 if (function_exists('spl_autoload_register')) {
 
@@ -58,9 +58,9 @@ if (function_exists('spl_autoload_register')) {
 function autoloadLogic($classname)
 {
     $file = getClassPath($classname) . '.php';
-    if (file_exists2($file)) {
+//    if (file_exists2($file)) {
         include_once $file;
-    }
+
 
 }
 

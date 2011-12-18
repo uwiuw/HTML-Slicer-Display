@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -24,7 +24,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_Config_Read
@@ -72,11 +72,8 @@ class Uw_Config_Read
      * @param string $option_name option name
      *
      * @return array
-     *
-     * @todo buat penggunaan UW_NAME pada parameter ini dinamis aja. jadi nantinya
-     * kita bisa membuat pen-save-an config berbasis session
      */
-    function saveConfig(array $newvalue, $option_name = UW_NAME_LOWERCASE)
+    function saveConfig(array $newvalue, $option_name)
     {
         if (!empty($newvalue)) {
             $oldvalue = get_option($option_name);

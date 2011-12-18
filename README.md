@@ -32,7 +32,6 @@ Php 5.2+<br/>
     <li>Dynamic templating
         <br/>Almost all part of the theme on the backend is easy to custom.
     </li>
-    <li>OOP theme
         <br/>Using OOP approach on coding.
     </li>
     <li><del>Unit tested
@@ -40,6 +39,11 @@ Php 5.2+<br/>
             bug free. A realy helpful approach if someone want to develop maintanable
             application.</del>
     </li>
+</ol>
+
+<h3>NOTES</h3>
+<ol>
+    <li>The .htaccess has to be writable in order for rebuilding htaccess to work</li>
 </ol>
 
 <H3>THIRD PARTY ASSET</H3>

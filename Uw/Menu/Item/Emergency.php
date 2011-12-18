@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,9 +26,8 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
- * @todo       perbaiki lokasi tombol ajax ada bagian frontendnya.
  */
 class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
 {
@@ -83,6 +82,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
             }
 
             extract($item);
+
             $args = array(
                 'screenshot' => $Icon,
                 'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
@@ -100,7 +100,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                     'name' => $Name,
                     'id' => $Name,
                     'button_id' => $button_id,
-                    'button_url_output' => $button_id_output,
+                    'ajax_response_output' => $ajax_response_output,
                     'method' => 'post',
                     'ajax' => $Ajax,
                     'action' => admin_url('admin-ajax.php', false),

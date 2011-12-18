@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_System_Starter
@@ -52,13 +52,14 @@ class Uw_System_Starter
      * @param array          $opt      Current config data. This data mus be empty
      *                                 If the theme activate for the first time.
      *                                 If it only switching then it must be not empty
+     * @param string         $db_field Optional. empty.
      * @param string         $filename Optional. empty.
      *
      * @return Uw_Config_Data
      * @see http://wp.uwiuw.com/issue-compability-theme-option-version-0-0-1-ke-0-0-2
      */
     public function init(Uw_Config_Data $config, Uw_Config_Read $reader, $opt,
-        $filename =''
+        $db_field, $filename =''
     ) {
         if ($filename) {
             $this->_firsttimefile = $filename;
@@ -71,14 +72,14 @@ class Uw_System_Starter
              * @see issue-compability-theme-option-version-0-0-1-ke-0-0-2
              */
             if (true === $this->_isNeedUpgrade($opt, $inInifile)) {
-                $opt = $reader->saveConfig($inInifile);
+                $opt = $reader->saveConfig($inInifile, $db_field);
             }
 
             $config->set('is_firsttime', false);
         } else {
             //first time
             $this->_rebuildHtaccess();
-            $opt = $reader->saveConfig($inInifile); //save cur config into wp_option
+            $opt = $reader->saveConfig($inInifile, $db_field);
             $config->set('is_firsttime', true);
         }
 

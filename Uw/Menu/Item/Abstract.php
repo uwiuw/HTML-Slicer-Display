@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 abstract class Uw_Menu_Item_Abstract
@@ -46,6 +46,11 @@ abstract class Uw_Menu_Item_Abstract
      * @var Uw_Module_Templaty
      */
     protected $html;
+
+    /**
+     * Ajax module
+     * @var Uw_Menu_Ajax_Abstract
+     */
     protected $ajax;
     protected $_config;
 
@@ -106,8 +111,7 @@ abstract class Uw_Menu_Item_Abstract
 
     /**
      * Create admin menu navigation
-     *
-     * @todo create them using certain navigation
+     * 
      * @return string
      */
     public function createTabNav()

@@ -10,7 +10,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -25,7 +25,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
@@ -41,7 +41,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
             'Icon' => 'semlabs_arrow_circle_down.png',
             'form_id' => 'del_portofolio',
             'button_id' => 'del_portofolio_url',
-            'button_id_output' => 'del_portofolio_output'
+            'ajax_response_output' => 'del_portofolio_output'
         ),
     );
 
@@ -50,6 +50,9 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
      * operation to be retrieve by related method to be process
      *
      * @return void
+     *
+     * @todo buat quickedit menu bagi form portofolio dimana bisa diset list of
+     * portofolio utamanya. statusnya drooped feature
      */
     function doAjaxAction()
     {
@@ -57,7 +60,6 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
         $ajaxResponse = 'Process is failing for unknown reason';
 
         if (false !== $this->_getSubStringAction($action, 'edit_portofolio')) {
-            //@todo buat quickedit menu bagi form portofolio
             $ajaxResponse = 'Portofolio on editing mode';
             $portoname = $_POST['action'];
             ?>
@@ -81,11 +83,23 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
             <?php die() ?>
             </script>
             <?php
+            $success = true;
         } elseif (false !==
             $themeName = $this->_getSubStringAction($action, 'del_portofolio')) {
-            $ajaxResponse = $themeName . ' delete permanently';
+            $ajaxResponse = 'Delete permanently';
+            $path = UW_PATH . SEP . 'xhtml' . SEP . $themeName;
+            $this->_deleteDir($path);
+
+            $success = true;
         }
 
+        if ($success) {
+            $ajaxResponse = <<<HTML
+<div class="error fade">
+    <p>$ajaxResponse</p>
+</div>
+HTML;
+        }
         die($ajaxResponse);
 
     }
@@ -105,6 +119,45 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
         } else {
             return false;
         }
+
+    }
+
+    /**
+     * Delteing a path
+     *
+     * @param string $dir  absolute path
+     *
+     * @todo buat process deleted na menampilkan informasi file file yg didelete.
+     *      Informasi itu ditampilan dgn fadein fade out
+     */
+    private function _deleteDir($dir) {
+        // open the directory
+        $dhandle = opendir($dir);
+
+        if ($dhandle) {
+            // loop through it
+            while (false !== ($fname = readdir($dhandle))) {
+                // if the element is a directory, and
+                // does not start with a '.' or '..'
+                // we call deleteDir function recursively
+                // passing this element as a parameter
+                if (is_dir("{$dir}/{$fname}")) {
+                    if (($fname != '.') && ($fname != '..')) {
+//                        echo "<u>Deleting Files in the Directory</u>: {$dir}/{$fname} <br />";
+                        $this->_deleteDir("$dir/$fname");
+                    }
+                    // the element is a file, so we delete it
+                } else {
+//                    echo "Deleting File: {$dir}/{$fname} <br />";
+                    unlink("{$dir}/{$fname}");
+                }
+            }
+            closedir($dhandle);
+        }
+        // now directory is empty, so we can use
+        // the rmdir() function to delete it
+//        echo "<u>Deleting Directory</u>: {$dir} <br />";
+        rmdir($dir);
 
     }
 

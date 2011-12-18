@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -27,9 +27,10 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
- * @todo       buat penjelasan cara praktis penggunaannya
+ * @todo       buat penjelasan cara praktis penggunaannya lalu links ke halaman di
+ *             blogmu
  */
 class Atrim_Core_Model_Resource_Template_AtTemplate
 {

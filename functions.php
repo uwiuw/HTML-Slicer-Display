@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 define('SEP', DIRECTORY_SEPARATOR);
 define('UW_NAME', 'HtmlSlicerDisplay');
@@ -30,8 +30,7 @@ require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
 $UwStart = new Uw_System_Starter;
 $config = new Uw_Config_Data;
 $html = new Uw_Module_Templaty();
-$savedOpt = get_option(UW_NAME_LOWERCASE);
-$config = $UwStart->init($config, new Uw_Config_Read, $savedOpt);
+$config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME_LOWERCASE), UW_NAME_LOWERCASE);
 if (is_a($config, 'Uw_Config_Data')) {
     //backend
     if (is_admin() && is_user_logged_in()) {

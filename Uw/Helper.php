@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -217,5 +217,20 @@ function buildDataForTemplate(Uw_Config_Data $config)
     );
 
     return $o;
+
+}
+
+/* * ***************
+ * Depreceated Class from Wordpress
+ * @see deprecated.php
+ */
+
+/**
+ * Class ini sudah tidak dipakai. Dan digantikan WP_User_Query. Oleh karena kita
+ * memakai autoload, maka class ini akan diextends saja demi menghindari pengecekan
+ * via class_exists di deprecated.php:291. Tujuanya demi optimasi autoload
+ */
+class WP_User_Search extends WP_User_Query
+{
 
 }

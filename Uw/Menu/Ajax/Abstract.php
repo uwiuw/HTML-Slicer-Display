@@ -11,7 +11,7 @@
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
  * @version   $SVN: $
- * @link      http://uwiuw.com/outerrim/
+ * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 
 /**
@@ -26,7 +26,7 @@
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
  * @version    Release: @package_version@
- * @link       http://uwiuw.com/outerrim/
+ * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
 abstract class Uw_Menu_Ajax_Abstract
@@ -71,7 +71,7 @@ abstract class Uw_Menu_Ajax_Abstract
         if ($this->_itemArgs) {
             foreach ($this->_itemArgs as $k => $v) {
                 $o .= $this->html->getButtonAjax(
-                    $v['button_id'], $v['form_id'], $v['button_id_output']
+                    $v['button_id'], $v['form_id'], $v['ajax_response_output']
                 );
             }
             $o = '<script type="text/javascript">' . $o . '</script>';
