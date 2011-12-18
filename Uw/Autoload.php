@@ -58,9 +58,9 @@ if (function_exists('spl_autoload_register')) {
 function autoloadLogic($classname)
 {
     $file = getClassPath($classname) . '.php';
-    if (file_exists2($file)) {
+//    if (file_exists2($file)) {
         include_once $file;
-    }
+
 
 }
 

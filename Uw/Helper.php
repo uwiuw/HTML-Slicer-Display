@@ -219,3 +219,18 @@ function buildDataForTemplate(Uw_Config_Data $config)
     return $o;
 
 }
+
+/* * ***************
+ * Depreceated Class from Wordpress
+ * @see deprecated.php
+ */
+
+/**
+ * Class ini sudah tidak dipakai. Dan digantikan WP_User_Query. Oleh karena kita
+ * memakai autoload, maka class ini akan diextends saja demi menghindari pengecekan
+ * via class_exists di deprecated.php:291. Tujuanya demi optimasi autoload
+ */
+class WP_User_Search extends WP_User_Query
+{
+
+}
