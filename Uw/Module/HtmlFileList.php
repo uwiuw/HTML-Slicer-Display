@@ -133,7 +133,7 @@ class Uw_Module_HtmlFileList
         } else {
             $o['Description'] = 'No Description';
             $o['Version'] = '0.0.0';
-            $o['Author'] = 'Empty';
+            $o['Author'] = 'undefine';
         }
         return $o;
 
@@ -218,6 +218,8 @@ class Uw_Module_HtmlFileList
         return $return;
 
     }
+
+    
 
 }
 

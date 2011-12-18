@@ -71,7 +71,7 @@ abstract class Uw_Menu_Ajax_Abstract
         if ($this->_itemArgs) {
             foreach ($this->_itemArgs as $k => $v) {
                 $o .= $this->html->getButtonAjax(
-                    $v['button_id'], $v['form_id'], $v['button_id_output']
+                    $v['button_id'], $v['form_id'], $v['ajax_response_output']
                 );
             }
             $o = '<script type="text/javascript">' . $o . '</script>';

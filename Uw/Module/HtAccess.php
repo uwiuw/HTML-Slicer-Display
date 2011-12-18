@@ -33,6 +33,7 @@ class Uw_Module_HtAccess
 {
 
     private $_succesMsg = 'Successful creating a new Htaccess';
+
     /**
      * Set Htaccess file on xhtml folder
      *
@@ -59,6 +60,7 @@ HTML;
         fclose($Handle);
 
         return $this->_succesMsg;
+
     }
 
 }

@@ -42,7 +42,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
             'Icon' => 'semlabs_terminal.png',
             'form_id' => 'fix_htaccess',
             'button_id' => 'fix_htaccess_url',
-            'button_id_output' => 'fix_htaccess_url_output'
+            'ajax_response_output' => 'fix_htaccess_url_output'
         ),
         'rebuild_config' => array(
             'Name' => 'rebuild_config',
@@ -52,7 +52,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
             'Icon' => 'semlabs_arrow_circle_down.png',
             'form_id' => 'rebuild_config',
             'button_id' => 'rebuild_config_url',
-            'button_id_output' => 'rebuild_config_output'
+            'ajax_response_output' => 'rebuild_config_output'
         ),
     );
 
@@ -70,11 +70,21 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
         if ($action === 'fix_htaccess') {
             $htaccess = new Uw_Module_HtAccess();
             $ajaxResponse = $htaccess->setHtaccessFile();
+            $success = true;
         } elseif ($action === 'rebuild_config') {
             $result = delete_option(UW_NAME_LOWERCASE);
             if ($result) {
                 $ajaxResponse = 'Rebuilding Option is succesfull';
             }
+            $success = true;
+        }
+
+        if ($success) {
+            $ajaxResponse = <<<HTML
+<div class="updated fade">
+    <p>$ajaxResponse</p>
+</div>
+HTML;
         }
         die($ajaxResponse);
 

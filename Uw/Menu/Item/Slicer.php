@@ -80,7 +80,6 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
         }
 
         foreach ($o as $theme => $item) {
-
             $active = '';
             if ($item['Screenshot'] && $item['Indexfile']) {
                 $active = 'active';
@@ -90,6 +89,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
             }
 
             $Button = '';
+
             foreach ($this->buttons as $but) {
                 extract($but);
                 $Name = ajaxStr($Name, $item['Name']);
@@ -97,7 +97,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
                     'form_id' => $Name,
                     'id' => $Name,
                     'button_id' => ajaxStr($button_id, $item['Name']),
-                    'button_url_output' => $button_id_output,
+                    'ajax_response_output' => $ajax_response_output . '_' . $item['Name'],
                     'method' => 'post',
                     'ajax' => $Ajax,
                     'action' => admin_url('admin-ajax.php', false),
@@ -110,7 +110,7 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
 
             extract($item);
 
-
+            //@todo refacto:ada html/css inisiasi disini float:left;padding:5px
             $args = array(
                 'screenshot' => $Screenshot,
                 'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');

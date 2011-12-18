@@ -149,7 +149,7 @@ class Uw_Menu_Admin
      * Validating action in $_POST['HtmlSlicerDisplay'] before caling doAjaxAction()
      *
      * @return bool
-     * @todo ganti HtmlSlicerDisplay dengan constant khusus
+     * @todo ganti HtmlSlicerDisplay dengan constant khusus. sitewide changing
      */
     private function _preDoAjaxAction()
     {

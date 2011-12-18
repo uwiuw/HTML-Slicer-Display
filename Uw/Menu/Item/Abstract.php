@@ -46,6 +46,11 @@ abstract class Uw_Menu_Item_Abstract
      * @var Uw_Module_Templaty
      */
     protected $html;
+
+    /**
+     * Ajax module
+     * @var Uw_Menu_Ajax_Abstract
+     */
     protected $ajax;
     protected $_config;
 
@@ -106,8 +111,7 @@ abstract class Uw_Menu_Item_Abstract
 
     /**
      * Create admin menu navigation
-     *
-     * @todo create them using certain navigation
+     * 
      * @return string
      */
     public function createTabNav()
