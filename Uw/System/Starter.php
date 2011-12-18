@@ -17,7 +17,8 @@
 /**
  * Uw_System_Loader
  *
- * First framework initiator. Called from function.php
+ * First framework initiator. Called from function.php. Most of its work is for
+ * building config
  *
  * @category   Uw
  * @package    Uw_System

@@ -52,7 +52,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
      * @return void
      *
      * @todo buat quickedit menu bagi form portofolio dimana bisa diset list of
-     * portofolio utamanya. statusnya drooped feature
+     * portofolio utamanya. statusnya drooped feature. next time deh
      */
     function doAjaxAction()
     {
@@ -123,40 +123,28 @@ HTML;
     }
 
     /**
-     * Delteing a path
+     * deleting a path
      *
-     * @param string $dir  absolute path
+     * @param string $dir absolute path
      *
-     * @todo buat process deleted na menampilkan informasi file file yg didelete.
-     *      Informasi itu ditampilan dgn fadein fade out
+     * @todo buat process deleted ini menampilkan informasi file file yg didelete.
+     *      Informasi itu ditampilan dgn fadein fade out ajax.
      */
     private function _deleteDir($dir) {
         // open the directory
         $dhandle = opendir($dir);
-
         if ($dhandle) {
-            // loop through it
             while (false !== ($fname = readdir($dhandle))) {
-                // if the element is a directory, and
-                // does not start with a '.' or '..'
-                // we call deleteDir function recursively
-                // passing this element as a parameter
                 if (is_dir("{$dir}/{$fname}")) {
                     if (($fname != '.') && ($fname != '..')) {
-//                        echo "<u>Deleting Files in the Directory</u>: {$dir}/{$fname} <br />";
                         $this->_deleteDir("$dir/$fname");
                     }
-                    // the element is a file, so we delete it
                 } else {
-//                    echo "Deleting File: {$dir}/{$fname} <br />";
                     unlink("{$dir}/{$fname}");
                 }
             }
             closedir($dhandle);
         }
-        // now directory is empty, so we can use
-        // the rmdir() function to delete it
-//        echo "<u>Deleting Directory</u>: {$dir} <br />";
         rmdir($dir);
 
     }

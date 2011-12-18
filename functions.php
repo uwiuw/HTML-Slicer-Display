@@ -20,11 +20,31 @@ define('UW_U', dirname(WP_CONTENT_URL));
 define('UW_URL', WP_CONTENT_URL . '/themes/' . UW_NAME);
 define('UW_PATH', TEMPLATEPATH);
 
+/**
+ * @todo fix this : Daripada membuat simplepie class sbg third party, lebih baik
+ * meng-include-nya aja pada moment dimana dia dibutuhkan yaitu pada proses
+ * widgeting. Seluruh proses pengincludean dimulai dari fetch_feed(). Jadi ternyata
+ * bukan masalah yg lokal terjadi pada index.php dashboard admin panel.
+ *
+ * Menurut pembacaan :
+ * 1. \wp-admin\includes\dashboard.php
+ * 2. \wp-includes\default-widgets.php
+ * 3. \wp-includes\feed.php
+ *
+ * Another alternative adalah membuat arsitektur yg tidak akan memanggil autoload
+ * atau autoload-nya dikembalikan menjadi consitional autoload.
+ * Atau sampai seluruh class_exists() diganti sama wordpress menjadi false autoload
+ */
+//if (defined('DOING_AJAX')) {
+require_once ABSPATH . WPINC . '/class-simplepie.php';
+//}
+
 require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
 
 /*
  * Main Theme Logic
- * The algoritma have seperated action for back and front end. Its also support how
+ *
+ * The algoritma have seperated action for back and front end. It's also support how
  * sidebar module register itself and list of default widgets.
  */
 $UwStart = new Uw_System_Starter;
@@ -34,8 +54,10 @@ $config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME_LOWERCA
 if (is_a($config, 'Uw_Config_Data')) {
     //backend
     if (is_admin() && is_user_logged_in()) {
-        $adminMenuClass = $config->get('admin_menu');
-        $UwMenu = new $adminMenuClass($config, $html, new Uw_Menu_Creator);
+        require_once ABSPATH . WPINC . '/class-simplepie.php';
+
+        $themePageCls = $config->get('admin_menu');
+        $UwMenu = new $themePageCls($config, $html, new Uw_Menu_Creator);
         $UwMenu->init($config);
     } else {
         //frontend theme
@@ -51,9 +73,7 @@ if (is_a($config, 'Uw_Config_Data')) {
 if (!isset($success) OR $success == false) {
     throw new Exception('E999 : config is empty');
 } else {
-
+    /**
+     * Start using Wordpress Tempating System
+     */
 }
-
-/**
- * Start using Tempating
- */

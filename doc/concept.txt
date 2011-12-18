@@ -1,9 +1,8 @@
-what is the concept ? 
+what is the concept ?
 This free theme can be use as slicer portfolio display.
 
 (beres) reading style.css and show its value.
 (beres) .httaccess
-
 
 What is the feature ?
 (next) upload zip file. so slicer don't have to upload them manually to folder
@@ -18,21 +17,30 @@ no. this is only a display theme, so a slicer or any person can show their html 
 ---------------------------------
 Rio on 24-11-2011 :
 
-Bisa diterapkan buat HTML Template demo nih bang, jadi theme developer bisa show off HTML Template yg nantinya akan jadi theme buat di-showoff.
+Bisa diterapkan buat HTML Template demo nih bang, jadi theme developer bisa show off
+HTML Template yg nantinya akan jadi theme buat di-showoff.
 
-Tapi bisa juga sebagai dokumentasi dari theme yang berupa HTML dan terletak di folder theme sehingga bisa diakses via theme option.
+Tapi bisa juga sebagai dokumentasi dari theme yang berupa HTML dan terletak di folder
+theme sehingga bisa diakses via theme option.
 
-Kalau melihat option Slicer-nya gue malah kepikiran untuk dibuat semacam Theme Update log history atau bisa juga sebagai list addon yang tersedia untuk dibeli.
+Kalau melihat option Slicer-nya gue malah kepikiran untuk dibuat semacam Theme Update
+log history atau bisa juga sebagai list addon yang tersedia untuk dibeli.
 
 Just my thoughts.
 
 ------------------------------------
 uwiuw on 24-11-2011
 
-HTML Template demo : Iya memang ini tujuannya. Biar slicer bisa show off ke klien maupun menunjukkan portofolio-nya, tanpa dicampuri php. jadi bener2x skill tunggal
-slicer itu sendiri. 
+HTML Template demo : Iya memang ini tujuannya. Biar slicer bisa show off ke klien
+maupun menunjukkan portofolio-nya, tanpa dicampuri php. jadi bener2x skill tunggal
+slicer itu sendiri.
 
-Theme Update log history : nah ini agak ambigu euy. belum ngerti maksudnya apa. Sementara list addon juga masih meraba-raba. Tapi kayaknya bila dijual di envato aau plugin gitu bisa, yah ? walau sy sendiri lebih suka yg sekarang jadi free, sementara jenis yg premium-nya dibikin dibawah brand themepic. Lumayanlah mungkin untuk theme ke-2 atau ke-3.
+Theme Update log history : nah ini agak ambigu euy. belum ngerti maksudnya apa.
+Sementara list addon juga masih meraba-raba. Tapi kayaknya bila dijual di envato
+atau plugin gitu bisa, yah ? walau sy sendiri lebih suka yg sekarang jadi free,
+sementara jenis yg premium-nya dibikin dibawah brand themepic.
+Lumayanlah mungkin untuk theme ke-2 atau ke-3.
 
 ---------------------------------------
-future penggantian nama : CssSlicerSyndicate atau FrontEndSyndicate atau fronendbanditas
+future penggantian nama : CssSlicerSyndicate atau FrontEndSyndicate
+atau frontendbanditas. Akhirnya setle namanya jadi Plain HTML Showcase
