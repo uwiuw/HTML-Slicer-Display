@@ -111,7 +111,7 @@ abstract class Uw_Menu_Item_Abstract
 
     /**
      * Create admin menu navigation
-     * 
+     *
      * @return string
      */
     public function createTabNav()

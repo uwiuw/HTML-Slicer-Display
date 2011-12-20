@@ -16,11 +16,11 @@
  */
 ?>
 
-<form method="$method"
+<form method="<?php $method ?>"
       id="<?php echo $id ?>"
       name="<?php echo $form_id ?>"
       action="<?php echo $action ?>" style="display:none">
-    <input type="hidden" name="<?php echo $themeName ?>" value="<?php echo $id ?>" />
+    <input type="hidden" name="<?php echo $theme_name ?>" value="<?php echo $id ?>" />
     <input type="hidden" name="action" value="<?php echo $action_value ?>" />
     <input type="submit"
            name="Submit"

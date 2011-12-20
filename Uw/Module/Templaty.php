@@ -88,21 +88,25 @@ class Uw_Module_Templaty
     {
         $themeName = UW_NAME;
         $actionname = 'actiontest';
-        $id = 'button_' . $themeName;
         $default = array(
             'name' => ucfirst($themeName),
             'method' => 'post',
-            'id' => $id,
+            'id' => 'button_' . $themeName,
+            'form_id' => $themeName,
+            'theme_name' => $themeName,
             'ajax' => $actionname,
-            'button_id' => $id . '_url',
-            'ajax_response_output' => $id . '_url_output',
+            'button_id' => 'button_' . $themeName . '_url',
+            'ajax_response_output' => 'button_' . $themeName . '_url_output',
             'action' => admin_url('admin-ajax.php', false),
             'action_value' => 'goto',
             'submit_title' => 'Save',
             'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
         );
         $args = array_merge($default, $args);
+
+
         return $this->model->getTemplate('Button_Form.php', $args);
+
     }
 
     /**
@@ -115,12 +119,17 @@ class Uw_Module_Templaty
     function getButtonAjaxScript(array $args)
     {
         extract($args);
+
+        $hasildebug = print_r($args, TRUE);
+        echo "\n" . '<pre style="font-size:14px"><hr>' . '$hasildebug ' . htmlentities2($hasildebug) . '</pre>';
+
+
         return <<<HTML
     jQuery('#$button_id').click(function()
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
             if (data) {
-                jQuery('.$button_url_output').html(data);
+                jQuery('.$ajax_response_output').html(data);
             }
         });
     });

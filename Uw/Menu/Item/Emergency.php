@@ -42,7 +42,6 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
      */
     function selfRender()
     {
-        $path = UW_PATH . SEP . 'xhtml';
         try
         {
             $args = array(
