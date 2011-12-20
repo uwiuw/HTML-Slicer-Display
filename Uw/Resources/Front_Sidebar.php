@@ -58,7 +58,7 @@
         font-size: 14px;
         color: #333;
     }
-    li, ul, h2,input, #searchform, .Uw_Widget_PortoSearch {
+    li, ul, h2,input, #searchform, .Uw_Theme_Widget_PortoSearch {
         padding:0;
         margin:0;
         list-style:none;
@@ -68,14 +68,14 @@
         padding:0 10px;
         margin:0 10px;
     }
-    .textwidget,Uw_Widget_PortoSearch  {
+    .textwidget,Uw_Theme_Widget_PortoSearch  {
         width:130px;
     }
     #searchform {
         margin-top:10px;
         border:none;
     }
-    .Uw_Widget_PortoSearch {
+    .Uw_Theme_Widget_PortoSearch {
         margin-top:5px;
     }
     #searchAgain {

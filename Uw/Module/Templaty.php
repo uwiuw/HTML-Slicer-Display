@@ -83,23 +83,20 @@ class Uw_Module_Templaty
      * @param array $args various argument for creating button
      *
      * @return html
-     *
-     * @todo buat form ini memiliki template resoucesnya sendiri. atau buat helper
-     * bagi pembuatan form seperti ci lakukan
      */
     function getButton(array $args)
     {
-
         $themeName = UW_NAME;
         $actionname = 'actiontest';
-        $id = 'button_' . $themeName;
         $default = array(
             'name' => ucfirst($themeName),
             'method' => 'post',
-            'id' => $id,
+            'id' => 'button_' . $themeName,
+            'form_id' => $themeName,
+            'theme_name' => $themeName,
             'ajax' => $actionname,
-            'button_id' => $id . '_url',
-            'ajax_response_output' => $id . '_url_output',
+            'button_id' => 'button_' . $themeName . '_url',
+            'ajax_response_output' => 'button_' . $themeName . '_url_output',
             'action' => admin_url('admin-ajax.php', false),
             'action_value' => 'goto',
             'submit_title' => 'Save',
@@ -107,54 +104,32 @@ class Uw_Module_Templaty
         );
         $args = array_merge($default, $args);
 
-        extract($args);
-        $button = <<<HTML
-<form method="$method"
-        id="$id"
-        name="$form_id"
-        action="$action" style="display:none">
-    <input type="hidden" name="$themeName" value="$id" />
-    <input type="hidden" name="action" value="$action_value" />
-    <input type="submit"
-        name="Submit"
-        class="button-primary"
-        value="$submit_title" style="display:none" />
-    $nonce_field
-</form>
-<span class="$ajax_response_output">
-    <a href="#"
-        id="$button_id"
-        class="button-primary"
-        style="display:inline-block;margin:5px">$submit_title</a>
-</span>
-HTML;
 
-        return $button;
+        return $this->model->getTemplate('Button_Form.php', $args);
 
     }
 
     /**
      * Get html ajax button
      *
-     * @param string $button_id the link id name
-     * @param string $form_id   the form id name
-     * @param string $output    the class name of ajax respond container
+     * @param array $args berisi keys button_id, form_id, dan output
      *
      * @return html
      */
-    function getButtonAjax($button_id, $form_id, $button_url_output)
+    function getButtonAjaxScript(array $args)
     {
-        $button = <<<HTML
+        extract($args);
+
+        return <<<HTML
     jQuery('#$button_id').click(function()
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
             if (data) {
-                jQuery('.$button_url_output').html(data);
+                jQuery('.$ajax_response_output').html(data);
             }
         });
     });
 HTML;
-        return $button;
 
     }
 

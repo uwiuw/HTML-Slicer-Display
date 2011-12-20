@@ -219,7 +219,5 @@ class Uw_Module_HtmlFileList
 
     }
 
-    
-
 }
 

@@ -36,13 +36,13 @@ class Uw_Menu_Creator
      *
      * Will be called from outside theme
      *
-     * @param Uw_Menu_Item_Abstract $item handler of class in Uw/Menu/Item
+     * @param Uw_Theme_Menu_Item_Abstract $item handler of class in Uw/Menu/Item
      *
      * @return void
      * @todo covert html to templaty way. and maybe just delete this class if no
      * longer need
      */
-    public function buildForm(Uw_Menu_Item_Abstract $item)
+    public function buildForm(Uw_Theme_Menu_Item_Abstract $item)
     {
         ?>
         <div id="wpbody-content">

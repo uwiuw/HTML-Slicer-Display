@@ -57,11 +57,7 @@ if (function_exists('spl_autoload_register')) {
  */
 function autoloadLogic($classname)
 {
-    $file = getClassPath($classname) . '.php';
-//    if (file_exists2($file)) {
-        include_once $file;
-
-
+    include_once getClassPath($classname) . '.php'; //get class absolute path
 }
 
 require 'Helper.php';
