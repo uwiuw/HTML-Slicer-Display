@@ -83,13 +83,9 @@ class Uw_Module_Templaty
      * @param array $args various argument for creating button
      *
      * @return html
-     *
-     * @todo buat form ini memiliki template resoucesnya sendiri. atau buat helper
-     * bagi pembuatan form seperti ci lakukan
      */
     function getButton(array $args)
     {
-
         $themeName = UW_NAME;
         $actionname = 'actiontest';
         $id = 'button_' . $themeName;
@@ -106,31 +102,7 @@ class Uw_Module_Templaty
             'nonce_field' => wp_nonce_field($actionname, "_wpnonce", true, false),
         );
         $args = array_merge($default, $args);
-
-        extract($args);
-        $button = <<<HTML
-<form method="$method"
-        id="$id"
-        name="$form_id"
-        action="$action" style="display:none">
-    <input type="hidden" name="$themeName" value="$id" />
-    <input type="hidden" name="action" value="$action_value" />
-    <input type="submit"
-        name="Submit"
-        class="button-primary"
-        value="$submit_title" style="display:none" />
-    $nonce_field
-</form>
-<span class="$ajax_response_output">
-    <a href="#"
-        id="$button_id"
-        class="button-primary"
-        style="display:inline-block;margin:5px">$submit_title</a>
-</span>
-HTML;
-
-        return $button;
-
+        return $this->model->getTemplate('Button_Form.php', $args);
     }
 
     /**
@@ -142,7 +114,6 @@ HTML;
      */
     function getButtonAjaxScript(array $args)
     {
-
         extract($args);
         return <<<HTML
     jQuery('#$button_id').click(function()
