@@ -120,10 +120,6 @@ class Uw_Module_Templaty
     {
         extract($args);
 
-        $hasildebug = print_r($args, TRUE);
-        echo "\n" . '<pre style="font-size:14px"><hr>' . '$hasildebug ' . htmlentities2($hasildebug) . '</pre>';
-
-
         return <<<HTML
     jQuery('#$button_id').click(function()
     {

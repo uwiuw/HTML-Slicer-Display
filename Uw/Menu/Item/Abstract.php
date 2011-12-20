@@ -139,12 +139,19 @@ HTML;
     /**
      * Registering ajax button into its wp hook admin_print_footer_scripts
      *
+     * @param string $hokname hook name
+     *
      * @return void
      */
-    protected function _regAjaxButton()
+    protected function _regAjaxButton($hokname)
     {
-        add_action('admin_print_footer_scripts', array($this->ajax, 'inject'), 9999);
+        if ($hokname) {
+            $hokname = "admin_footer-$hokname";
+        } else {
+            $hokname = 'admin_print_footer_scripts'; //default hook name
+        }
 
+        add_action($hokname, array($this->ajax, 'inject'), 9999);
     }
 
 }

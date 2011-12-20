@@ -50,7 +50,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                 'in_tbody' => getCls('emergency'),
                 'content' => $this->_getContent());
             $this->content = $this->html->getTemplate('Table.php', $args);
-            $this->_regAjaxButton();
+            $this->_regAjaxButton('slicer_page_emergency');
         } catch (Exception $exc)
         {
             if (is_a($exc, 'Uw_Exception')) {

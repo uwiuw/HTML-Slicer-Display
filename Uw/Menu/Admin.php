@@ -38,9 +38,9 @@ class Uw_Menu_Admin
     private $html;
     private $_creator;
     private $_navigation;
-    private $_curPageSlug;
-    private $_curPageFile;
-    private $_curPageAjCls;
+    private $_curPgSlug;
+    private $_curPgFile;
+    private $_curPgAjCls;
 
     /**
      * Constractor
@@ -57,8 +57,8 @@ class Uw_Menu_Admin
         $this->_config = & $data;
         $this->html = & $html;
         $this->_creator = & $creator;
-        $this->_curPageSlug = $this->_config->get('_curPageSlug');
-        $this->_curPageFile = $this->_config->get('_curPageFile');
+        $this->_curPgSlug = $this->_config->get('_curPageSlug');
+        $this->_curPgFile = $this->_config->get('_curPageFile');
         $this->_navigation = $this->_config->get('admin_menu_lists');
 
     }
@@ -73,8 +73,8 @@ class Uw_Menu_Admin
         if (defined('DOING_AJAX')) {
             $this->_preDoAjaxAction();
         } else {
-            if (false !== $clsname = $this->_initClass($this->_curPageFile)) {
-                $this->_curPageAjCls = $clsname;
+            if (false !== $clsname = $this->_initClass($this->_curPgFile)) {
+                $this->_curPgAjCls = $clsname;
             }
             /*
              * Register theme menu into backend
@@ -93,13 +93,12 @@ class Uw_Menu_Admin
     public function regItemMenu()
     {
         if ($this->_navigation) {
-            $number = 4;
-            add_menu_page(
-                'Slicer Syndicate', 'Slicer', 10, 'slicer', array($this, 'loadItemMenu'), '', $number
-            );
-            foreach ($this->_navigation as $k => $v) {
-                $name = ucfirst($v);
-                add_submenu_page('slicer', $name, $name, 10, $v, array($this, 'loadItemMenu'), '', $number++);
+            $mainPage = $this->_config->get('admin_menu_page');
+            if (count($mainPage)) {
+                $this->_regMainNav($mainPage, $this->_navigation);
+            } else {
+                $arr = array('Slicer Syndicate', 'Slicer', 10, 'slicer', 4);
+                $this->_regMainNav($arr, $this->_navigation);
             }
         } else {
             throw new Uw_Exception('Empty Navigation');
@@ -107,19 +106,32 @@ class Uw_Menu_Admin
 
     }
 
+    private function _regMainNav(array $main, array $lists, $func = 'loadItemMenu') {
+
+        $number = $main[4];
+        add_menu_page(
+            $main[0], $main[1], $main[2], $main[3], array($this, $func), '', $number
+        );
+
+        foreach ($lists as $k => $v) {
+            $name = ucfirst($v);
+            add_submenu_page($main[3], $name, $name, $main[2], $v, array($this, $func), '', $number++);
+        }
+
+    }
+
     /**
-     * Load item menu and transform it into a form
+     * Define a page class name, load a new instance and transform it into a page
      *
      * @return void
      */
     public function loadItemMenu()
     {
-        $clsname = $this->_menuItemCls . $this->_curPageFile;
+        $clsname = $this->_menuItemCls . $this->_curPgFile;
 
-        $clsname = new $clsname($this->_config, $this->html, $this->_curPageAjCls);
-        $clsname->setNav(
-            $this->_curPageSlug, $this->_curPageFile, $this->_navigation
-        );
+        $clsname = new $clsname($this->_config, $this->html, $this->_curPgAjCls);
+
+        $clsname->setNav($this->_curPgSlug, $this->_curPgFile, $this->_navigation);
         $clsname->selfRender();
 
         $this->_creator->buildForm($clsname);
@@ -136,7 +148,7 @@ class Uw_Menu_Admin
     private function _initClass($checkMe)
     {
         $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP;
-        $fl .=$checkMe . '.php';
+        $fl .= $checkMe . '.php';
         if (file_exists2($fl)) {
             $clsname = $this->_menuAjaxCls . $checkMe;
             return new $clsname($this->_config, $this->html);
@@ -158,8 +170,8 @@ class Uw_Menu_Admin
             if ($url['query']) {
                 parse_str($url['query'], $url);
                 if ($url['page'] != '') {
-                    $this->_curPageFile = ucfirst($url['page']);
-                    $clsname = $this->_initClass($this->_curPageFile);
+                    $this->_curPgFile = ucfirst($url['page']);
+                    $clsname = $this->_initClass($this->_curPgFile);
                     if (false !== $clsname
                         && is_object($clsname)
                     ) {
