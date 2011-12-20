@@ -56,7 +56,7 @@ class Uw_Menu_Ajax_Slicer extends Uw_Menu_Ajax_Abstract
      */
     function doAjaxAction()
     {
-        $action = $_POST['HtmlSlicerDisplay'];
+        $action = $_POST[UW_NAME];
         $ajaxResponse = 'Process is failing for unknown reason';
 
         if (false !== $this->_getSubStringAction($action, 'edit_portofolio')) {
@@ -123,15 +123,13 @@ HTML;
     }
 
     /**
-     * deleting a path
+     * Deleting a path
      *
      * @param string $dir absolute path
      *
-     * @todo buat process deleted ini menampilkan informasi file file yg didelete.
-     *      Informasi itu ditampilan dgn fadein fade out ajax.
+     * @return void.
      */
     private function _deleteDir($dir) {
-        // open the directory
         $dhandle = opendir($dir);
         if ($dhandle) {
             while (false !== ($fname = readdir($dhandle))) {

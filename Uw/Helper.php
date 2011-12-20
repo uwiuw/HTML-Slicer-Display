@@ -25,9 +25,10 @@
  */
 function getClassPath($classname)
 {
-    $classname = str_replace('_', SEP, $classname);
-    $classname = str_replace('-', '', $classname);
-    return UW_PATH . SEP . $classname;
+    $search = array('Uw_', '_', '-');
+    $replace = array('', SEP, '');
+
+    return UW_PATH . SEP . 'Uw' . SEP . str_replace($search, $replace, $classname);
 
 }
 

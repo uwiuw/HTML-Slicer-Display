@@ -136,15 +136,15 @@ HTML;
     /**
      * Get html ajax button
      *
-     * @param string $button_id the link id name
-     * @param string $form_id   the form id name
-     * @param string $output    the class name of ajax respond container
+     * @param array $args berisi keys button_id, form_id, dan output
      *
      * @return html
      */
-    function getButtonAjax($button_id, $form_id, $button_url_output)
+    function getButtonAjaxScript(array $args)
     {
-        $button = <<<HTML
+
+        extract($args);
+        return <<<HTML
     jQuery('#$button_id').click(function()
     {
         jQuery.post(ajaxurl, jQuery('#$form_id').serialize(), function(data) {
@@ -154,7 +154,6 @@ HTML;
         });
     });
 HTML;
-        return $button;
 
     }
 

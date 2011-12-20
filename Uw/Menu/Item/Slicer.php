@@ -68,7 +68,9 @@ class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
      * Get content of the page. Build list of portofolio
      *
      * @return string
-     * @todo cara kerja method ini tidak intuitif, dan terlalu banyak conditionalnya
+     * @todo cara kerja method ini tidak intuitif, dan terlalu banyak conditionalnya.
+     *       Oleh karenanya dibuat aja class UW_BUTTON atau semacamnya yg khusus
+     *       menerima input aja
      */
     protected function _getContent()
     {

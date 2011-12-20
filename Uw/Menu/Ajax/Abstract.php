@@ -49,6 +49,8 @@ abstract class Uw_Menu_Ajax_Abstract
      *
      * @param Uw_Config_Data     $data handler
      * @param Uw_Module_Templaty $html handler
+     *
+     * @return void
      */
     final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html)
     {
@@ -58,7 +60,6 @@ abstract class Uw_Menu_Ajax_Abstract
         $this->html = $html;
         $this->_config = &$data;
         $this->action = $_POST['action'];
-
     }
 
     /**
@@ -70,9 +71,7 @@ abstract class Uw_Menu_Ajax_Abstract
     {
         if ($this->_itemArgs) {
             foreach ($this->_itemArgs as $k => $v) {
-                $o .= $this->html->getButtonAjax(
-                    $v['button_id'], $v['form_id'], $v['ajax_response_output']
-                );
+                $o .= $this->html->getButtonAjaxScript($v);
             }
             $o = '<script type="text/javascript">' . $o . '</script>';
             echo $o;

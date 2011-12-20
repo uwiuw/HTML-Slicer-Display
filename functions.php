@@ -36,7 +36,7 @@ define('UW_PATH', TEMPLATEPATH);
  * Atau sampai seluruh class_exists() diganti sama wordpress menjadi false autoload
  */
 //if (defined('DOING_AJAX')) {
-require_once ABSPATH . WPINC . '/class-simplepie.php';
+//require_once ABSPATH . WPINC . '/class-simplepie.php';
 //}
 
 require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
@@ -54,8 +54,6 @@ $config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME_LOWERCA
 if (is_a($config, 'Uw_Config_Data')) {
     //backend
     if (is_admin() && is_user_logged_in()) {
-        require_once ABSPATH . WPINC . '/class-simplepie.php';
-
         $themePageCls = $config->get('admin_menu');
         $UwMenu = new $themePageCls($config, $html, new Uw_Menu_Creator);
         $UwMenu->init($config);

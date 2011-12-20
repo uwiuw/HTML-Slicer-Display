@@ -126,7 +126,8 @@ class Uw_Module_UploadUpgrader
      *
      * @return html     *
      * @todo perbaiki bagian ini karena paramnya tidak nyambung dengan logika di
-     *       dalamnya
+     *       dalamnya. Support helper sendiri aja yg khusus membuat form button
+     *       seperti ini
      */
     private function _submitButton($text, $type, $name, $wrap)
     {

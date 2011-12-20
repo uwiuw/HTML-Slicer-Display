@@ -64,7 +64,7 @@ class Uw_Menu_Ajax_Emergency extends Uw_Menu_Ajax_Abstract
      */
     function doAjaxAction()
     {
-        $action = $_POST['HtmlSlicerDisplay'];
+        $action = $_POST[UW_NAME];
         $ajaxResponse = 'Process is failing for unknown reason';
 
         if ($action === 'fix_htaccess') {

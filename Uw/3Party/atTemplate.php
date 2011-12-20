@@ -18,7 +18,7 @@
  * Atrim_Core_Model_Resource_Template_AtTemplate
  *
  * Internal version 1.0.1 - used on outside framework. Originally used in
- * AtRim Framework and outside used firstly on HtmlSlicerDisplay theme
+ * AtRim Framework and outside used firstly on this theme
  *
  * @category   Atrim
  * @package    Atrim_Core_Model
@@ -29,8 +29,9 @@
  * @version    Release: @package_version@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
- * @todo       buat penjelasan cara praktis penggunaannya lalu links ke halaman di
- *             blogmu
+ * @todo       buat penjelasan cara praktis penggunaan class
+ *             Atrim_Core_Model_Resource_Template_AtTemplate nya lalu links ke
+ *             halaman di blogmu
  */
 class Atrim_Core_Model_Resource_Template_AtTemplate
 {

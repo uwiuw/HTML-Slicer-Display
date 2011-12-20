@@ -146,14 +146,13 @@ class Uw_Menu_Admin
     }
 
     /**
-     * Validating action in $_POST['HtmlSlicerDisplay'] before caling doAjaxAction()
+     * Validating action in $_POST[UW_NAME] before caling doAjaxAction()
      *
      * @return bool
-     * @todo ganti HtmlSlicerDisplay dengan constant khusus. sitewide changing
      */
     private function _preDoAjaxAction()
     {
-        $flaq = $_POST['HtmlSlicerDisplay'];
+        $flaq = $_POST[UW_NAME];
         if ($flaq && false != $_POST['action'] && $_POST['_wp_http_referer']) {
             $url = parse_url($_POST['_wp_http_referer']);
             if ($url['query']) {
