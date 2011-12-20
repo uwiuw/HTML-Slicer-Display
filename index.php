@@ -25,5 +25,5 @@ if (is_search() && false != $search_query = strtolower(trim(get_search_query()))
     }
 }
 
-$loadXhtml = new Uw_System_Loader($html, $Uw_Sidebar);
+$loadXhtml = new Uw_Theme_Loader($html, $Uw_Sidebar);
 $loadXhtml->show($themename, 'index.html', $listofthemes);

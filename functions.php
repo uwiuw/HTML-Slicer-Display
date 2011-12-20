@@ -35,10 +35,6 @@ define('UW_PATH', TEMPLATEPATH);
  * atau autoload-nya dikembalikan menjadi consitional autoload.
  * Atau sampai seluruh class_exists() diganti sama wordpress menjadi false autoload
  */
-//if (defined('DOING_AJAX')) {
-//require_once ABSPATH . WPINC . '/class-simplepie.php';
-//}
-
 require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
 
 /*
@@ -47,31 +43,15 @@ require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
  * The algoritma have seperated action for back and front end. It's also support how
  * sidebar module register itself and list of default widgets.
  */
-$UwStart = new Uw_System_Starter;
+$UwStart = new Uw_Starter;
 $config = new Uw_Config_Data;
-$html = new Uw_Module_Templaty();
 $config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME_LOWERCASE), UW_NAME_LOWERCASE);
-if (is_a($config, 'Uw_Config_Data')) {
-    //backend
-    if (is_admin() && is_user_logged_in()) {
-        $themePageCls = $config->get('admin_menu');
-        $UwMenu = new $themePageCls($config, $html, new Uw_Menu_Creator);
-        $UwMenu->init($config);
-    } else {
-        //frontend theme
-        $config = getDefaultTheme($config);
-    }
-
-    extract(buildDataForTemplate($config));
-    $Uw_Sidebar = new Uw_Widget_Sidebar($config, $tNextPrev);
-    $Uw_Sidebar->init();
-    $success = true;
-}
-
-if (!isset($success) OR $success == false) {
+if (!is_a($config, 'Uw_Config_Data')) {
     throw new Exception('E999 : config is empty');
-} else {
-    /**
-     * Start using Wordpress Tempating System
-     */
 }
+
+require_once UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . UW_NAME . '.php';
+
+/**
+ * Start using Wordpress Tempating System
+ */

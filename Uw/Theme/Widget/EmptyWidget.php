@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Uw Framework
  *
  * PHP version 5
  *
  * @category  Uw
- * @package   Uw_Widget
+ * @package   Uw_Theme_Widget
  * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
@@ -14,13 +15,13 @@
  */
 
 /**
- * Uw_Widget_EmptyWidget
+ * Uw_Theme_Widget_EmptyWidget
  *
- * Widget for navigate into next portofolio
+ * Empty Widget
  *
  * @category   Uw
- * @package    Uw_Widget
- * @subpackage Uw_Widget_NavRight
+ * @package    Uw_Theme_Widget
+ * @subpackage Uw_Theme_Widget_EmptyWidget
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -28,10 +29,8 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Widget_NavRight extends WP_Widget
+class Uw_Theme_Widget_EmptyWidget extends WP_Widget
 {
-
-    private $_icon = 'semlabs_arrow_right.png';
 
     /**
      * Constractor
@@ -42,10 +41,8 @@ class Uw_Widget_NavRight extends WP_Widget
      */
     function __construct()
     {
-        $widget_ops = array(
-            'description' => __("Help visitor navigate your next portofolio")
-        );
-        parent::__construct('navright', __('Next Portofolio'), $widget_ops);
+        $widget_ops = array('description' => __("To create profile-like front end"));
+        parent::__construct('emptywidget', __('EmptyWidget'), $widget_ops);
 
     }
 
@@ -59,20 +56,7 @@ class Uw_Widget_NavRight extends WP_Widget
      */
     function widget($args, $instance)
     {
-        $nextFile = $this->_dataWidget['nextFile'];
-        $iconURL = $this->_dataWidget['UW_URL'] . '/assets/' . $this->_icon;
-
-        ?>
-        <style type="text/css">
-            .next a {
-                background: url(<?php echo $iconURL ?>) no-repeat  right top;
-                display: block; width: 40px; height: 40px;
-            }
-        </style>
-        <div class="Uw_Widget_NavRight">
-            <a class="next" href="<?php echo $nextFile ?>"></a>
-        </div>
-        <?php
+        echo "<div><!-- Uw_Theme_Widget_EmptyWidget --></div>";
 
     }
 

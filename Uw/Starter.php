@@ -6,7 +6,7 @@
  * PHP version 5
  *
  * @category  Uw
- * @package   Uw_System
+ * @package   Uw_Starter
  * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
@@ -15,14 +15,14 @@
  */
 
 /**
- * Uw_System_Loader
+ * Uw_Starter
  *
  * First framework initiator. Called from function.php. Most of its work is for
  * building config
  *
  * @category   Uw
  * @package    Uw_System
- * @subpackage Uw_System_Loader
+ * @subpackage Uw_Starter
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -30,7 +30,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_System_Starter
+class Uw_Starter
 {
 
     /**
@@ -79,7 +79,7 @@ class Uw_System_Starter
             $config->set('is_firsttime', false);
         } else {
             //first time
-            $this->_rebuildHtaccess();
+
             $opt = $reader->saveConfig($inInifile, $db_field);
             $config->set('is_firsttime', true);
         }
@@ -89,18 +89,6 @@ class Uw_System_Starter
         }
 
         return $config;
-
-    }
-
-    /**
-     * Wrapper for object building htaccess
-     *
-     * @return bool
-     */
-    private function _rebuildHtaccess()
-    {
-        $htaccess = new Uw_Module_HtAccess();
-        return $htaccess->setHtaccessFile();
 
     }
 

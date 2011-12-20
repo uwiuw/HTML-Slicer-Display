@@ -15,13 +15,13 @@
  */
 
 /**
- * Uw_Menu_Item_Abstract
+ * Uw_Theme_Menu_Item_Abstract
  *
  * Abstract
  *
  * @category   Uw
  * @package    Uw_Menu
- * @subpackage Uw_Menu_Item
+ * @subpackage Uw_Theme_Menu_Item
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,7 +29,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-abstract class Uw_Menu_Item_Abstract
+abstract class Uw_Theme_Menu_Item_Abstract
 {
 
     protected $_title = 'No Title';
@@ -49,7 +49,7 @@ abstract class Uw_Menu_Item_Abstract
 
     /**
      * Ajax module
-     * @var Uw_Menu_Ajax_Abstract
+     * @var Uw_Theme_Menu_Ajax_Abstract
      */
     protected $ajax;
     protected $_config;
@@ -71,18 +71,19 @@ abstract class Uw_Menu_Item_Abstract
     /**
      * Constractor
      *
-     * @param Uw_Config_Data        $data handler
-     * @param Uw_Module_Templaty    $html handler
-     * @param Uw_Menu_Ajax_Abstract $ajax handler
+     * @param Uw_Config_Data              $data handler
+     * @param Uw_Module_Templaty          $html handler
+     * @param Uw_Theme_Menu_Ajax_Abstract $ajax handler
      *
      * @return void
      */
     final function __construct(Uw_Config_Data $data, Uw_Module_Templaty $html,
-        Uw_Menu_Ajax_Abstract $ajax = null
+        Uw_Theme_Menu_Ajax_Abstract $ajax = null
     ) {
         $this->_config = &$data;
         $this->html = $html;
-        if ($ajax instanceof Uw_Menu_Ajax_Abstract) {
+        
+        if ($ajax instanceof Uw_Theme_Menu_Ajax_Abstract) {
             $this->ajax = $ajax;
             $this->buttons = $this->ajax->getButtons();
         } else {
@@ -152,6 +153,7 @@ HTML;
         }
 
         add_action($hokname, array($this->ajax, 'inject'), 9999);
+
     }
 
 }

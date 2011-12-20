@@ -15,13 +15,13 @@
  */
 
 /**
- * Uw_System_Loader
+ * Uw_Theme_Loader
  *
  * Loader for portofolio html files
  *
  * @category   Uw
  * @package    Uw_System
- * @subpackage Uw_System_Loader
+ * @subpackage Uw_Theme_Loader
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,7 +29,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_System_Loader
+class Uw_Theme_Loader
 {
 
     /**
@@ -52,7 +52,7 @@ class Uw_System_Loader
 
     /**
      * Object for rendering default wordpress sidebar
-     * @var Uw_Widget_Sidebar
+     * @var Uw_Theme_Widget_Sidebar
      */
     private $_sidebar;
 
@@ -66,10 +66,10 @@ class Uw_System_Loader
      * Constractor
      *
      * @param Uw_Module_Templaty $template   Object templating
-     * @param Uw_Widget_Sidebar  $Uw_Sidebar Optional. Null. object
+     * @param Uw_Theme_Widget_Sidebar  $Uw_Sidebar Optional. Null. object
      */
     function __construct(Uw_Module_Templaty $template,
-        Uw_Widget_Sidebar $Uw_Sidebar = null
+        Uw_Theme_Widget_Sidebar $Uw_Sidebar = null
     ) {
         $this->_template = $template;
         $this->_sidebar = $Uw_Sidebar;

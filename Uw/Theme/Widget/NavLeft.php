@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Uw Framework
  *
  * PHP version 5
  *
  * @category  Uw
- * @package   Uw_Widget
+ * @package   Uw_Theme_Widget
  * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
@@ -15,13 +14,13 @@
  */
 
 /**
- * Uw_Widget_EmptyWidget
+ * Uw_Theme_Widget_NavLeft
  *
- * Empty Widget
+ * Widget for navigate into previous portofolio
  *
  * @category   Uw
- * @package    Uw_Widget
- * @subpackage Uw_Widget_EmptyWidget
+ * @package    Uw_Theme_Widget
+ * @subpackage Uw_Theme_Widget_NavLeft
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,8 +28,10 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Widget_EmptyWidget extends WP_Widget
+class Uw_Theme_Widget_NavLeft extends WP_Widget
 {
+
+    private $_icon = 'semlabs_arrow_left.png';
 
     /**
      * Constractor
@@ -41,8 +42,10 @@ class Uw_Widget_EmptyWidget extends WP_Widget
      */
     function __construct()
     {
-        $widget_ops = array('description' => __("To create profile-like front end"));
-        parent::__construct('emptywidget', __('EmptyWidget'), $widget_ops);
+        $widget_ops = array(
+            'description' => __("Help visitor navigate your previous portofolio")
+        );
+        parent::__construct('navleft', __('Previous Portofolio'), $widget_ops);
 
     }
 
@@ -56,7 +59,20 @@ class Uw_Widget_EmptyWidget extends WP_Widget
      */
     function widget($args, $instance)
     {
-        echo "<div><!-- Uw_Widget_EmptyWidget --></div>";
+        $prevFile = $this->_dataWidget['prevFile'];
+        $iconURL = $this->_dataWidget['UW_URL'] . '/assets/' . $this->_icon;
+        ?>
+        <style type="text/css">
+            .prev a {
+                background: url(<?php echo $iconURL ?>) no-repeat left top;
+                display: block; width: 40px; height: 40px;
+            }
+        </style>
+        <div class="Uw_Theme_Widget_NavLeft">
+            <a class="prev" href ="<?php echo $prevFile ?>"></a>
+        </div>
+        <?php
+        echo $output;
 
     }
 

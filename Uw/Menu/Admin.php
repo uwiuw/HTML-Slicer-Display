@@ -32,8 +32,8 @@
 class Uw_Menu_Admin
 {
 
-    private $_menuItemCls = 'Uw_Menu_Item_';
-    private $_menuAjaxCls = 'Uw_Menu_Ajax_';
+    private $_menuItemCls = 'Uw_Theme_Menu_Item_';
+    private $_menuAjaxCls = 'Uw_Theme_Menu_Ajax_';
     private $_config;
     private $html;
     private $_creator;
@@ -43,7 +43,7 @@ class Uw_Menu_Admin
     private $_curPgAjCls;
 
     /**
-     * Constractor
+     * Constructors
      *
      * @param Uw_Config_Data     $data    handler
      * @param Uw_Module_Templaty $html    handler
@@ -115,7 +115,9 @@ class Uw_Menu_Admin
 
         foreach ($lists as $k => $v) {
             $name = ucfirst($v);
-            add_submenu_page($main[3], $name, $name, $main[2], $v, array($this, $func), '', $number++);
+            add_submenu_page(
+                $main[3], $name, $name, $main[2], $v, array($this, $func), '', $number++
+            );
         }
 
     }
@@ -130,10 +132,8 @@ class Uw_Menu_Admin
         $clsname = $this->_menuItemCls . $this->_curPgFile;
 
         $clsname = new $clsname($this->_config, $this->html, $this->_curPgAjCls);
-
         $clsname->setNav($this->_curPgSlug, $this->_curPgFile, $this->_navigation);
         $clsname->selfRender();
-
         $this->_creator->buildForm($clsname);
 
     }
@@ -147,8 +147,9 @@ class Uw_Menu_Admin
      */
     private function _initClass($checkMe)
     {
-        $fl = UW_PATH . SEP . 'Uw' . SEP . 'Menu' . SEP . 'Ajax' . SEP;
+        $fl = UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . 'Menu' . SEP . 'Ajax' . SEP;
         $fl .= $checkMe . '.php';
+
         if (file_exists2($fl)) {
             $clsname = $this->_menuAjaxCls . $checkMe;
             return new $clsname($this->_config, $this->html);

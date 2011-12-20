@@ -15,13 +15,13 @@
  */
 
 /**
- * Uw_Menu_Item_Slicer
+ * Uw_Theme_Menu_Item_Slicer
  *
  * Slicer menu page data for rendering
  *
  * @category   Uw
  * @package    Uw_Menu
- * @subpackage Uw_Menu_Item
+ * @subpackage Uw_Theme_Menu_Item
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,7 +29,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Menu_Item_Slicer extends Uw_Menu_Item_Abstract
+class Uw_Theme_Menu_Item_Slicer extends Uw_Theme_Menu_Item_Abstract
 {
 
     public $title = 'Slicer';

@@ -15,13 +15,13 @@
  */
 
 /**
- * Uw_Menu_Item_Slicer
+ * Uw_Theme_Menu_Item_Slicer
  *
  * Slicer menu page data for rendering
  *
  * @category   Uw
  * @package    Uw_Menu
- * @subpackage Uw_Menu_Item
+ * @subpackage Uw_Theme_Menu_Item
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,7 +29,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
+class Uw_Theme_Menu_Item_Emergency extends Uw_Theme_Menu_Item_Abstract
 {
 
     public $title = 'Emergency';
@@ -86,7 +86,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                 'screenshot' => $Icon,
                 'imgcls' => 'width="64" height="64" style="float:left;padding:5px"');
             $Img = $this->html->getTemplate('Img.php', $args);
-            $content = $this->html->getTemplate('Emergency_Content.php', array('Description' => $Description ));
+            $content = $this->html->getTemplate('Emergency_Content.php', array('Description' => $Description));
 
             $args = array(
                 'tbody_class' => getCls($active),
@@ -95,7 +95,7 @@ class Uw_Menu_Item_Emergency extends Uw_Menu_Item_Abstract
                 'disabled' => $disabled,
                 'Name' => $Name,
                 'Img' => $Img,
-				'Button' => $this->html->getButton(array(
+                'Button' => $this->html->getButton(array(
                     'name' => $Name,
                     'id' => $Name,
                     'button_id' => $button_id,

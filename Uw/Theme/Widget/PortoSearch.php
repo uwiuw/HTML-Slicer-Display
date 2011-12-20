@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category  Uw
- * @package   Uw_Widget
+ * @package   Uw_Theme_Widget
  * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
@@ -14,13 +14,13 @@
  */
 
 /**
- * Uw_Widget_NavLeft
+ * Uw_Theme_Widget_PortoSearch
  *
- * Widget for navigate into previous portofolio
+ * Widget for searching portofolio
  *
  * @category   Uw
- * @package    Uw_Widget
- * @subpackage Uw_Widget_NavLeft
+ * @package    Uw_Theme_Widget
+ * @subpackage Uw_Theme_Widget_PortoSearch
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -28,10 +28,8 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Widget_NavLeft extends WP_Widget
+class Uw_Theme_Widget_PortoSearch extends WP_Widget
 {
-
-    private $_icon = 'semlabs_arrow_left.png';
 
     /**
      * Constractor
@@ -42,10 +40,8 @@ class Uw_Widget_NavLeft extends WP_Widget
      */
     function __construct()
     {
-        $widget_ops = array(
-            'description' => __("Help visitor navigate your previous portofolio")
-        );
-        parent::__construct('navleft', __('Previous Portofolio'), $widget_ops);
+        $widget_ops = array('description' => __("Custom Portofolio Search"));
+        parent::__construct('search', __('Search Portofolio'), $widget_ops);
 
     }
 
@@ -59,20 +55,25 @@ class Uw_Widget_NavLeft extends WP_Widget
      */
     function widget($args, $instance)
     {
-        $prevFile = $this->_dataWidget['prevFile'];
-        $iconURL = $this->_dataWidget['UW_URL'] . '/assets/' . $this->_icon;
         ?>
-        <style type="text/css">
-            .prev a {
-                background: url(<?php echo $iconURL ?>) no-repeat left top;
-                display: block; width: 40px; height: 40px;
-            }
-        </style>
-        <div class="Uw_Widget_NavLeft">
-            <a class="prev" href ="<?php echo $prevFile ?>"></a>
+        <div class="f_related_form">
+            <?php
+            $theme_url = $this->dataForWidget['UW_URL'];
+            $homeurl = home_url();
+            $search_query = get_search_query();
+            $form = <<<HTML
+<form role="search" method="get" id="searchform" action="$homeurl/" >
+<label for="searchAgain" class="label">Search Portofolio</label>
+    <div class="Uw_Theme_Widget_PortoSearch">
+            <input id="searchAgain" type="text"  value="$search_query" name="s"  />
+            <input value="Go" type="submit" style="display:none"/>
         </div>
+</form>
+HTML;
+            echo $form;
+            ?>
+        </div><!-- /f_related_form -->
         <?php
-        echo $output;
 
     }
 

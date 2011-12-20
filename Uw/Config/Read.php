@@ -40,7 +40,8 @@ class Uw_Config_Read
     function getOutput($filename)
     {
         $stripClsName = rtrim(get_class(), strrchr(get_class(), '_'));
-        $filename = getClassPath($stripClsName) . SEP . $filename;
+        $filename = dirname(getClassPath($stripClsName)) . SEP . 'Theme' . SEP . $filename;
+
         if (!file_exists2($filename)) {
             throw new exception('E10001 : config file is not exists');
         }

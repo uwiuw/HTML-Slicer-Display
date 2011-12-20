@@ -15,13 +15,13 @@
  */
 
 /**
- * Uw_Menu_Ajax_Abstract
+ * Uw_Theme_Menu_Ajax_Abstract
  *
  * Ajax abstract for all ajax
  *
  * @category   Uw
  * @package    Uw_Menu
- * @subpackage Uw_Menu_Ajax
+ * @subpackage Uw_Theme_Menu_Ajax
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -29,7 +29,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-abstract class Uw_Menu_Ajax_Abstract
+abstract class Uw_Theme_Menu_Ajax_Abstract
 {
 
     protected $html;

@@ -6,7 +6,7 @@
  * PHP version 5
  *
  * @category  Uw
- * @package   Uw_Widget
+ * @package   Uw_Theme_Widget
  * @author    Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright 2011 Outerim Aulia Ashari
  * @license   http://dummylicense/ dummylicense License
@@ -15,14 +15,14 @@
  */
 
 /**
- * Uw_Widget_Sidebar
+ * Uw_Theme_Widget_Sidebar
  *
  * Registering Sidebar, Widget and etc. All data came from config inside
  * firsttime.ini
  *
  * @category   Uw
- * @package    Uw_Widget
- * @subpackage Uw_Widget_Sidebar
+ * @package    Uw_Theme_Widget
+ * @subpackage Uw_Theme_Widget_Sidebar
  * @author     Aulia Ashari <uwiuw.inlove@gmail.com>
  * @copyright  2011 Outerim Aulia Ashari
  * @license    http://dummylicense/ dummylicense License
@@ -30,7 +30,7 @@
  * @link       http://wp.uwiuw.com/html-slicer-display/
  * @since      3.0.3
  */
-class Uw_Widget_Sidebar
+class Uw_Theme_Widget_Sidebar
 {
 
     /**
@@ -95,6 +95,7 @@ class Uw_Widget_Sidebar
      */
     function getListSidebar()
     {
+
         return $this->_sidebars;
 
     }
@@ -138,7 +139,9 @@ class Uw_Widget_Sidebar
     {
         global $wp_widget_factory;
         if ($this->_widgets) {
+
             foreach ($this->_widgets as $k => $v) {
+
                 register_widget($v);
                 $wp_widget_factory->widgets[$v]->_dataWidget = $this->_dataWidget;
             }
