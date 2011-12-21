@@ -91,12 +91,13 @@ function getNextPrevTheme($themename, array $themelist)
  * Build data for front end
  *
  * @param Uw_Config_Data $config object handler
+ * @param string         $path   absolute path where xhtm protofolio reside
  *
  * @return array
  */
-function buildDataForTemplate(Uw_Config_Data $config)
+function buildDataForTemplate(Uw_Config_Data $config, $path)
 {
-    $HtmlFileList = new Uw_Module_HtmlFileList(UW_PATH . SEP . 'xhtml');
+    $HtmlFileList = new Uw_Theme_Module_HtmlFileList($path);
     $themename = $config->get('defaulttheme');
     $listofthemes = array_keys($HtmlFileList->getList());
 

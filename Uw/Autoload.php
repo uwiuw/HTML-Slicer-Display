@@ -59,5 +59,3 @@ function autoloadLogic($classname)
 {
     include_once getClassPath($classname) . '.php'; //get class absolute path
 }
-
-require 'Helper.php';

@@ -91,7 +91,8 @@ class Uw_Config_Read
             }
             return $newvalue;
         }
-        throw new exception('Error 10002: first time option saving is fail');
+
+        throw new Uw_Exception('Error 10002: first time option saving is fail');
 
     }
 

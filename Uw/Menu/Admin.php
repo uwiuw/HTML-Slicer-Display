@@ -57,8 +57,8 @@ class Uw_Menu_Admin
         $this->_config = & $data;
         $this->html = & $html;
         $this->_creator = & $creator;
-        $this->_curPgSlug = $this->_config->get('_curPageSlug');
-        $this->_curPgFile = $this->_config->get('_curPageFile');
+        $this->_curPgSlug = $this->_config->get('_thisSlug');
+        $this->_curPgFile = $this->_config->get('_thisFile');
         $this->_navigation = $this->_config->get('admin_menu_lists');
 
     }

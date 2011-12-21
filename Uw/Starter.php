@@ -46,46 +46,35 @@ class Uw_Starter
     private $_firsttimefile = 'firsttime.ini';
 
     /**
-     * Initiation
+     * Initiation of config
      *
-     * @param Uw_Config_Data $config   object config data container
-     * @param Uw_Config_Read $reader   object reader
-     * @param array          $opt      Current config data. This data mus be empty
-     *                                 If the theme activate for the first time.
-     *                                 If it only switching then it must be not empty
-     * @param string         $db_field Optional. empty.
-     * @param string         $filename Optional. empty.
+     * @param Uw_Config_Data $config    object config data container
+     * @param array          $inInifile object reader
+     * @param array          $opt       Current config data. This data mus be empty
+     *                                  If the theme activate for the first time.
+     *                                  If it only switching then it must not empty
      *
      * @return Uw_Config_Data
      * @see http://wp.uwiuw.com/issue-compability-theme-option-version-0-0-1-ke-0-0-2
      */
-    public function init(Uw_Config_Data $config, Uw_Config_Read $reader, $opt,
-        $db_field, $filename =''
+    public function init(Uw_Config_Data $config, $inInifile, $opt
     ) {
-        if ($filename) {
-            $this->_firsttimefile = $filename;
-        }
 
-        //if $opt not empty, then it's not the first time
-        $inInifile = $reader->getOutput($this->_firsttimefile);
         if ($opt) {
             /**
              * @see issue-compability-theme-option-version-0-0-1-ke-0-0-2
              */
             if (true === $this->_isNeedUpgrade($opt, $inInifile)) {
-                $opt = $reader->saveConfig($inInifile, $db_field);
+                $config->set('_isNeedUpgrade', true);
+            } else {
+                $config->set('_isNeedUpgrade', false);
             }
 
-            $config->set('is_firsttime', false);
+            $config->set('_isFirsttime', false);
         } else {
-            //first time
-
-            $opt = $reader->saveConfig($inInifile, $db_field);
-            $config->set('is_firsttime', true);
-        }
-
-        if ($opt) {
-            $config->sets($opt);
+            //first times
+            $config->set('_isFirsttime', true);
+            $config->set('_isNeedUpgrade', false);
         }
 
         return $config;

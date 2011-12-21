@@ -31,10 +31,11 @@ class Uw_Config_Data
 {
 
     private $_isFirsttime;
+    private $_isNeedUpgrade;
     private $_deftheme;
     private $_adminmenu;
-    private $_curPageSlug;
-    private $_curPageFile;
+    private $_thisSlug;
+    private $_thisFile;
     private $_adminmenulists;
 
     /**
@@ -44,8 +45,8 @@ class Uw_Config_Data
      */
     function __construct()
     {
-        $this->_curPageSlug = trim($_GET['page']);
-        $this->_curPageFile = ucfirst($_GET['page']);
+        $this->_thisSlug = trim($_GET['page']);
+        $this->_thisFile = ucfirst($_GET['page']);
 
     }
 

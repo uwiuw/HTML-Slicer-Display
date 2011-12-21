@@ -60,7 +60,7 @@ class Uw_Theme_Widget_NavLeft extends WP_Widget
     function widget($args, $instance)
     {
         $prevFile = $this->_dataWidget['prevFile'];
-        $iconURL = $this->_dataWidget['UW_URL'] . '/assets/' . $this->_icon;
+        $iconURL = $this->_dataWidget['UW_URL'] . '/Uw/Theme/assets/' . $this->_icon;
         ?>
         <style type="text/css">
             .prev a {
