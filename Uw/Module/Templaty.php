@@ -53,7 +53,7 @@ class Uw_Module_Templaty
             $this->model = new Atrim_Core_Model_Resource_Template_AtTemplate;
             $this->model->reConstruct(
                 array(
-                    'resourcePath' => UW_PATH . SEP . 'Uw' . SEP . 'Resources',
+                    'resourcePath' => UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . 'Resources',
                     'homePath' => UW_PATH,
                 )
             );

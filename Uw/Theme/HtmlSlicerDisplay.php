@@ -2,8 +2,8 @@
 
 require 'Helper.php';
 
-if ($config->get('is_firsttime')) {
-    $htaccess = new Uw_Module_HtAccess();
+if ($config->get('_isFirsttime')) {
+    $htaccess = new Uw_Theme_Module_HtAccess();
     return $htaccess->setHtaccessFile();
 }
 
@@ -18,6 +18,6 @@ if (is_admin() && is_user_logged_in()) {
     $config = getDefaultTheme($config);
 }
 
-extract(buildDataForTemplate($config));
+extract(buildDataForTemplate($config, UW_PATH . SEP . 'xhtml'));
 $Uw_Sidebar = new Uw_Theme_Widget_Sidebar($config, $tNextPrev);
 $Uw_Sidebar->init();

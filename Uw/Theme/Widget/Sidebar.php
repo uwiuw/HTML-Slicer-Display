@@ -81,8 +81,7 @@ class Uw_Theme_Widget_Sidebar
     {
         $this->_regThemeSidebars();
         add_action('widgets_init', array($this, 'regThemeWidget'));
-        $is_firsttime = $this->_config->get('is_firsttime');
-        if ($is_firsttime) {
+        if ($this->_config->get('_isFirsttime')) {
             add_action('init', array($this, 'regFirstTimeWidget'), 9999);
         }
 

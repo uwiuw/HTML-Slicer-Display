@@ -76,8 +76,8 @@ class Uw_Theme_Menu_Item_Emergency extends Uw_Theme_Menu_Item_Abstract
 
         $output = '';
         foreach ($o as $theme => $item) {
-            if (file_exists2(UW_PATH . SEP . 'assets' . SEP . $item['Icon'])) {
-                $item['Icon'] = UW_URL . '/assets/' . $item['Icon'];
+            if (file_exists2(UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . 'assets' . SEP . $item['Icon'])) {
+                $item['Icon'] = UW_URL . '/Uw/Theme/assets/' . $item['Icon'];
             }
 
             extract($item);

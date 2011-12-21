@@ -60,6 +60,7 @@ abstract class Uw_Theme_Menu_Ajax_Abstract
         $this->html = $html;
         $this->_config = &$data;
         $this->action = $_POST['action'];
+
     }
 
     /**

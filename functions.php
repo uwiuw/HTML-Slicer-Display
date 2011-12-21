@@ -14,10 +14,7 @@
  * @link      http://wp.uwiuw.com/html-slicer-display/
  */
 define('SEP', DIRECTORY_SEPARATOR);
-define('UW_NAME', 'HtmlSlicerDisplay');
-define('UW_NAME_LOWERCASE', strtolower(UW_NAME));
 define('UW_U', dirname(WP_CONTENT_URL));
-define('UW_URL', WP_CONTENT_URL . '/themes/' . UW_NAME);
 define('UW_PATH', TEMPLATEPATH);
 
 /**
@@ -36,6 +33,7 @@ define('UW_PATH', TEMPLATEPATH);
  * Atau sampai seluruh class_exists() diganti sama wordpress menjadi false autoload
  */
 require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
+require_once UW_PATH . SEP . 'Uw' . SEP . 'Helper.php';
 
 /*
  * Main Theme Logic
@@ -44,13 +42,38 @@ require_once UW_PATH . SEP . 'Uw' . SEP . 'Autoload.php';
  * sidebar module register itself and list of default widgets.
  */
 $UwStart = new Uw_Starter;
-$config = new Uw_Config_Data;
-$config = $UwStart->init($config, new Uw_Config_Read, get_option(UW_NAME_LOWERCASE), UW_NAME_LOWERCASE);
+$reader = new Uw_Config_Read;
+$inInifile = $reader->getOutput('firsttime.ini');
+
+define('UW_NAME', $inInifile['theme']);
+define('UW_NAME_LOWERCASE', strtolower(UW_NAME));
+define('UW_URL', WP_CONTENT_URL . '/themes/' . UW_NAME);
+
+$opt = get_option(UW_NAME_LOWERCASE);
+ 
+$config = $UwStart->init(new Uw_Config_Data, $inInifile, $opt);
+if ($config->get('_isNeedUpgrade') == TRUE) {
+    $opt = $reader->saveConfig($inInifile, UW_NAME_LOWERCASE);
+} elseif ($config->get('_isFirsttime') == TRUE) {
+    $opt = $reader->saveConfig($inInifile, UW_NAME_LOWERCASE);
+} else {
+    /**
+     * bypass aja
+     */
+}
+
+
+if ($opt) {
+    $config->sets($opt);
+}
+
+
+//, get_option(UW_NAME_LOWERCASE), UW_NAME_LOWERCASE
 if (!is_a($config, 'Uw_Config_Data')) {
     throw new Exception('E999 : config is empty');
 }
 
-require_once UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . UW_NAME . '.php';
+include_once UW_PATH . SEP . 'Uw' . SEP . 'Theme' . SEP . UW_NAME . '.php';
 
 /**
  * Start using Wordpress Tempating System

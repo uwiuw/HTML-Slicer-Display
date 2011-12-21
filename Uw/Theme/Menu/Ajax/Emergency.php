@@ -42,7 +42,7 @@ class Uw_Theme_Menu_Ajax_Emergency extends Uw_Theme_Menu_Ajax_Abstract
             'Icon' => 'semlabs_terminal.png',
             'form_id' => 'fix_htaccess',
             'button_id' => 'fix_htaccess_url',
-            'ajax_response_output' => 'fix_htaccess_url_output'
+            'ajax_response_output' => 'fix_htaccess_output'
         ),
         'rebuild_config' => array(
             'Name' => 'rebuild_config',
@@ -68,18 +68,23 @@ class Uw_Theme_Menu_Ajax_Emergency extends Uw_Theme_Menu_Ajax_Abstract
         $ajaxResponse = 'Process is failing for unknown reason';
 
         if ($action === 'fix_htaccess') {
-            $htaccess = new Uw_Module_HtAccess();
+            $htaccess = new Uw_Theme_Module_HtAccess();
             $ajaxResponse = $htaccess->setHtaccessFile();
             $success = true;
         } elseif ($action === 'rebuild_config') {
             $result = delete_option(UW_NAME_LOWERCASE);
             if ($result) {
                 $ajaxResponse = 'Rebuilding Option is succesfull';
+                $reader = new Uw_Config_Read;
+                $reader->saveConfig(
+                    $reader->getOutput('firsttime.ini'), UW_NAME_LOWERCASE
+                );
             }
             $success = true;
         }
 
         if ($success) {
+            $UW_URL = UW_URL;
             $ajaxResponse = <<<HTML
 <div class="updated fade">
     <p>$ajaxResponse</p>

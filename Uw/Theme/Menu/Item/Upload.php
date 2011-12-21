@@ -42,7 +42,7 @@ class Uw_Theme_Menu_Item_Upload extends Uw_Theme_Menu_Item_Abstract
      */
     function selfRender()
     {
-        $file_upload = new Uw_Module_UploadUpgrader();
+        $file_upload = new Uw_Theme_Module_UploadUpgrader();
         if ($_GET['action'] === $file_upload->getAction()) {
             $this->content = $file_upload->doUpload();
         } else {

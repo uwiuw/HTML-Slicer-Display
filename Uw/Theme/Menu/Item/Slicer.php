@@ -51,7 +51,7 @@ class Uw_Theme_Menu_Item_Slicer extends Uw_Theme_Menu_Item_Abstract
                 'content' => $this->_getContent(),
             );
             $this->content = $this->html->getTemplate('Table.php', $args);
-            $this->_regAjaxButton('slicer_page_emergency');
+            $this->_regAjaxButton(''); //bagian toplevel menu
         } catch (Exception $exc)
         {
             if (is_a($exc, 'Uw_Exception')) {
@@ -74,7 +74,7 @@ class Uw_Theme_Menu_Item_Slicer extends Uw_Theme_Menu_Item_Abstract
     protected function _getContent()
     {
         $path = UW_PATH . SEP . 'xhtml';
-        $HtmlFileList = new Uw_Module_HtmlFileList($path);
+        $HtmlFileList = new Uw_Theme_Module_HtmlFileList($path);
         $o = $HtmlFileList->getList();
         if (empty($o)) {
             throw new Uw_Exception('EM997 : Portofolio is empty');
